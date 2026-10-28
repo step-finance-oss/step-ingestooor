@@ -1,0 +1,20 @@
+[package]
+name = "step-ingestooor-idl-gens"
+version.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+edition.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+anchor-lang = { workspace = true }
+# anchor-lang = { path = "../../../anchor/lang" }
+anyhow = { workspace = true }
+fixed = { workspace = true }
+bytemuck = { workspace = true }
+rust_decimal = { workspace = true }
+
+step-ingestooor-sdk = { workspace = true }

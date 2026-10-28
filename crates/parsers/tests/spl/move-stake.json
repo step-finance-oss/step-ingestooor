@@ -1,0 +1,248 @@
+{
+    "slot": 330418593,
+    "transaction": {
+        "signatures": [
+            "3agrZKy6eL6wE4Fmu2WQtcWJXnBYBpq8neVHFUwqSTofTkYnFgq38uDgsbrAHftVec2A9hWxsBn9z4V56FXP5K4J"
+        ],
+        "message": {
+            "accountKeys": [
+                {
+                    "pubkey": "mfC1LoEk4mpM5yx1LjwR9QLZQ49AitxxWkK5Aciw7ZC",
+                    "writable": true,
+                    "signer": true,
+                    "source": "transaction"
+                },
+                {
+                    "pubkey": "3QDbADbyxVdX2uz9qD2NF7A5Y2MkhSS7Nf4qDux6LoFC",
+                    "writable": true,
+                    "signer": false,
+                    "source": "transaction"
+                },
+                {
+                    "pubkey": "ErZUWnNhwEZ5fKmPerHCX5RyfJotAL9Wam1uyyEzZWfM",
+                    "writable": true,
+                    "signer": false,
+                    "source": "transaction"
+                },
+                {
+                    "pubkey": "5RoZrXF1ZjWWuhacF3fAMErj52oaYkfcx2BkRYcs3aZA",
+                    "writable": false,
+                    "signer": false,
+                    "source": "transaction"
+                },
+                {
+                    "pubkey": "E524AY3cdkmzFra5Sc2sr8ZYm1qeDMLk2MnY4fGEBq7S",
+                    "writable": false,
+                    "signer": false,
+                    "source": "transaction"
+                },
+                {
+                    "pubkey": "J2nUHEAgZFRyuJbFjdqPrAa9gyWDuc7hErtDQHPhsYRp",
+                    "writable": false,
+                    "signer": false,
+                    "source": "transaction"
+                },
+                {
+                    "pubkey": "Stake11111111111111111111111111111111111111",
+                    "writable": false,
+                    "signer": false,
+                    "source": "transaction"
+                },
+                {
+                    "pubkey": "StakeConfig11111111111111111111111111111111",
+                    "writable": false,
+                    "signer": false,
+                    "source": "transaction"
+                },
+                {
+                    "pubkey": "SVSPxpvHdN29nkVg9rPapPNDddN5DipNLRUFhyjFThE",
+                    "writable": false,
+                    "signer": false,
+                    "source": "transaction"
+                },
+                {
+                    "pubkey": "SysvarC1ock11111111111111111111111111111111",
+                    "writable": false,
+                    "signer": false,
+                    "source": "transaction"
+                },
+                {
+                    "pubkey": "SysvarStakeHistory1111111111111111111111111",
+                    "writable": false,
+                    "signer": false,
+                    "source": "transaction"
+                }
+            ],
+            "recentBlockhash": "4e8fMjUpXY9AErRZWR4cRPnvKFrGke5Lv59QxveBdxWU",
+            "instructions": [
+                {
+                    "programId": "SVSPxpvHdN29nkVg9rPapPNDddN5DipNLRUFhyjFThE",
+                    "accounts": [
+                        "J2nUHEAgZFRyuJbFjdqPrAa9gyWDuc7hErtDQHPhsYRp",
+                        "E524AY3cdkmzFra5Sc2sr8ZYm1qeDMLk2MnY4fGEBq7S",
+                        "3QDbADbyxVdX2uz9qD2NF7A5Y2MkhSS7Nf4qDux6LoFC",
+                        "ErZUWnNhwEZ5fKmPerHCX5RyfJotAL9Wam1uyyEzZWfM",
+                        "5RoZrXF1ZjWWuhacF3fAMErj52oaYkfcx2BkRYcs3aZA",
+                        "SysvarC1ock11111111111111111111111111111111",
+                        "SysvarStakeHistory1111111111111111111111111",
+                        "StakeConfig11111111111111111111111111111111",
+                        "Stake11111111111111111111111111111111111111"
+                    ],
+                    "data": "2",
+                    "stackHeight": null
+                }
+            ]
+        }
+    },
+    "meta": {
+        "err": null,
+        "status": {
+            "Ok": null
+        },
+        "fee": 5000,
+        "preBalances": [
+            10619234838,
+            6333442240,
+            14105357,
+            0,
+            1120560,
+            88309010915,
+            1,
+            960480,
+            1141440,
+            1169280,
+            114979200
+        ],
+        "postBalances": [
+            10619229838,
+            6344668363,
+            2879234,
+            0,
+            1120560,
+            88309010915,
+            1,
+            960480,
+            1141440,
+            1169280,
+            114979200
+        ],
+        "postOwners": [
+            "11111111111111111111111111111111",
+            "Stake11111111111111111111111111111111111111",
+            "Stake11111111111111111111111111111111111111",
+            null,
+            "SVSPxpvHdN29nkVg9rPapPNDddN5DipNLRUFhyjFThE",
+            "Vote111111111111111111111111111111111111111",
+            "NativeLoader1111111111111111111111111111111",
+            "Config1111111111111111111111111111111111111",
+            "BPFLoaderUpgradeab1e11111111111111111111111",
+            "Sysvar1111111111111111111111111111111111111",
+            "Sysvar1111111111111111111111111111111111111"
+        ],
+        "preDatum": [
+            null,
+            "KLUv/SDIxQMARAYCAAAAgNUiAEHJVwhPxg2Fs11Cmn+PTSjwXDpkK9GJIdbqeF0L26f9/QusCoTbB4wsJsmpEvo/iA7KBu+PQYRo5FyyKGYgGou+uVR5AQAAANoCAAD//9A/KuUiIAAAAAAAAAAABwBgADCYIKhysyOsAUPhg3Vc",
+            "KLUv/SDInQMAxAUCAAAAgNUiAEHJVwhPxg2Fs11Cmn+PTSjwXDpkK9GJIdbqeF0L26f9/QusCoTbB4wsJsmpEvo/iA7KBu+PQYRo5FyyKGYgGouNZbT7Av/QPyrlIiAAAAAAAAAAAAgAYAAuXxg8KFxfbnCEFWAofLCOCw==",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        ],
+        "postDatum": [
+            null,
+            "KLUv/SDIxQMARAYCAAAAgNUiAEHJVwhPxg2Fs11Cmn+PTSjwXDpkK9GJIdbqeF0L26f9/QusCoTbB4wsJsmpEvo/iA7KBu+PQYRo5FyyKGYgGotLHwl6AQAAANoCAAD//9A/KuUiIAAAAAAAAAAABwBgADCYIKhysyOsAUPhg3Vc",
+            "KLUv/SDInQMAxAUCAAAAgNUiAEHJVwhPxg2Fs11Cmn+PTSjwXDpkK9GJIdbqeF0L26f9/QusCoTbB4wsJsmpEvo/iA7KBu+PQYRo5FyyKGYgGouCGQn8Av/QP4QYfSAAAAAAAAAAAAgAYAAuXxg8KFxfbnCEFWAofLCOCw==",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        ],
+        "innerInstructions": [
+            {
+                "index": 0,
+                "instructions": [
+                    {
+                        "programId": "Stake11111111111111111111111111111111111111",
+                        "accounts": [],
+                        "data": "LGqfV",
+                        "stackHeight": 2
+                    },
+                    {
+                        "program": "stake",
+                        "programId": "Stake11111111111111111111111111111111111111",
+                        "parsed": {
+                            "info": {
+                                "destination": "3QDbADbyxVdX2uz9qD2NF7A5Y2MkhSS7Nf4qDux6LoFC",
+                                "lamports": 11822477,
+                                "source": "ErZUWnNhwEZ5fKmPerHCX5RyfJotAL9Wam1uyyEzZWfM",
+                                "stakeAuthority": "5RoZrXF1ZjWWuhacF3fAMErj52oaYkfcx2BkRYcs3aZA"
+                            },
+                            "type": "moveStake"
+                        },
+                        "stackHeight": 2
+                    },
+                    {
+                        "program": "stake",
+                        "programId": "Stake11111111111111111111111111111111111111",
+                        "parsed": {
+                            "info": {
+                                "destination": "ErZUWnNhwEZ5fKmPerHCX5RyfJotAL9Wam1uyyEzZWfM",
+                                "lamports": 596354,
+                                "source": "3QDbADbyxVdX2uz9qD2NF7A5Y2MkhSS7Nf4qDux6LoFC",
+                                "stakeAuthority": "5RoZrXF1ZjWWuhacF3fAMErj52oaYkfcx2BkRYcs3aZA"
+                            },
+                            "type": "moveLamports"
+                        },
+                        "stackHeight": 2
+                    },
+                    {
+                        "program": "stake",
+                        "programId": "Stake11111111111111111111111111111111111111",
+                        "parsed": {
+                            "info": {
+                                "clockSysvar": "SysvarC1ock11111111111111111111111111111111",
+                                "stakeAccount": "ErZUWnNhwEZ5fKmPerHCX5RyfJotAL9Wam1uyyEzZWfM",
+                                "stakeAuthority": "5RoZrXF1ZjWWuhacF3fAMErj52oaYkfcx2BkRYcs3aZA",
+                                "stakeConfigAccount": "StakeConfig11111111111111111111111111111111",
+                                "stakeHistorySysvar": "SysvarStakeHistory1111111111111111111111111",
+                                "voteAccount": "J2nUHEAgZFRyuJbFjdqPrAa9gyWDuc7hErtDQHPhsYRp"
+                            },
+                            "type": "delegate"
+                        },
+                        "stackHeight": 2
+                    }
+                ]
+            }
+        ],
+        "logMessages": [
+            "Program SVSPxpvHdN29nkVg9rPapPNDddN5DipNLRUFhyjFThE invoke [1]",
+            "Program log: Instruction: ReplenishPool",
+            "Program Stake11111111111111111111111111111111111111 invoke [2]",
+            "Program Stake11111111111111111111111111111111111111 success",
+            "Program Stake11111111111111111111111111111111111111 invoke [2]",
+            "Program Stake11111111111111111111111111111111111111 success",
+            "Program Stake11111111111111111111111111111111111111 invoke [2]",
+            "Program Stake11111111111111111111111111111111111111 success",
+            "Program Stake11111111111111111111111111111111111111 invoke [2]",
+            "Program Stake11111111111111111111111111111111111111 success",
+            "Program SVSPxpvHdN29nkVg9rPapPNDddN5DipNLRUFhyjFThE consumed 29678 of 200000 compute units",
+            "Program SVSPxpvHdN29nkVg9rPapPNDddN5DipNLRUFhyjFThE success"
+        ],
+        "preTokenBalances": [],
+        "postTokenBalances": [],
+        "rewards": [],
+        "computeUnitsConsumed": 29678
+    },
+    "version": "legacy",
+    "blockTime": 1743439926,
+    "indexInBlock": 191,
+    "slotSecondIdx": 1
+}

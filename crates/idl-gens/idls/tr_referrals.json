@@ -1,0 +1,879 @@
+{
+  "address": "REFER4ZgmyYx9c6He5XfaTMiGfdLwRnkV4RPp9t9iF3",
+  "metadata": {
+    "name": "referral",
+    "version": "0.1.0",
+    "spec": "0.1.0"
+  },
+  "instructions": [
+    {
+      "name": "initialize_project",
+      "discriminator": [
+        69,
+        126,
+        215,
+        37,
+        20,
+        60,
+        73,
+        235
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "base",
+          "signer": true
+        },
+        {
+          "name": "admin"
+        },
+        {
+          "name": "project",
+          "writable": true
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": {
+              "name": "InitializeProjectParams"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "initialize_referral_account",
+      "discriminator": [
+        92,
+        25,
+        0,
+        243,
+        230,
+        205,
+        254,
+        67
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "partner"
+        },
+        {
+          "name": "project"
+        },
+        {
+          "name": "referral_account",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": {
+              "name": "InitializeReferralAccountParams"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "initialize_referral_account_with_name",
+      "discriminator": [
+        241,
+        190,
+        107,
+        26,
+        244,
+        236,
+        119,
+        229
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "partner"
+        },
+        {
+          "name": "project"
+        },
+        {
+          "name": "referral_account",
+          "writable": true
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": {
+              "name": "InitializeReferralAccountWithNameParams"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "update_project",
+      "discriminator": [
+        2,
+        196,
+        131,
+        92,
+        28,
+        139,
+        179,
+        94
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "signer": true
+        },
+        {
+          "name": "project",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": {
+              "name": "UpdateProjectParams"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "transfer_project",
+      "discriminator": [
+        164,
+        123,
+        142,
+        233,
+        67,
+        142,
+        71,
+        148
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "signer": true
+        },
+        {
+          "name": "new_admin"
+        },
+        {
+          "name": "project",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": {
+              "name": "TransferProjectParams"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "update_referral_account",
+      "discriminator": [
+        216,
+        83,
+        99,
+        19,
+        220,
+        191,
+        74,
+        197
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "signer": true
+        },
+        {
+          "name": "project"
+        },
+        {
+          "name": "referral_account",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": {
+              "name": "UpdateReferralAccountParams"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "transfer_referral_account",
+      "discriminator": [
+        104,
+        155,
+        145,
+        137,
+        164,
+        252,
+        252,
+        206
+      ],
+      "accounts": [
+        {
+          "name": "partner",
+          "signer": true
+        },
+        {
+          "name": "new_partner"
+        },
+        {
+          "name": "referral_account",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": {
+              "name": "TransferReferralAccountParams"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "initialize_referral_token_account",
+      "discriminator": [
+        125,
+        18,
+        70,
+        95,
+        86,
+        179,
+        221,
+        190
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "project"
+        },
+        {
+          "name": "referral_account"
+        },
+        {
+          "name": "referral_token_account",
+          "writable": true
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "claim",
+      "discriminator": [
+        62,
+        198,
+        214,
+        193,
+        213,
+        159,
+        108,
+        210
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "project"
+        },
+        {
+          "name": "admin"
+        },
+        {
+          "name": "project_admin_token_account",
+          "writable": true
+        },
+        {
+          "name": "referral_account"
+        },
+        {
+          "name": "referral_token_account",
+          "writable": true
+        },
+        {
+          "name": "partner"
+        },
+        {
+          "name": "partner_token_account",
+          "writable": true
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "create_admin_token_account",
+      "discriminator": [
+        102,
+        86,
+        232,
+        205,
+        140,
+        111,
+        8,
+        116
+      ],
+      "accounts": [
+        {
+          "name": "project"
+        },
+        {
+          "name": "project_authority",
+          "writable": true
+        },
+        {
+          "name": "admin"
+        },
+        {
+          "name": "project_admin_token_account",
+          "writable": true
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "withdraw_from_project",
+      "discriminator": [
+        0,
+        68,
+        21,
+        124,
+        128,
+        159,
+        160,
+        187
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "project"
+        },
+        {
+          "name": "project_authority",
+          "writable": true
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": {
+              "name": "WithdrawFromProjectParams"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "project",
+      "discriminator": [
+        241,
+        17,
+        233,
+        140,
+        231,
+        34,
+        59,
+        180
+      ]
+    },
+    {
+      "name": "referralAccount",
+      "discriminator": [
+        214,
+        16,
+        112,
+        189,
+        185,
+        5,
+        218,
+        202
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "InitializeProjectEvent",
+      "discriminator": [
+        21,
+        246,
+        143,
+        111,
+        211,
+        184,
+        130,
+        71
+      ]
+    },
+    {
+      "name": "UpdateProjectEvent",
+      "discriminator": [
+        125,
+        97,
+        249,
+        244,
+        44,
+        120,
+        92,
+        19
+      ]
+    },
+    {
+      "name": "InitializeReferralAccountEvent",
+      "discriminator": [
+        170,
+        20,
+        209,
+        91,
+        5,
+        88,
+        44,
+        157
+      ]
+    },
+    {
+      "name": "UpdateReferralAccountEvent",
+      "discriminator": [
+        190,
+        248,
+        57,
+        59,
+        79,
+        136,
+        239,
+        20
+      ]
+    },
+    {
+      "name": "InitializeReferralTokenAccountEvent",
+      "discriminator": [
+        176,
+        195,
+        113,
+        1,
+        86,
+        71,
+        142,
+        35
+      ]
+    },
+    {
+      "name": "ClaimEvent",
+      "discriminator": [
+        93,
+        15,
+        70,
+        170,
+        48,
+        140,
+        212,
+        219
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidCalculation"
+    },
+    {
+      "code": 6001,
+      "name": "InvalidSharePercentage"
+    },
+    {
+      "code": 6002,
+      "name": "NameTooLong"
+    }
+  ],
+  "types": [
+    {
+      "name": "InitializeProjectParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "default_share_bps",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "InitializeReferralAccountWithNameParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "name",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "InitializeReferralAccountParams",
+      "type": {
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "TransferProjectParams",
+      "type": {
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "TransferReferralAccountParams",
+      "type": {
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "UpdateProjectParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "name",
+            "type": {
+              "option": "string"
+            }
+          },
+          {
+            "name": "default_share_bps",
+            "type": {
+              "option": "u16"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "UpdateReferralAccountParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "share_bps",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "WithdrawFromProjectParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "project",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "base",
+            "type": "pubkey"
+          },
+          {
+            "name": "admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "default_share_bps",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "referralAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "partner",
+            "type": "pubkey"
+          },
+          {
+            "name": "project",
+            "type": "pubkey"
+          },
+          {
+            "name": "share_bps",
+            "type": "u16"
+          },
+          {
+            "name": "name",
+            "type": {
+              "option": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "InitializeProjectEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "project",
+            "type": "pubkey"
+          },
+          {
+            "name": "admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "default_share_bps",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UpdateProjectEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "project",
+            "type": "pubkey"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "default_share_bps",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "InitializeReferralAccountEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "project",
+            "type": "pubkey"
+          },
+          {
+            "name": "partner",
+            "type": "pubkey"
+          },
+          {
+            "name": "referral_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "share_bps",
+            "type": "u16"
+          },
+          {
+            "name": "name",
+            "type": {
+              "option": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "UpdateReferralAccountEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "referral_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "share_bps",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "InitializeReferralTokenAccountEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "project",
+            "type": "pubkey"
+          },
+          {
+            "name": "referral_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "referral_token_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ClaimEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "project",
+            "type": "pubkey"
+          },
+          {
+            "name": "project_admin_token_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "referral_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "referral_token_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "partner_token_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "referral_amount",
+            "type": "u64"
+          },
+          {
+            "name": "project_amount",
+            "type": "u64"
+          }
+        ]
+      }
+    }
+  ]
+}

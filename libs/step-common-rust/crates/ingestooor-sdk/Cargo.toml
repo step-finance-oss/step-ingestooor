@@ -1,0 +1,56 @@
+[package]
+name = "step-ingestooor-sdk"
+version.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+edition.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+anyhow = { workspace = true }
+anchor-lang = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+serde_with = { workspace = true }
+solana-sdk = { workspace = true }
+solana-transaction-status = { workspace = true }
+base64 = { workspace = true }
+zstd = { workspace = true }
+regex = { workspace = true }
+solana-account-decoder = { workspace = true }
+spl-token = { workspace = true }
+enum_dispatch = { workspace = true }
+tokio-postgres = { workspace = true, features = ["with-chrono-0_4"] }
+rust_decimal = { workspace = true, features = ["db-tokio-postgres"] }
+postgres-types = { workspace = true, features = ["derive"] }
+bytes = { workspace = true }
+strum = { workspace = true }
+strum_macros = { workspace = true }
+chrono = { workspace = true }
+log = { workspace = true }
+borsh = { workspace = true }
+tokio = { workspace = true }
+solana-client = { workspace = true }
+slab_tree = { workspace = true }
+async-trait = { workspace = true }
+evalexpr = { workspace = true }
+indexer_rabbitmq = { workspace = true, features = ["geyser"] }
+ts-rs = { workspace = true, features = ["chrono-impl"] }
+primitive-types = { workspace = true }
+bytemuck = { workspace = true }
+num_enum = { workspace = true }
+itertools = { workspace = true }
+serde_repr = { workspace = true }
+reqwest = { workspace = true, features = ["json"] }
+deadpool-postgres = { workspace = true }
+parking_lot = { workspace = true }
+thiserror = { workspace = true }
+step-common-rust = { path = "../step-common-rust" }
+cid = { workspace = true }
+clickhouse = { workspace = true }
+
+step-ingestooor-derive = { path = "../ingestooor-derive" }
+step-ingestooor-clickhouse-derive = { path = "../ingestooor-clickhouse-derive" }

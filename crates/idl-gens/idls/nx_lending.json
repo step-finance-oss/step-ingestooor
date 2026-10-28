@@ -1,0 +1,5799 @@
+{
+  "address": "NXFiKimQN3QSL3CDhCXddyVmLfrai8HK36bHKaAzK7g",
+  "metadata": {
+    "name": "nx_lend",
+    "version": "0.1.0",
+    "spec": "0.1.0"
+  },
+  "instructions": [
+    {
+      "name": "init_market",
+      "discriminator": [
+        33,
+        253,
+        15,
+        116,
+        89,
+        25,
+        127,
+        236
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "fee_to"
+        },
+        {
+          "name": "nx_market_admin",
+          "writable": true
+        },
+        {
+          "name": "nx_market",
+          "writable": true
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": {
+              "name": "InitMarketParams"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "config_nx_market",
+      "discriminator": [
+        224,
+        152,
+        70,
+        99,
+        169,
+        198,
+        220,
+        35
+      ],
+      "accounts": [
+        {
+          "name": "nx_market",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": {
+              "name": "MarketUpdateData"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "update_market_admin",
+      "discriminator": [
+        167,
+        63,
+        152,
+        152,
+        112,
+        165,
+        97,
+        114
+      ],
+      "accounts": [
+        {
+          "name": "nx_market",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "new_admin",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "create_lending_pool",
+      "discriminator": [
+        9,
+        142,
+        19,
+        71,
+        14,
+        1,
+        131,
+        81
+      ],
+      "accounts": [
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "lending_pool",
+          "docs": [
+            "The pool to be created"
+          ],
+          "writable": true
+        },
+        {
+          "name": "token_mint",
+          "docs": [
+            "The mint for the token being custodied by the pool"
+          ]
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "rates",
+          "type": {
+            "vec": {
+              "defined": {
+                "name": "InterestRateConfig"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "config_interest_rate",
+      "discriminator": [
+        159,
+        61,
+        161,
+        52,
+        88,
+        33,
+        189,
+        102
+      ],
+      "accounts": [
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "lending_pool",
+          "docs": [
+            "The pool to be created"
+          ],
+          "writable": true
+        },
+        {
+          "name": "token_mint",
+          "docs": [
+            "The mint for the token being custodied by the pool"
+          ]
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "rates",
+          "type": {
+            "vec": {
+              "defined": {
+                "name": "InterestRateConfig"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "create_collateral_pool",
+      "discriminator": [
+        135,
+        155,
+        25,
+        21,
+        243,
+        241,
+        244,
+        164
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "collateral_pool",
+          "docs": [
+            "The pool to be created"
+          ],
+          "writable": true
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "pool_vault",
+          "docs": [
+            "The token account holding the pool's deposited funds"
+          ],
+          "writable": true
+        },
+        {
+          "name": "token_mint",
+          "docs": [
+            "The mint for the token being custodied by the pool"
+          ]
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "lending_deposit",
+      "discriminator": [
+        87,
+        116,
+        35,
+        200,
+        111,
+        205,
+        215,
+        72
+      ],
+      "accounts": [
+        {
+          "name": "depositor",
+          "docs": [
+            "The address with authority to deposit the tokens"
+          ],
+          "signer": true
+        },
+        {
+          "name": "payer",
+          "docs": [
+            "The account paying for all rents"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "lending_pool",
+          "docs": [
+            "The pool to be created"
+          ],
+          "writable": true
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "pool_vault",
+          "docs": [
+            "The token account holding the pool's deposited funds"
+          ],
+          "writable": true
+        },
+        {
+          "name": "token_mint",
+          "docs": [
+            "The mint for the token being custodied by the pool"
+          ]
+        },
+        {
+          "name": "depositor_token_mint_account",
+          "docs": [
+            "The source of the tokens to be deposited"
+          ],
+          "writable": true
+        },
+        {
+          "name": "lending_account",
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "lending_withdraw",
+      "discriminator": [
+        176,
+        134,
+        15,
+        72,
+        99,
+        111,
+        4,
+        196
+      ],
+      "accounts": [
+        {
+          "name": "depositor",
+          "docs": [
+            "The address with authority to deposit the tokens"
+          ],
+          "signer": true
+        },
+        {
+          "name": "payer",
+          "docs": [
+            "The account paying for all rents"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "lending_pool",
+          "docs": [
+            "The pool to be created"
+          ],
+          "writable": true
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "pool_vault",
+          "docs": [
+            "The token account holding the pool's deposited funds"
+          ],
+          "writable": true
+        },
+        {
+          "name": "token_mint",
+          "docs": [
+            "The mint for the token being custodied by the pool"
+          ]
+        },
+        {
+          "name": "depositor_token_mint_account",
+          "docs": [
+            "The source of the tokens to be deposited"
+          ],
+          "writable": true
+        },
+        {
+          "name": "lending_account",
+          "writable": true
+        },
+        {
+          "name": "fee_destination",
+          "writable": true
+        },
+        {
+          "name": "fee_to",
+          "docs": [
+            "The wallet address of the fee receiver"
+          ]
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "notes",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "claim_protocol_fee",
+      "discriminator": [
+        165,
+        228,
+        133,
+        48,
+        99,
+        249,
+        255,
+        33
+      ],
+      "accounts": [
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "lending_pool",
+          "docs": [
+            "The pool to be created"
+          ],
+          "writable": true
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "vault",
+          "docs": [
+            "Read-only, the token account holding the pool's deposited funds"
+          ],
+          "writable": true
+        },
+        {
+          "name": "admin_token_mint_account",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "docs": [
+            "The account paying for all rents"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "init_fragmetric_pool",
+      "discriminator": [
+        220,
+        114,
+        60,
+        1,
+        8,
+        168,
+        186,
+        81
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "docs": [
+            "The account paying for all rents"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "fragmetric_pool",
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "receipt_token",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "fragmetric_leverage",
+      "discriminator": [
+        26,
+        95,
+        138,
+        220,
+        162,
+        238,
+        165,
+        26
+      ],
+      "accounts": [
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "sol_mint"
+        },
+        {
+          "name": "fragsol_fund_account"
+        },
+        {
+          "name": "collateral_pool",
+          "writable": true
+        },
+        {
+          "name": "sol_lending_pool",
+          "writable": true
+        },
+        {
+          "name": "lending_vault",
+          "writable": true
+        },
+        {
+          "name": "borrower_wfragsol_account"
+        },
+        {
+          "name": "unwrapper"
+        },
+        {
+          "name": "unwrapper_mint_account",
+          "writable": true
+        },
+        {
+          "name": "fee_receiver",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "position_idx",
+          "type": "u8"
+        },
+        {
+          "name": "collateral_mint",
+          "type": "pubkey"
+        },
+        {
+          "name": "collateral_amount",
+          "type": "u64"
+        },
+        {
+          "name": "borrow_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "fragmetric_after_borrow",
+      "discriminator": [
+        2,
+        173,
+        27,
+        10,
+        207,
+        167,
+        52,
+        144
+      ],
+      "accounts": [
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "fragsol_fund_account"
+        },
+        {
+          "name": "sol_lending_pool",
+          "writable": true
+        },
+        {
+          "name": "fragmetric_pool",
+          "writable": true
+        },
+        {
+          "name": "fragmetric_user",
+          "writable": true
+        },
+        {
+          "name": "wfragsol_vault",
+          "writable": true
+        },
+        {
+          "name": "borrower_wfragsol_account",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "position_idx",
+          "type": "u8"
+        },
+        {
+          "name": "collateral_mint",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "fragmetric_reduce_position_fragsol",
+      "discriminator": [
+        49,
+        240,
+        86,
+        140,
+        98,
+        75,
+        247,
+        112
+      ],
+      "accounts": [
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "fragsol_fund_account"
+        },
+        {
+          "name": "collateral_pool",
+          "writable": true
+        },
+        {
+          "name": "fragmetric_pool",
+          "writable": true
+        },
+        {
+          "name": "fragmetric_user",
+          "writable": true
+        },
+        {
+          "name": "wfragsol_vault",
+          "writable": true
+        },
+        {
+          "name": "user_wfragsol_account",
+          "writable": true
+        },
+        {
+          "name": "user_sol_account",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "position_idx",
+          "type": "u8"
+        },
+        {
+          "name": "wfragsol_amount",
+          "type": "u64"
+        },
+        {
+          "name": "withdraw_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "fragmetric_after_reduce_position_fragsol",
+      "discriminator": [
+        242,
+        39,
+        41,
+        88,
+        69,
+        157,
+        53,
+        77
+      ],
+      "accounts": [
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "fragsol_fund_account"
+        },
+        {
+          "name": "sol_lending_pool",
+          "writable": true
+        },
+        {
+          "name": "lending_vault",
+          "writable": true
+        },
+        {
+          "name": "user_sol_account",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "position_idx",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "fragmetric_reduce_position_sol",
+      "discriminator": [
+        176,
+        88,
+        239,
+        99,
+        164,
+        150,
+        228,
+        152
+      ],
+      "accounts": [
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "fragsol_fund_account"
+        },
+        {
+          "name": "fragmetric_pool",
+          "writable": true
+        },
+        {
+          "name": "fragmetric_user",
+          "writable": true
+        },
+        {
+          "name": "wfragsol_vault",
+          "writable": true
+        },
+        {
+          "name": "user_wfragsol_account",
+          "writable": true
+        },
+        {
+          "name": "user_sol_account",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "position_idx",
+          "type": "u8"
+        },
+        {
+          "name": "wfragsol_amount",
+          "type": "u64"
+        },
+        {
+          "name": "repay_amount",
+          "type": "u64"
+        },
+        {
+          "name": "withdraw_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "fragmetric_after_reduce_position_sol",
+      "discriminator": [
+        250,
+        90,
+        97,
+        185,
+        15,
+        217,
+        41,
+        247
+      ],
+      "accounts": [
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "fragsol_fund_account"
+        },
+        {
+          "name": "collateral_pool",
+          "writable": true
+        },
+        {
+          "name": "sol_lending_pool",
+          "writable": true
+        },
+        {
+          "name": "lending_vault",
+          "writable": true
+        },
+        {
+          "name": "user_sol_account",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "position_idx",
+          "type": "u8"
+        },
+        {
+          "name": "repay_amount",
+          "type": "u64"
+        },
+        {
+          "name": "withdraw_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "fragmetric_liquidate",
+      "discriminator": [
+        201,
+        134,
+        38,
+        146,
+        209,
+        164,
+        145,
+        119
+      ],
+      "accounts": [
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "fragsol_fund_account"
+        },
+        {
+          "name": "collateral_pool",
+          "writable": true
+        },
+        {
+          "name": "sol_lending_pool",
+          "writable": true
+        },
+        {
+          "name": "fragmetric_pool",
+          "writable": true
+        },
+        {
+          "name": "fragmetric_user",
+          "writable": true
+        },
+        {
+          "name": "wfragsol_vault",
+          "writable": true
+        },
+        {
+          "name": "liquidator_wfragsol_account",
+          "writable": true
+        },
+        {
+          "name": "liquidator_sol_account"
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "position_idx",
+          "type": "u8"
+        },
+        {
+          "name": "collateral_mint",
+          "type": "pubkey"
+        },
+        {
+          "name": "liquidatee",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "fragmetric_after_liquidate",
+      "discriminator": [
+        176,
+        45,
+        243,
+        193,
+        183,
+        100,
+        183,
+        151
+      ],
+      "accounts": [
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "sol_mint"
+        },
+        {
+          "name": "sol_lending_pool",
+          "writable": true
+        },
+        {
+          "name": "lending_vault",
+          "writable": true
+        },
+        {
+          "name": "liquidator_sol_account",
+          "writable": true
+        },
+        {
+          "name": "liquidatee",
+          "writable": true
+        },
+        {
+          "name": "unwrapper"
+        },
+        {
+          "name": "unwrapper_mint_account",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "position_idx",
+          "type": "u8"
+        },
+        {
+          "name": "collateral_mint",
+          "type": "pubkey"
+        },
+        {
+          "name": "liquidatee",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "init_solayer_pool",
+      "discriminator": [
+        75,
+        87,
+        152,
+        82,
+        237,
+        122,
+        95,
+        53
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "docs": [
+            "The account paying for all rents"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "solayer_pool",
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "lrt_mint",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "solayer_deposit_sol",
+      "discriminator": [
+        160,
+        196,
+        171,
+        36,
+        187,
+        161,
+        246,
+        71
+      ],
+      "accounts": [
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "stake_pool"
+        },
+        {
+          "name": "collateral_pool",
+          "writable": true
+        },
+        {
+          "name": "sol_lending_pool",
+          "writable": true
+        },
+        {
+          "name": "borrower_token_account"
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "position_idx",
+          "type": "u8"
+        },
+        {
+          "name": "leverage_mint",
+          "type": "pubkey"
+        },
+        {
+          "name": "collateral_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "solayer_deposit_lrt",
+      "discriminator": [
+        36,
+        64,
+        66,
+        235,
+        39,
+        174,
+        198,
+        34
+      ],
+      "accounts": [
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "stake_pool"
+        },
+        {
+          "name": "collateral_pool",
+          "writable": true
+        },
+        {
+          "name": "sol_lending_pool",
+          "writable": true
+        },
+        {
+          "name": "solayer_pool",
+          "writable": true
+        },
+        {
+          "name": "solayer_user",
+          "writable": true
+        },
+        {
+          "name": "lst_vault",
+          "writable": true
+        },
+        {
+          "name": "lrt_vault",
+          "writable": true
+        },
+        {
+          "name": "borrower_token_account",
+          "writable": true
+        },
+        {
+          "name": "cpi_lst_mint",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "cpi_rst_mint",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "cpi_solayer_vault",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "cpi_solayer_pool",
+          "optional": true
+        },
+        {
+          "name": "solayer_program",
+          "optional": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "position_idx",
+          "type": "u8"
+        },
+        {
+          "name": "collateral_mint",
+          "type": "pubkey"
+        },
+        {
+          "name": "leverage_mint",
+          "type": "pubkey"
+        },
+        {
+          "name": "collateral_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "solayer_leverage",
+      "discriminator": [
+        89,
+        223,
+        128,
+        75,
+        84,
+        42,
+        236,
+        225
+      ],
+      "accounts": [
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "sol_mint"
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "stake_pool"
+        },
+        {
+          "name": "collateral_pool",
+          "writable": true
+        },
+        {
+          "name": "sol_lending_pool",
+          "writable": true
+        },
+        {
+          "name": "lending_vault",
+          "writable": true
+        },
+        {
+          "name": "borrower_token_account"
+        },
+        {
+          "name": "unwrapper"
+        },
+        {
+          "name": "unwrapper_mint_account",
+          "writable": true
+        },
+        {
+          "name": "fee_receiver",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "position_idx",
+          "type": "u8"
+        },
+        {
+          "name": "collateral_mint",
+          "type": "pubkey"
+        },
+        {
+          "name": "leverage_mint",
+          "type": "pubkey"
+        },
+        {
+          "name": "collateral_amount",
+          "type": "u64"
+        },
+        {
+          "name": "borrow_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "solayer_borrow",
+      "discriminator": [
+        12,
+        199,
+        47,
+        117,
+        221,
+        103,
+        172,
+        123
+      ],
+      "accounts": [
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "sol_mint"
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "stake_pool"
+        },
+        {
+          "name": "sol_lending_pool",
+          "writable": true
+        },
+        {
+          "name": "lending_vault",
+          "writable": true
+        },
+        {
+          "name": "borrower_token_account"
+        },
+        {
+          "name": "unwrapper"
+        },
+        {
+          "name": "unwrapper_mint_account",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "position_idx",
+          "type": "u8"
+        },
+        {
+          "name": "collateral_mint",
+          "type": "pubkey"
+        },
+        {
+          "name": "leverage_mint",
+          "type": "pubkey"
+        },
+        {
+          "name": "borrow_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "solayer_after_borrow",
+      "discriminator": [
+        34,
+        240,
+        140,
+        2,
+        155,
+        40,
+        38,
+        10
+      ],
+      "accounts": [
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "stake_pool"
+        },
+        {
+          "name": "sol_lending_pool",
+          "writable": true
+        },
+        {
+          "name": "solayer_pool",
+          "writable": true
+        },
+        {
+          "name": "solayer_user",
+          "writable": true
+        },
+        {
+          "name": "lst_vault",
+          "writable": true
+        },
+        {
+          "name": "lrt_vault",
+          "writable": true
+        },
+        {
+          "name": "borrower_token_account",
+          "writable": true
+        },
+        {
+          "name": "cpi_lst_mint",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "cpi_rst_mint",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "cpi_solayer_vault",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "cpi_solayer_pool",
+          "optional": true
+        },
+        {
+          "name": "solayer_program",
+          "optional": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "position_idx",
+          "type": "u8"
+        },
+        {
+          "name": "collateral_mint",
+          "type": "pubkey"
+        },
+        {
+          "name": "leverage_mint",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "register_withdraw",
+      "discriminator": [
+        124,
+        204,
+        88,
+        206,
+        196,
+        104,
+        74,
+        138
+      ],
+      "accounts": [
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "stake_pool",
+          "writable": true
+        },
+        {
+          "name": "collateral_pool",
+          "writable": true
+        },
+        {
+          "name": "sol_lending_pool",
+          "writable": true
+        },
+        {
+          "name": "solayer_pool",
+          "writable": true
+        },
+        {
+          "name": "solayer_user",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "cpi_lst_mint",
+          "writable": true
+        },
+        {
+          "name": "cpi_lst_ata",
+          "writable": true
+        },
+        {
+          "name": "cpi_rst_ata",
+          "writable": true
+        },
+        {
+          "name": "cpi_rst_mint",
+          "writable": true
+        },
+        {
+          "name": "cpi_solayer_vault",
+          "writable": true
+        },
+        {
+          "name": "cpi_solayer_pool"
+        },
+        {
+          "name": "cpi_validator_list",
+          "writable": true
+        },
+        {
+          "name": "cpi_withdraw_authority"
+        },
+        {
+          "name": "cpi_validator_account",
+          "writable": true
+        },
+        {
+          "name": "cpi_stake_account",
+          "writable": true
+        },
+        {
+          "name": "cpi_manager_fee_account",
+          "writable": true
+        },
+        {
+          "name": "solayer_program"
+        },
+        {
+          "name": "stake_pool_program"
+        },
+        {
+          "name": "stake_program"
+        },
+        {
+          "name": "clock_program"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "withdraw_from",
+          "type": "pubkey"
+        },
+        {
+          "name": "position_idx",
+          "type": "u8"
+        },
+        {
+          "name": "collateral_mint",
+          "type": "pubkey"
+        },
+        {
+          "name": "leverage_mint",
+          "type": "pubkey"
+        },
+        {
+          "name": "lrt_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "solayer_repay",
+      "discriminator": [
+        23,
+        13,
+        204,
+        33,
+        121,
+        111,
+        179,
+        51
+      ],
+      "accounts": [
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "stake_pool"
+        },
+        {
+          "name": "collateral_pool",
+          "writable": true
+        },
+        {
+          "name": "sol_lending_pool",
+          "writable": true
+        },
+        {
+          "name": "solayer_pool",
+          "writable": true
+        },
+        {
+          "name": "solayer_user",
+          "writable": true
+        },
+        {
+          "name": "lending_vault",
+          "writable": true
+        },
+        {
+          "name": "cpi_stake_account",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "stake_history"
+        },
+        {
+          "name": "stake_program"
+        },
+        {
+          "name": "clock_program"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "position_idx",
+          "type": "u8"
+        },
+        {
+          "name": "withdrawal_idx",
+          "type": "u8"
+        },
+        {
+          "name": "collateral_mint",
+          "type": "pubkey"
+        },
+        {
+          "name": "leverage_mint",
+          "type": "pubkey"
+        },
+        {
+          "name": "repay_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "solayer_reduce_position",
+      "discriminator": [
+        131,
+        208,
+        72,
+        165,
+        156,
+        56,
+        82,
+        217
+      ],
+      "accounts": [
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "stake_pool"
+        },
+        {
+          "name": "collateral_pool",
+          "writable": true
+        },
+        {
+          "name": "sol_lending_pool",
+          "writable": true
+        },
+        {
+          "name": "solayer_pool",
+          "writable": true
+        },
+        {
+          "name": "solayer_user",
+          "writable": true
+        },
+        {
+          "name": "lending_vault",
+          "writable": true
+        },
+        {
+          "name": "lst_vault",
+          "writable": true
+        },
+        {
+          "name": "lrt_vault",
+          "writable": true
+        },
+        {
+          "name": "user_token_account",
+          "writable": true
+        },
+        {
+          "name": "cpi_stake_account",
+          "writable": true
+        },
+        {
+          "name": "cpi_lst_mint",
+          "writable": true
+        },
+        {
+          "name": "cpi_rst_mint",
+          "writable": true
+        },
+        {
+          "name": "cpi_solayer_vault",
+          "writable": true
+        },
+        {
+          "name": "cpi_solayer_pool"
+        },
+        {
+          "name": "solayer_program"
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "stake_history"
+        },
+        {
+          "name": "stake_program"
+        },
+        {
+          "name": "clock_program"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "position_idx",
+          "type": "u8"
+        },
+        {
+          "name": "withdrawal_idx",
+          "type": "u8"
+        },
+        {
+          "name": "collateral_mint",
+          "type": "pubkey"
+        },
+        {
+          "name": "leverage_mint",
+          "type": "pubkey"
+        },
+        {
+          "name": "repay_amount",
+          "type": "u64"
+        },
+        {
+          "name": "withdraw_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "solayer_liquidate",
+      "discriminator": [
+        144,
+        249,
+        231,
+        166,
+        154,
+        140,
+        175,
+        81
+      ],
+      "accounts": [
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "stake_pool"
+        },
+        {
+          "name": "collateral_pool",
+          "writable": true
+        },
+        {
+          "name": "sol_lending_pool",
+          "writable": true
+        },
+        {
+          "name": "solayer_pool",
+          "writable": true
+        },
+        {
+          "name": "solayer_user",
+          "writable": true
+        },
+        {
+          "name": "lending_vault",
+          "writable": true
+        },
+        {
+          "name": "cpi_stake_account",
+          "writable": true
+        },
+        {
+          "name": "liquidatee",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "stake_history"
+        },
+        {
+          "name": "stake_program"
+        },
+        {
+          "name": "clock_program"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "position_idx",
+          "type": "u8"
+        },
+        {
+          "name": "withdrawal_idx",
+          "type": "u8"
+        },
+        {
+          "name": "collateral_mint",
+          "type": "pubkey"
+        },
+        {
+          "name": "leverage_mint",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "v_sol_create_miner",
+      "discriminator": [
+        139,
+        160,
+        153,
+        121,
+        143,
+        234,
+        251,
+        225
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "docs": [
+            "The account paying for all rents"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "market_authority",
+          "writable": true
+        },
+        {
+          "name": "quarry_program"
+        },
+        {
+          "name": "miner",
+          "writable": true
+        },
+        {
+          "name": "quarry",
+          "docs": [
+            "[Quarry] to create a [Miner] for."
+          ],
+          "writable": true
+        },
+        {
+          "name": "rewarder",
+          "docs": [
+            "[Rewarder]."
+          ]
+        },
+        {
+          "name": "system_program",
+          "docs": [
+            "System program."
+          ]
+        },
+        {
+          "name": "token_mint",
+          "docs": [
+            "[Mint] of the token to create a [Quarry] for."
+          ]
+        },
+        {
+          "name": "miner_vault",
+          "docs": [
+            "[TokenAccount] holding the token [Mint]."
+          ]
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "SPL Token program."
+          ]
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "v_sol_init_pool",
+      "discriminator": [
+        89,
+        67,
+        20,
+        181,
+        59,
+        234,
+        125,
+        52
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "docs": [
+            "The account paying for all rents"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "v_sol_pool",
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "v_sol_deposit_collateral",
+      "discriminator": [
+        242,
+        54,
+        168,
+        44,
+        137,
+        150,
+        211,
+        11
+      ],
+      "accounts": [
+        {
+          "name": "depositor",
+          "docs": [
+            "The address with authority to deposit the tokens"
+          ],
+          "signer": true
+        },
+        {
+          "name": "payer",
+          "docs": [
+            "The account paying for all rents"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "collateral_pool",
+          "docs": [
+            "The pool to be created"
+          ],
+          "writable": true
+        },
+        {
+          "name": "lending_pool",
+          "docs": [
+            "The pool to be created"
+          ],
+          "writable": true
+        },
+        {
+          "name": "v_sol_pool",
+          "writable": true
+        },
+        {
+          "name": "collateral_mint",
+          "docs": [
+            "The collateral token"
+          ]
+        },
+        {
+          "name": "borrow_mint",
+          "docs": [
+            "The borrrow token"
+          ]
+        },
+        {
+          "name": "leverage_mint",
+          "docs": [
+            "The leverage token"
+          ]
+        },
+        {
+          "name": "collateral_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "borrow_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "pool_vault",
+          "docs": [
+            "The token account holding the pool's deposited funds"
+          ],
+          "writable": true
+        },
+        {
+          "name": "depositor_collateral_mint_account",
+          "docs": [
+            "The source of the tokens to be deposited"
+          ],
+          "writable": true
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "miner",
+          "docs": [
+            "Miner."
+          ],
+          "writable": true
+        },
+        {
+          "name": "quarry",
+          "docs": [
+            "Quarry to claim from."
+          ],
+          "writable": true
+        },
+        {
+          "name": "miner_vault",
+          "docs": [
+            "Vault of the miner."
+          ],
+          "writable": true
+        },
+        {
+          "name": "rewarder",
+          "docs": [
+            "Rewarder"
+          ]
+        },
+        {
+          "name": "quarry_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "position_idx",
+          "type": "u8"
+        },
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "v_sol_withdraw_collateral",
+      "discriminator": [
+        136,
+        227,
+        245,
+        247,
+        161,
+        10,
+        63,
+        35
+      ],
+      "accounts": [
+        {
+          "name": "borrower",
+          "docs": [
+            "The address with authority to withdraw the tokens"
+          ],
+          "signer": true
+        },
+        {
+          "name": "payer",
+          "docs": [
+            "The account paying for all rents"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "collateral_pool",
+          "docs": [
+            "The pool to be created"
+          ],
+          "writable": true
+        },
+        {
+          "name": "lending_pool",
+          "docs": [
+            "The pool to be created"
+          ],
+          "writable": true
+        },
+        {
+          "name": "v_sol_pool",
+          "writable": true
+        },
+        {
+          "name": "collateral_mint",
+          "docs": [
+            "The collateral token"
+          ]
+        },
+        {
+          "name": "borrow_mint",
+          "docs": [
+            "The borrrow token"
+          ]
+        },
+        {
+          "name": "leverage_mint",
+          "docs": [
+            "The leverage token"
+          ]
+        },
+        {
+          "name": "collateral_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "borrow_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "leverage_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "pool_vault",
+          "docs": [
+            "The token account holding the pool's withdrawed funds"
+          ],
+          "writable": true
+        },
+        {
+          "name": "borrower_collateral_mint_account",
+          "docs": [
+            "The source of the tokens to be withdrawed"
+          ],
+          "writable": true
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "miner",
+          "docs": [
+            "Miner."
+          ],
+          "writable": true
+        },
+        {
+          "name": "quarry",
+          "docs": [
+            "Quarry to claim from."
+          ],
+          "writable": true
+        },
+        {
+          "name": "miner_vault",
+          "docs": [
+            "Vault of the miner."
+          ],
+          "writable": true
+        },
+        {
+          "name": "rewarder",
+          "docs": [
+            "Rewarder"
+          ]
+        },
+        {
+          "name": "quarry_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "position_idx",
+          "type": "u8"
+        },
+        {
+          "name": "note_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "v_sol_withdraw_leverage",
+      "discriminator": [
+        182,
+        100,
+        215,
+        120,
+        129,
+        5,
+        222,
+        93
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "docs": [
+            "The account paying for all rents"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "withdrawer",
+          "docs": [
+            "The address with authority to position"
+          ],
+          "signer": true
+        },
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "pool_leverage_vault",
+          "docs": [
+            "The token account holding the pool's deposited funds"
+          ],
+          "writable": true
+        },
+        {
+          "name": "fee_destination",
+          "docs": [
+            "The token account holding the pool's deposited funds"
+          ],
+          "writable": true
+        },
+        {
+          "name": "fee_to",
+          "docs": [
+            "The wallet address of the fee receiver"
+          ]
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "collateral_pool",
+          "docs": [
+            "The pool to be created"
+          ]
+        },
+        {
+          "name": "v_sol_pool",
+          "writable": true
+        },
+        {
+          "name": "lending_pool",
+          "writable": true
+        },
+        {
+          "name": "collateral_mint",
+          "docs": [
+            "The collateral token"
+          ]
+        },
+        {
+          "name": "borrow_mint",
+          "docs": [
+            "The borrrow token"
+          ]
+        },
+        {
+          "name": "leverage_mint",
+          "docs": [
+            "The leverage token"
+          ]
+        },
+        {
+          "name": "collateral_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "borrow_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "leverage_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "withdrawer_leverage_mint_account",
+          "writable": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "miner",
+          "docs": [
+            "Miner."
+          ],
+          "writable": true
+        },
+        {
+          "name": "quarry",
+          "docs": [
+            "Quarry to claim from."
+          ],
+          "writable": true
+        },
+        {
+          "name": "miner_vault",
+          "docs": [
+            "Vault of the miner."
+          ],
+          "writable": true
+        },
+        {
+          "name": "rewarder",
+          "docs": [
+            "Rewarder"
+          ]
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "***************** Solana ecosystem accounts *****************/"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "quarry_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "position_idx",
+          "type": "u8"
+        },
+        {
+          "name": "note_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "v_sol_borrow",
+      "discriminator": [
+        58,
+        157,
+        184,
+        166,
+        91,
+        37,
+        128,
+        242
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "docs": [
+            "The account paying for all rents"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "borrower",
+          "docs": [
+            "The address with authority to position"
+          ],
+          "signer": true
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "lending_pool",
+          "docs": [
+            "The pool to be created"
+          ],
+          "writable": true
+        },
+        {
+          "name": "collateral_pool",
+          "docs": [
+            "The pool to be created"
+          ]
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "collateral_mint",
+          "docs": [
+            "The collateral token"
+          ]
+        },
+        {
+          "name": "borrow_mint",
+          "docs": [
+            "The borrrow token"
+          ]
+        },
+        {
+          "name": "leverage_mint",
+          "docs": [
+            "The leverage token"
+          ]
+        },
+        {
+          "name": "collateral_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "borrow_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "leverage_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "borrower_borrow_mint_account"
+        },
+        {
+          "name": "borrower_leverage_mint_account",
+          "docs": [
+            "The token account holding the pool's deposited funds"
+          ]
+        },
+        {
+          "name": "pool_vault",
+          "docs": [
+            "The token account holding the pool's deposited funds"
+          ],
+          "writable": true
+        },
+        {
+          "name": "unwrapper"
+        },
+        {
+          "name": "unwrapper_mint_account",
+          "writable": true
+        },
+        {
+          "name": "fee_receiver",
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "position_idx",
+          "type": "u8"
+        },
+        {
+          "name": "borrow_tokens",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "v_sol_after_borrow",
+      "discriminator": [
+        165,
+        16,
+        253,
+        217,
+        216,
+        102,
+        94,
+        135
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "docs": [
+            "The account paying for all rents"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "borrower",
+          "docs": [
+            "The address with authority to position"
+          ],
+          "signer": true
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "v_sol_pool",
+          "writable": true
+        },
+        {
+          "name": "collateral_pool",
+          "docs": [
+            "The pool to be created"
+          ]
+        },
+        {
+          "name": "lending_pool",
+          "docs": [
+            "The pool to be created"
+          ],
+          "writable": true
+        },
+        {
+          "name": "collateral_mint",
+          "docs": [
+            "The collateral token"
+          ]
+        },
+        {
+          "name": "borrow_mint",
+          "docs": [
+            "The borrrow token"
+          ]
+        },
+        {
+          "name": "leverage_mint",
+          "docs": [
+            "The leverage token"
+          ]
+        },
+        {
+          "name": "collateral_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "borrow_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "leverage_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "borrower_leverage_mint_account",
+          "writable": true
+        },
+        {
+          "name": "pool_vault",
+          "docs": [
+            "The token account holding the pool's deposited funds"
+          ],
+          "writable": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "miner",
+          "docs": [
+            "Miner."
+          ],
+          "writable": true
+        },
+        {
+          "name": "quarry",
+          "docs": [
+            "Quarry to claim from."
+          ],
+          "writable": true
+        },
+        {
+          "name": "miner_vault",
+          "docs": [
+            "Vault of the miner."
+          ],
+          "writable": true
+        },
+        {
+          "name": "rewarder",
+          "docs": [
+            "User's staked token account",
+            "Rewarder"
+          ]
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "***************** Solana ecosystem accounts *****************/"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "quarry_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "position_idx",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "v_sol_repay_with_collateral",
+      "docs": [
+        "* amount: collateral amount"
+      ],
+      "discriminator": [
+        139,
+        11,
+        2,
+        232,
+        123,
+        59,
+        66,
+        184
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "docs": [
+            "The account paying for all rents"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "repayer",
+          "docs": [
+            "The address with authority to position"
+          ],
+          "signer": true
+        },
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "pool_collateral_vault",
+          "docs": [
+            "The token account holding the pool's deposited funds",
+            "The token account holding the pool's deposited funds"
+          ],
+          "writable": true
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "collateral_pool",
+          "docs": [
+            "The pool to be created"
+          ],
+          "writable": true
+        },
+        {
+          "name": "v_sol_pool",
+          "writable": true
+        },
+        {
+          "name": "lending_pool",
+          "writable": true
+        },
+        {
+          "name": "collateral_mint",
+          "docs": [
+            "The collateral token"
+          ]
+        },
+        {
+          "name": "borrow_mint",
+          "docs": [
+            "The borrrow token"
+          ]
+        },
+        {
+          "name": "leverage_mint",
+          "docs": [
+            "The leverage token"
+          ]
+        },
+        {
+          "name": "collateral_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "borrow_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "repayer_collateral_mint_account",
+          "writable": true
+        },
+        {
+          "name": "repayer_borrow_mint_account"
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "miner",
+          "docs": [
+            "Miner."
+          ],
+          "writable": true
+        },
+        {
+          "name": "quarry",
+          "docs": [
+            "Quarry to claim from."
+          ],
+          "writable": true
+        },
+        {
+          "name": "miner_vault",
+          "docs": [
+            "Vault of the miner."
+          ],
+          "writable": true
+        },
+        {
+          "name": "rewarder",
+          "docs": [
+            "Rewarder"
+          ]
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "***************** Solana ecosystem accounts *****************/"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "quarry_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "position_idx",
+          "type": "u8"
+        },
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "v_sol_repay_with_leverage",
+      "discriminator": [
+        63,
+        26,
+        106,
+        252,
+        194,
+        48,
+        199,
+        31
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "docs": [
+            "The account paying for all rents"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "repayer",
+          "docs": [
+            "The address with authority to position"
+          ],
+          "signer": true
+        },
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "pool_leverage_vault",
+          "docs": [
+            "The token account holding the pool's deposited funds"
+          ],
+          "writable": true
+        },
+        {
+          "name": "position_account",
+          "docs": [
+            "The token account holding the pool's deposited funds"
+          ],
+          "writable": true
+        },
+        {
+          "name": "v_sol_pool",
+          "writable": true
+        },
+        {
+          "name": "lending_pool",
+          "writable": true
+        },
+        {
+          "name": "collateral_mint",
+          "docs": [
+            "The collateral token"
+          ]
+        },
+        {
+          "name": "borrow_mint",
+          "docs": [
+            "The borrrow token"
+          ]
+        },
+        {
+          "name": "leverage_mint",
+          "docs": [
+            "The leverage token"
+          ]
+        },
+        {
+          "name": "borrow_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "leverage_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "repayer_leverage_mint_account",
+          "writable": true
+        },
+        {
+          "name": "repayer_borrow_mint_account"
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "miner",
+          "docs": [
+            "Miner."
+          ],
+          "writable": true
+        },
+        {
+          "name": "quarry",
+          "docs": [
+            "Quarry to claim from."
+          ],
+          "writable": true
+        },
+        {
+          "name": "miner_vault",
+          "docs": [
+            "Vault of the miner."
+          ],
+          "writable": true
+        },
+        {
+          "name": "rewarder",
+          "docs": [
+            "Rewarder"
+          ]
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "***************** Solana ecosystem accounts *****************/"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "quarry_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "position_idx",
+          "type": "u8"
+        },
+        {
+          "name": "borrow_tokens",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "v_sol_after_repay",
+      "discriminator": [
+        38,
+        208,
+        153,
+        65,
+        69,
+        159,
+        197,
+        16
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "docs": [
+            "The account paying for all rents"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "repayer",
+          "docs": [
+            "The address with authority to position"
+          ],
+          "signer": true
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "lending_pool",
+          "docs": [
+            "The pool to be created"
+          ],
+          "writable": true
+        },
+        {
+          "name": "collateral_pool",
+          "docs": [
+            "The pool to be created"
+          ],
+          "writable": true
+        },
+        {
+          "name": "pool_borrow_vault",
+          "docs": [
+            "The token account holding the pool's deposited funds"
+          ],
+          "writable": true
+        },
+        {
+          "name": "collateral_mint",
+          "docs": [
+            "The collateral token"
+          ]
+        },
+        {
+          "name": "borrow_mint",
+          "docs": [
+            "The borrrow token"
+          ]
+        },
+        {
+          "name": "leverage_mint",
+          "docs": [
+            "The leverage token"
+          ]
+        },
+        {
+          "name": "collateral_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "borrow_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "repayer_borrow_mint_account",
+          "writable": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "loan_owner",
+          "type": "pubkey"
+        },
+        {
+          "name": "position_idx",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "v_sol_refresh_points",
+      "discriminator": [
+        1,
+        155,
+        168,
+        74,
+        133,
+        208,
+        113,
+        62
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "v_sol_pool",
+          "writable": true
+        },
+        {
+          "name": "mint_wrapper",
+          "docs": [
+            "Mint wrapper."
+          ],
+          "writable": true
+        },
+        {
+          "name": "mint_wrapper_program",
+          "docs": [
+            "Mint wrapper program."
+          ]
+        },
+        {
+          "name": "minter",
+          "docs": [
+            "[quarry_mint_wrapper::Minter] information."
+          ],
+          "writable": true
+        },
+        {
+          "name": "rewards_token_mint",
+          "docs": [
+            "Mint of the rewards token."
+          ],
+          "writable": true
+        },
+        {
+          "name": "pool_reward_vault",
+          "docs": [
+            "The token account holding the pool's deposited funds"
+          ],
+          "writable": true
+        },
+        {
+          "name": "claim_fee_token_account",
+          "docs": [
+            "Account to send claim fees to."
+          ],
+          "writable": true
+        },
+        {
+          "name": "claim_miner",
+          "docs": [
+            "Miner."
+          ],
+          "writable": true
+        },
+        {
+          "name": "claim_quarry",
+          "docs": [
+            "Quarry to claim from."
+          ],
+          "writable": true
+        },
+        {
+          "name": "claim_rewarder",
+          "docs": [
+            "Rewarder"
+          ]
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "Token program"
+          ]
+        },
+        {
+          "name": "quarry_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "v_sol_liquidate_with_collateral",
+      "discriminator": [
+        96,
+        37,
+        184,
+        11,
+        168,
+        5,
+        136,
+        28
+      ],
+      "accounts": [
+        {
+          "name": "liquidator",
+          "docs": [
+            "The address with authority to the liquidator rewards"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "lending_pool",
+          "docs": [
+            "The pool to be created"
+          ],
+          "writable": true
+        },
+        {
+          "name": "collateral_pool",
+          "docs": [
+            "The pool to be created"
+          ]
+        },
+        {
+          "name": "v_sol_pool",
+          "writable": true
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "collateral_mint",
+          "docs": [
+            "The collateral token"
+          ]
+        },
+        {
+          "name": "borrow_mint",
+          "docs": [
+            "The borrrow token"
+          ]
+        },
+        {
+          "name": "leverage_mint",
+          "docs": [
+            "The leverage token"
+          ]
+        },
+        {
+          "name": "collateral_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "borrow_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "leverage_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "liquidator_collateral_mint_account",
+          "writable": true
+        },
+        {
+          "name": "liquidator_borrow_mint_account"
+        },
+        {
+          "name": "pool_collateral_vault",
+          "docs": [
+            "The token account holding the pool's deposited funds"
+          ],
+          "writable": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "miner",
+          "docs": [
+            "Miner."
+          ],
+          "writable": true
+        },
+        {
+          "name": "quarry",
+          "docs": [
+            "Quarry to claim from."
+          ],
+          "writable": true
+        },
+        {
+          "name": "miner_vault",
+          "docs": [
+            "Vault of the miner."
+          ],
+          "writable": true
+        },
+        {
+          "name": "rewarder",
+          "docs": [
+            "Rewarder"
+          ]
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "***************** Solana ecosystem accounts *****************/"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "quarry_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "liquidatee",
+          "type": "pubkey"
+        },
+        {
+          "name": "position_idx",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "v_sol_liquidate_with_leverage",
+      "discriminator": [
+        32,
+        78,
+        78,
+        196,
+        72,
+        124,
+        47,
+        128
+      ],
+      "accounts": [
+        {
+          "name": "liquidator",
+          "docs": [
+            "The address with authority to the liquidator rewards"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "lending_pool",
+          "docs": [
+            "The pool to be created"
+          ],
+          "writable": true
+        },
+        {
+          "name": "collateral_pool",
+          "docs": [
+            "The pool to be created"
+          ]
+        },
+        {
+          "name": "v_sol_pool",
+          "writable": true
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "collateral_mint",
+          "docs": [
+            "The collateral token"
+          ]
+        },
+        {
+          "name": "borrow_mint",
+          "docs": [
+            "The borrrow token"
+          ]
+        },
+        {
+          "name": "leverage_mint",
+          "docs": [
+            "The leverage token"
+          ]
+        },
+        {
+          "name": "collateral_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "borrow_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "leverage_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "liquidator_leverage_mint_account",
+          "writable": true
+        },
+        {
+          "name": "liquidator_borrow_mint_account"
+        },
+        {
+          "name": "pool_leverage_vault",
+          "docs": [
+            "The token account holding the pool's deposited funds"
+          ],
+          "writable": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "miner",
+          "docs": [
+            "Miner."
+          ],
+          "writable": true
+        },
+        {
+          "name": "quarry",
+          "docs": [
+            "Quarry to claim from."
+          ],
+          "writable": true
+        },
+        {
+          "name": "miner_vault",
+          "docs": [
+            "Vault of the miner."
+          ],
+          "writable": true
+        },
+        {
+          "name": "rewarder",
+          "docs": [
+            "Rewarder"
+          ]
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "***************** Solana ecosystem accounts *****************/"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "quarry_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "liquidatee",
+          "type": "pubkey"
+        },
+        {
+          "name": "position_idx",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "v_sol_after_liquidate",
+      "discriminator": [
+        255,
+        120,
+        183,
+        3,
+        68,
+        191,
+        186,
+        179
+      ],
+      "accounts": [
+        {
+          "name": "liquidator",
+          "docs": [
+            "The address with authority to the liquidator rewards"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "lending_pool",
+          "docs": [
+            "The pool to be created"
+          ],
+          "writable": true
+        },
+        {
+          "name": "collateral_pool",
+          "docs": [
+            "The pool to be created"
+          ]
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "collateral_mint",
+          "docs": [
+            "The collateral token"
+          ]
+        },
+        {
+          "name": "borrow_mint",
+          "docs": [
+            "The borrrow token"
+          ]
+        },
+        {
+          "name": "leverage_mint",
+          "docs": [
+            "The leverage token"
+          ]
+        },
+        {
+          "name": "collateral_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "borrow_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "leverage_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "liquidator_collateral_mint_account",
+          "writable": true
+        },
+        {
+          "name": "liquidator_borrow_mint_account",
+          "writable": true
+        },
+        {
+          "name": "liquidatee_borrow_mint_account",
+          "writable": true
+        },
+        {
+          "name": "pool_borrow_vault",
+          "writable": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "liquidatee",
+          "type": "pubkey"
+        },
+        {
+          "name": "position_idx",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "v_sol_withdraw_point",
+      "discriminator": [
+        170,
+        55,
+        18,
+        162,
+        237,
+        240,
+        233,
+        249
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "withdrawer",
+          "docs": [
+            "The address with authority to position"
+          ],
+          "signer": true
+        },
+        {
+          "name": "nx_market"
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "v_point_mint",
+          "docs": [
+            "Mint of the rewards token."
+          ],
+          "writable": true
+        },
+        {
+          "name": "pool_point_vault",
+          "writable": true
+        },
+        {
+          "name": "withdrawer_point_account",
+          "writable": true
+        },
+        {
+          "name": "position_account",
+          "writable": true
+        },
+        {
+          "name": "v_sol_pool",
+          "writable": true
+        },
+        {
+          "name": "collateral_mint",
+          "docs": [
+            "The collateral token"
+          ]
+        },
+        {
+          "name": "borrow_mint",
+          "docs": [
+            "The borrrow token"
+          ]
+        },
+        {
+          "name": "leverage_mint",
+          "docs": [
+            "The leverage token"
+          ]
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "***************** Solana ecosystem accounts *****************/"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "position_idx",
+          "type": "u8"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "collateralPool",
+      "discriminator": [
+        153,
+        1,
+        163,
+        22,
+        159,
+        181,
+        167,
+        192
+      ]
+    },
+    {
+      "name": "fragmetricPool",
+      "discriminator": [
+        196,
+        20,
+        254,
+        121,
+        2,
+        178,
+        251,
+        137
+      ]
+    },
+    {
+      "name": "fragmetricPosition",
+      "discriminator": [
+        129,
+        87,
+        15,
+        31,
+        189,
+        146,
+        185,
+        27
+      ]
+    },
+    {
+      "name": "fragmetricUser",
+      "discriminator": [
+        81,
+        237,
+        20,
+        87,
+        22,
+        163,
+        184,
+        15
+      ]
+    },
+    {
+      "name": "lendingAccount",
+      "discriminator": [
+        222,
+        247,
+        220,
+        107,
+        250,
+        84,
+        231,
+        75
+      ]
+    },
+    {
+      "name": "lendingPool",
+      "discriminator": [
+        133,
+        92,
+        58,
+        179,
+        55,
+        161,
+        97,
+        15
+      ]
+    },
+    {
+      "name": "leveragePool",
+      "discriminator": [
+        28,
+        188,
+        215,
+        210,
+        11,
+        91,
+        160,
+        11
+      ]
+    },
+    {
+      "name": "nxMarket",
+      "discriminator": [
+        165,
+        16,
+        17,
+        249,
+        253,
+        204,
+        213,
+        213
+      ]
+    },
+    {
+      "name": "position",
+      "discriminator": [
+        162,
+        191,
+        156,
+        34,
+        151,
+        131,
+        65,
+        140
+      ]
+    },
+    {
+      "name": "solayerPool",
+      "discriminator": [
+        176,
+        9,
+        239,
+        43,
+        75,
+        236,
+        171,
+        169
+      ]
+    },
+    {
+      "name": "solayerUser",
+      "discriminator": [
+        250,
+        222,
+        249,
+        242,
+        97,
+        13,
+        156,
+        140
+      ]
+    },
+    {
+      "name": "vSolPool",
+      "discriminator": [
+        190,
+        15,
+        227,
+        51,
+        3,
+        161,
+        188,
+        83
+      ]
+    },
+    {
+      "name": "vSolPosition",
+      "discriminator": [
+        206,
+        117,
+        82,
+        140,
+        191,
+        170,
+        132,
+        138
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidPositionIndex",
+      "msg": "Invalid index of position"
+    },
+    {
+      "code": 6001,
+      "name": "PositionIndexMismatch",
+      "msg": "Inconsistent position index"
+    },
+    {
+      "code": 6002,
+      "name": "NotAuthorized",
+      "msg": "Not authorized user"
+    },
+    {
+      "code": 6003,
+      "name": "NotEnoughTokens",
+      "msg": "Pool is in full use"
+    },
+    {
+      "code": 6004,
+      "name": "LeverageTooHigh",
+      "msg": "Leverage too high"
+    },
+    {
+      "code": 6005,
+      "name": "InvalidFee",
+      "msg": "Invalid fee"
+    },
+    {
+      "code": 6006,
+      "name": "InvalidLiquidation",
+      "msg": "Invalid liquidation"
+    },
+    {
+      "code": 6007,
+      "name": "LiquidateTooMuch",
+      "msg": "Liquidate too much"
+    },
+    {
+      "code": 6008,
+      "name": "InvalidOperation",
+      "msg": "Operation leads to liquidation"
+    },
+    {
+      "code": 6009,
+      "name": "InvalidAmount",
+      "msg": "Invalid operation amount"
+    },
+    {
+      "code": 6010,
+      "name": "InsufficientLiquidity",
+      "msg": "Insufficient liquidity"
+    },
+    {
+      "code": 6011,
+      "name": "NoCollateral",
+      "msg": "No collateral deposited"
+    },
+    {
+      "code": 6012,
+      "name": "MathOverflow",
+      "msg": "Math operation overflow"
+    },
+    {
+      "code": 6013,
+      "name": "TryToSerializePriceAccount",
+      "msg": "Failed to serialize price account"
+    },
+    {
+      "code": 6014,
+      "name": "NotStakePool",
+      "msg": "Failed to deserialize stake pool account"
+    },
+    {
+      "code": 6015,
+      "name": "InvalidArgument",
+      "msg": "Invalid argument provided"
+    },
+    {
+      "code": 6016,
+      "name": "InvalidLoanType",
+      "msg": "Only one type of loan asset per account"
+    },
+    {
+      "code": 6017,
+      "name": "InvalidCollateralType",
+      "msg": "Only one type of collateral asset per account"
+    },
+    {
+      "code": 6018,
+      "name": "PositionTypeMismatch",
+      "msg": "Wrong position type provided"
+    },
+    {
+      "code": 6019,
+      "name": "InvalidArgumentType",
+      "msg": "Invalid argument type"
+    },
+    {
+      "code": 6020,
+      "name": "PythError",
+      "msg": "Could not load price account"
+    },
+    {
+      "code": 6021,
+      "name": "SwitchboardError",
+      "msg": "Invalid switchboard account"
+    },
+    {
+      "code": 6022,
+      "name": "InvalidOracle",
+      "msg": "Invalid pool oracle"
+    },
+    {
+      "code": 6023,
+      "name": "InvalidExpoChange",
+      "msg": "Price expo cannot be smaller than original or become positive"
+    },
+    {
+      "code": 6024,
+      "name": "AddressMismatch",
+      "msg": "Address Mismatch"
+    },
+    {
+      "code": 6025,
+      "name": "AddressNotWhiteListed",
+      "msg": "Address not in white list"
+    },
+    {
+      "code": 6026,
+      "name": "ProgramMismatch",
+      "msg": "Program Mismatch"
+    },
+    {
+      "code": 6027,
+      "name": "DiscriminatorMismatch",
+      "msg": "Discriminator mismatch"
+    },
+    {
+      "code": 6028,
+      "name": "UnknownInstruction",
+      "msg": "Unknown Instruction"
+    },
+    {
+      "code": 6029,
+      "name": "MissingSwapInstruction",
+      "msg": "Missing swap ix"
+    },
+    {
+      "code": 6030,
+      "name": "MissingBeforeInstruction",
+      "msg": "Missing pre-swap ix"
+    },
+    {
+      "code": 6031,
+      "name": "MissingAfterInstruction",
+      "msg": "Missing post-swap ix"
+    },
+    {
+      "code": 6032,
+      "name": "IncorrectAccount",
+      "msg": "Incorrect account"
+    },
+    {
+      "code": 6033,
+      "name": "InvalidAfterAmount",
+      "msg": "Invalid post amount to after ix"
+    },
+    {
+      "code": 6034,
+      "name": "Paused",
+      "msg": "Protocol paused"
+    },
+    {
+      "code": 6035,
+      "name": "InvalidAccountDiscriminator",
+      "msg": "Invalid account discriminator"
+    },
+    {
+      "code": 6036,
+      "name": "UnableToDeserializeAccount",
+      "msg": "Unable to deserialize account"
+    },
+    {
+      "code": 6037,
+      "name": "StillHasLoans",
+      "msg": "Still has loans"
+    },
+    {
+      "code": 6038,
+      "name": "NotJLP",
+      "msg": "Can only withdraw all for JLP"
+    },
+    {
+      "code": 6039,
+      "name": "StalePrice",
+      "msg": "Stale price"
+    },
+    {
+      "code": 6040,
+      "name": "NeedRefreshedPoint",
+      "msg": "The point has not been refreshed yet"
+    },
+    {
+      "code": 6041,
+      "name": "NoPointReward",
+      "msg": "No points reward"
+    }
+  ],
+  "types": [
+    {
+      "name": "MarketUpdateData",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "admin",
+            "docs": [
+              "Account that has admin authority over the nxLend"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "fee_to",
+            "docs": [
+              "Developer fee receiving address"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "paused",
+            "docs": [
+              "Disable all protocol operations"
+            ],
+            "type": "bool"
+          },
+          {
+            "name": "bump_seed",
+            "type": "u8"
+          },
+          {
+            "name": "withdraw_fee_rate",
+            "docs": [
+              "jlp withdraw fee rate for taking profit。 The denominator is a constant: DENOMINATOR"
+            ],
+            "type": "u16"
+          },
+          {
+            "name": "protocol_fee_rate",
+            "docs": [
+              "interest fee rate。 The denominator is a constant: DENOMINATOR"
+            ],
+            "type": "u16"
+          },
+          {
+            "name": "swap_slippage_rate",
+            "docs": [
+              "Maximum slippage supported for all swap transactions。 The denominator is a constant: DENOMINATOR"
+            ],
+            "type": "u16"
+          },
+          {
+            "name": "liquidation_reward_rate",
+            "type": "u16"
+          },
+          {
+            "name": "penalty_interest_rate",
+            "docs": [
+              "Penalty interest point。 The denominator is a constant: DENOMINATOR"
+            ],
+            "type": "u16"
+          },
+          {
+            "name": "vsol_point_fee_rate",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "InterestRateConfig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "utilization_rate",
+            "type": "i32"
+          },
+          {
+            "name": "k_value",
+            "type": "i32"
+          },
+          {
+            "name": "b_value",
+            "type": "i32"
+          }
+        ]
+      }
+    },
+    {
+      "name": "InitMarketParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "swap_slippage_rate",
+            "type": "u16"
+          },
+          {
+            "name": "penalty_interest_rate",
+            "type": "u16"
+          },
+          {
+            "name": "liquidation_reward_rate",
+            "type": "u16"
+          },
+          {
+            "name": "withdraw_fee_rate",
+            "type": "u16"
+          },
+          {
+            "name": "protocol_fee_rate",
+            "type": "u16"
+          },
+          {
+            "name": "vsol_point_fee_rate",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Amount",
+      "docs": [
+        "Represent an amount of some value (like tokens, or notes)"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "kind",
+            "type": {
+              "defined": {
+                "name": "AmountKind"
+              }
+            }
+          },
+          {
+            "name": "value",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "InterestRateData",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "utilization_rate",
+            "docs": [
+              "y=kx+b x=utilization_rate y=interest_rate"
+            ],
+            "type": "i32"
+          },
+          {
+            "name": "k_value",
+            "type": "i32"
+          },
+          {
+            "name": "b_value",
+            "type": "i32"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PositionTokenMintParam",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "collateral_mint",
+            "docs": [
+              "The collateral token"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "borrow_mint",
+            "docs": [
+              "The borrrow token"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "leverage_mint",
+            "docs": [
+              "The leverage token"
+            ],
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PositionDetail",
+      "docs": [
+        "collateral detailed state"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "collateral_mint",
+            "docs": [
+              "The collateral token"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "borrow_mint",
+            "docs": [
+              "The borrrow token"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "leverage_mint",
+            "docs": [
+              "The leverage token"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "collateral_note",
+            "docs": [
+              "A note about the user's deposit tokens, used to calculate the amount of collateral deposited by the user"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "collateral_tokens",
+            "docs": [
+              "collateral token amount"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "borrow_note",
+            "docs": [
+              "Note about user borrow tokens, used to calculate the number of tokens the user borrows"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "borrow_tokens",
+            "docs": [
+              "Borrowed token amount"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "leverage_note",
+            "docs": [
+              "A note about user leverage tokens, used to calculate the number of user leverage tokens"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "leverage_tokens",
+            "docs": [
+              "leverage token amount"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "liquidation_flag",
+            "docs": [
+              "0 - healthy, not liquidatable; 1 - unhealthy, liquidatable"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "leverage_multiples",
+            "docs": [
+              "The leverage ratio of the current position"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "position_type",
+            "type": {
+              "defined": {
+                "name": "PositionType"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "SwapTemp",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "before_amount",
+            "type": "u64"
+          },
+          {
+            "name": "expected",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "StakePoolWithdrawal",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "stake_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "sol_amount",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TokenInfo",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "mint_pk",
+            "type": "pubkey"
+          },
+          {
+            "name": "decimals",
+            "type": "i32"
+          },
+          {
+            "name": "price_oracle",
+            "type": "pubkey"
+          },
+          {
+            "name": "oracle_kind",
+            "type": {
+              "defined": {
+                "name": "PriceKind"
+              }
+            }
+          },
+          {
+            "name": "lst_mint",
+            "type": {
+              "option": "pubkey"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "VSolPositionTokenParam",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "collateral_token",
+            "docs": [
+              "The collateral token"
+            ],
+            "type": {
+              "defined": {
+                "name": "TokenInfo"
+              }
+            }
+          },
+          {
+            "name": "borrow_token",
+            "docs": [
+              "The borrrow token"
+            ],
+            "type": {
+              "defined": {
+                "name": "TokenInfo"
+              }
+            }
+          },
+          {
+            "name": "leverage_token",
+            "docs": [
+              "The leverage token"
+            ],
+            "type": {
+              "defined": {
+                "name": "TokenInfo"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "VSolPositionDetail",
+      "docs": [
+        "collateral detailed state"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "collateral_mint",
+            "docs": [
+              "The collateral token"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "borrow_mint",
+            "docs": [
+              "The borrrow token"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "leverage_mint",
+            "docs": [
+              "The leverage token"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "collateral_note",
+            "docs": [
+              "A note about the user's deposit tokens, used to calculate the amount of collateral deposited by the user"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "collateral_tokens",
+            "docs": [
+              "collateral token amount"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "borrow_note",
+            "docs": [
+              "Note about user borrow tokens, used to calculate the number of tokens the user borrows"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "borrow_tokens",
+            "docs": [
+              "Borrowed token amount"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "leverage_note",
+            "docs": [
+              "A note about user leverage tokens, used to calculate the number of user leverage tokens"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "leverage_tokens",
+            "docs": [
+              "leverage token amount"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "leverage_multiples",
+            "docs": [
+              "The leverage ratio of the current position"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "last_points_and_leverage_notes_rate",
+            "docs": [
+              "The number of points that can be received for each note at the time of settlement of the last operation"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "point_reward",
+            "docs": [
+              "The number of points rewarded"
+            ],
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AmountKind",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Tokens"
+          },
+          {
+            "name": "Notes"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PoolAction",
+      "docs": [
+        "Represents the primary pool actions, used in determining the",
+        "rounding direction between tokens and notes."
+      ],
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Borrow"
+          },
+          {
+            "name": "Deposit"
+          },
+          {
+            "name": "Repay"
+          },
+          {
+            "name": "Withdraw"
+          },
+          {
+            "name": "Liquidate"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RoundingDirection",
+      "docs": [
+        "Represents the direction in which we should round when converting",
+        "between tokens and notes."
+      ],
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Down"
+          },
+          {
+            "name": "Up"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PositionType",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Normal"
+          },
+          {
+            "name": "Solayer"
+          },
+          {
+            "name": "Fragmetric"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PriceKind",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Pyth"
+          },
+          {
+            "name": "Switchboard"
+          },
+          {
+            "name": "LiquidateStakeToken"
+          }
+        ]
+      }
+    },
+    {
+      "name": "NxSolayerError",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "InvalidTime"
+          },
+          {
+            "name": "WithdrawalRequestLimit"
+          },
+          {
+            "name": "StakeAccountMismatch"
+          },
+          {
+            "name": "InvalidWithdrawalIndex"
+          },
+          {
+            "name": "InvalidWithdrawalAmount"
+          },
+          {
+            "name": "InvalidOperation"
+          },
+          {
+            "name": "NoLstFound"
+          },
+          {
+            "name": "InvalidPosition"
+          }
+        ]
+      }
+    },
+    {
+      "name": "collateralPool",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "nx_market",
+            "docs": [
+              "Market's pubkey"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "market_authority",
+            "docs": [
+              "The pool authority to act"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "token_mint",
+            "docs": [
+              "The token the pool allows lending and borrowing on"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "deposit_tokens",
+            "docs": [
+              "The total amount of tokens available in the pool's vault"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "deposit_notes",
+            "docs": [
+              "The total amount of notes issued to depositors of tokens."
+            ],
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "fragmetricPool",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "nx_market",
+            "docs": [
+              "Market's pubkey"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "receipt_token",
+            "docs": [
+              "Mint address of wfragSOL"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "docs": [
+              "Amount of wfragSOL currently held by NX"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "total_nx_fragmetric_points",
+            "docs": [
+              "Total NX fragmetric points 'created'"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "last_update_time",
+            "docs": [
+              "Last timestamp points is updated"
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "padding",
+            "type": {
+              "array": [
+                "u64",
+                10
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "fragmetricPosition",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "nx_market",
+            "docs": [
+              "Market's pubkey"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "owner",
+            "docs": [
+              "Data owner"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "positions",
+            "docs": [
+              "Record the user's position information list"
+            ],
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "PositionDetail"
+                }
+              }
+            }
+          },
+          {
+            "name": "swap_temp",
+            "type": {
+              "defined": {
+                "name": "SwapTemp"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "fragmetricUser",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "nx_market",
+            "docs": [
+              "Market's pubkey"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "receipt_token",
+            "docs": [
+              "Mint address of wfragSOL"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "docs": [
+              "Amount of wfragSOL user has/contributed, can be sum of multiple positions"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "nx_fragmetric_points",
+            "docs": [
+              "Amount of NX Solayer points owned"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "last_update_time",
+            "docs": [
+              "Last timestamp points is updated"
+            ],
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "lendingAccount",
+      "docs": [
+        "User margin state, with collateral & loan details"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "nx_market",
+            "docs": [
+              "Market's pubkey"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "owner",
+            "docs": [
+              "Owner authority which can borrow liquidity"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "deposit_notes",
+            "type": "u64"
+          },
+          {
+            "name": "deposit_tokens",
+            "type": "u64"
+          },
+          {
+            "name": "last_note_rate",
+            "type": "u64"
+          },
+          {
+            "name": "total_reward",
+            "docs": [
+              "The total amount of notes issued to depositors of tokens."
+            ],
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "lendingPool",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "nx_market",
+            "docs": [
+              "Market's pubkey"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "token_mint",
+            "docs": [
+              "The pool authority to act",
+              "The token the pool allows lending and borrowing on"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "borrow_tokens",
+            "docs": [
+              "The total amount of tokens borrowed, that need to be repaid to",
+              "the pool."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "borrow_notes",
+            "docs": [
+              "The total amount of notes issued to borrowers of tokens"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "deposit_tokens",
+            "docs": [
+              "The total amount of tokens available in the pool's vault"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "deposit_notes",
+            "docs": [
+              "The total amount of notes issued to depositors of tokens."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "deposit_interest",
+            "type": "u64"
+          },
+          {
+            "name": "borrow_interest",
+            "docs": [
+              "Amount of unrepaid interest by borrowers, for loan note exchange rate calculation"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "protocol_fee",
+            "docs": [
+              "10% of interest goes to the protocol,"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "accrued_until",
+            "docs": [
+              "The time the interest was last accrued up to"
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "utilization_flag",
+            "docs": [
+              "If the utilization rate is flagged as full"
+            ],
+            "type": "u16"
+          },
+          {
+            "name": "interest_rate_configs",
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "InterestRateData"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "leveragePool",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "nx_market",
+            "docs": [
+              "Market's pubkey"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "market_authority",
+            "docs": [
+              "The pool authority to act"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "token_mint",
+            "docs": [
+              "The token the pool allows lending and borrowing on"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "deposit_tokens",
+            "docs": [
+              "The total amount of tokens available in the pool's vault"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "deposit_notes",
+            "docs": [
+              "The total amount of notes issued to depositors of tokens."
+            ],
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "nxMarket",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "admin",
+            "docs": [
+              "Account that has admin authority over the nxLend"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "fee_to",
+            "docs": [
+              "Developer fee receiving address"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "paused",
+            "docs": [
+              "Disable all protocol operations"
+            ],
+            "type": "bool"
+          },
+          {
+            "name": "bump_seed",
+            "type": "u8"
+          },
+          {
+            "name": "withdraw_fee_rate",
+            "docs": [
+              "jlp withdraw fee rate for taking profit。 The denominator is a constant: DENOMINATOR"
+            ],
+            "type": "u16"
+          },
+          {
+            "name": "protocol_fee_rate",
+            "docs": [
+              "interest fee rate。 The denominator is a constant: DENOMINATOR"
+            ],
+            "type": "u16"
+          },
+          {
+            "name": "swap_slippage_rate",
+            "docs": [
+              "Maximum slippage supported for all swap transactions。 The denominator is a constant: DENOMINATOR"
+            ],
+            "type": "u16"
+          },
+          {
+            "name": "liquidation_reward_rate",
+            "type": "u16"
+          },
+          {
+            "name": "penalty_interest_rate",
+            "docs": [
+              "Penalty interest point。 The denominator is a constant: DENOMINATOR"
+            ],
+            "type": "u16"
+          },
+          {
+            "name": "vsol_point_fee_rate",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "position",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "nx_market",
+            "docs": [
+              "Market's pubkey"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "owner",
+            "docs": [
+              "Data owner"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "positions",
+            "docs": [
+              "Record the user's position information list"
+            ],
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "PositionDetail"
+                }
+              }
+            }
+          },
+          {
+            "name": "swap_temp",
+            "type": {
+              "defined": {
+                "name": "SwapTemp"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "solayerPool",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "nx_market",
+            "docs": [
+              "Market's pubkey"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "lrt_mint",
+            "docs": [
+              "Mint address of LRT"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "docs": [
+              "Amount of LRT currently held by NX"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "total_nx_solayer_points",
+            "docs": [
+              "Total NX Solayer points 'created'"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "last_update_time",
+            "docs": [
+              "Last timestamp points is updated"
+            ],
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "solayerUser",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "nx_market",
+            "docs": [
+              "Market's pubkey"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "lrt_mint",
+            "docs": [
+              "Mint address of LRT"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "docs": [
+              "Amount of LRT user has/contributed, can be sum of multiple positions"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "nx_solayer_points",
+            "docs": [
+              "Amount of NX Solayer points owned"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "last_update_time",
+            "docs": [
+              "Last timestamp points is updated"
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "withdrawals",
+            "type": {
+              "vec": {
+                "vec": {
+                  "defined": {
+                    "name": "StakePoolWithdrawal"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "vSolPool",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "nx_market",
+            "docs": [
+              "Market's pubkey"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "vsol_leverage_tokens",
+            "docs": [
+              "The number of VSOls pledged by leverage"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "vsol_leverage_notes",
+            "type": "u64"
+          },
+          {
+            "name": "vsol_points",
+            "docs": [
+              "Every time the pool collects points, it will be added to this value"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "last_vsol_point_per_leverage_note",
+            "docs": [
+              "rate = (vsol_points_new - vsol_points_old)/vsol_leverage_notes"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "vsol_points_fee_claimable",
+            "type": "u64"
+          },
+          {
+            "name": "last_vsol_point_update_time",
+            "docs": [
+              "The time when the point was last updated"
+            ],
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "vSolPosition",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "nx_market",
+            "docs": [
+              "Market's pubkey"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "owner",
+            "docs": [
+              "Data owner"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "positions",
+            "docs": [
+              "Record the user's position information list"
+            ],
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "VSolPositionDetail"
+                }
+              }
+            }
+          },
+          {
+            "name": "swap_temp",
+            "type": {
+              "defined": {
+                "name": "SwapTemp"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,1242 @@
+{
+  "address": "FarmuwXPWXvefWUeqFAa5w6rifLkq5X6E8bimYvrhCB1",
+  "metadata": {
+    "name": "farming",
+    "version": "0.2.2",
+    "spec": "0.1.0"
+  },
+  "docs": [
+    "Dual farming program"
+  ],
+  "instructions": [
+    {
+      "name": "initialize_pool",
+      "docs": [
+        "Initializes a new pool. Able to create pool with single reward by passing the same Mint account for reward_a_mint and reward_a_mint"
+      ],
+      "discriminator": [
+        95,
+        180,
+        10,
+        172,
+        84,
+        174,
+        232,
+        40
+      ],
+      "accounts": [
+        {
+          "name": "pool",
+          "docs": [
+            "Global accounts for the staking instance."
+          ],
+          "writable": true
+        },
+        {
+          "name": "staking_mint",
+          "docs": [
+            "Staking mint"
+          ]
+        },
+        {
+          "name": "staking_vault",
+          "docs": [
+            "Staking vault PDA"
+          ],
+          "writable": true
+        },
+        {
+          "name": "reward_a_mint",
+          "docs": [
+            "Reward A mint"
+          ]
+        },
+        {
+          "name": "reward_a_vault",
+          "docs": [
+            "Reward A vault PDA"
+          ],
+          "writable": true
+        },
+        {
+          "name": "reward_b_mint",
+          "docs": [
+            "Reward B mint"
+          ]
+        },
+        {
+          "name": "reward_b_vault",
+          "docs": [
+            "Reward B vault PDA"
+          ],
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "docs": [
+            "Authority of the pool"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "base",
+          "docs": [
+            "Base"
+          ],
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "docs": [
+            "System program"
+          ]
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "SPL Token program"
+          ]
+        },
+        {
+          "name": "rent",
+          "docs": [
+            "Rent"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "reward_duration",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "create_user",
+      "docs": [
+        "Initialize a user staking account"
+      ],
+      "discriminator": [
+        108,
+        227,
+        130,
+        130,
+        252,
+        109,
+        75,
+        218
+      ],
+      "accounts": [
+        {
+          "name": "pool",
+          "docs": [
+            "Global accounts for the staking instance."
+          ],
+          "writable": true
+        },
+        {
+          "name": "user",
+          "docs": [
+            "User"
+          ],
+          "writable": true
+        },
+        {
+          "name": "owner",
+          "docs": [
+            "Authority of user account"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "docs": [
+            "Misc."
+          ]
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "pause",
+      "docs": [
+        "Pause the pool"
+      ],
+      "discriminator": [
+        211,
+        22,
+        221,
+        251,
+        74,
+        121,
+        193,
+        47
+      ],
+      "accounts": [
+        {
+          "name": "pool",
+          "docs": [
+            "Global accounts for the staking instance."
+          ],
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "docs": [
+            "Authority of the pool"
+          ],
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "unpause",
+      "docs": [
+        "Unpauses a previously paused pool. Allowing for funding."
+      ],
+      "discriminator": [
+        169,
+        144,
+        4,
+        38,
+        10,
+        141,
+        188,
+        255
+      ],
+      "accounts": [
+        {
+          "name": "pool",
+          "docs": [
+            "Global accounts for the staking instance."
+          ],
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "docs": [
+            "Authority of the pool"
+          ],
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "deposit",
+      "docs": [
+        "User deposit tokens in the pool."
+      ],
+      "discriminator": [
+        242,
+        35,
+        198,
+        137,
+        82,
+        225,
+        242,
+        182
+      ],
+      "accounts": [
+        {
+          "name": "pool",
+          "docs": [
+            "Global accounts for the deposit/withdraw instance."
+          ],
+          "writable": true
+        },
+        {
+          "name": "staking_vault",
+          "docs": [
+            "Staking vault PDA."
+          ],
+          "writable": true
+        },
+        {
+          "name": "user",
+          "docs": [
+            "User."
+          ],
+          "writable": true
+        },
+        {
+          "name": "owner",
+          "docs": [
+            "Authority of user"
+          ],
+          "signer": true
+        },
+        {
+          "name": "stake_from_account",
+          "docs": [
+            "User staking ATA"
+          ],
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "Misc."
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "withdraw",
+      "docs": [
+        "User withdraw tokens in the pool."
+      ],
+      "discriminator": [
+        183,
+        18,
+        70,
+        156,
+        148,
+        109,
+        161,
+        34
+      ],
+      "accounts": [
+        {
+          "name": "pool",
+          "docs": [
+            "Global accounts for the deposit/withdraw instance."
+          ],
+          "writable": true
+        },
+        {
+          "name": "staking_vault",
+          "docs": [
+            "Staking vault PDA."
+          ],
+          "writable": true
+        },
+        {
+          "name": "user",
+          "docs": [
+            "User."
+          ],
+          "writable": true
+        },
+        {
+          "name": "owner",
+          "docs": [
+            "Authority of user"
+          ],
+          "signer": true
+        },
+        {
+          "name": "stake_from_account",
+          "docs": [
+            "User staking ATA"
+          ],
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "Misc."
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "spt_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "authorize_funder",
+      "docs": [
+        "Authorize additional funders for the pool"
+      ],
+      "discriminator": [
+        18,
+        74,
+        66,
+        11,
+        50,
+        8,
+        89,
+        213
+      ],
+      "accounts": [
+        {
+          "name": "pool",
+          "docs": [
+            "Global accounts for the staking instance."
+          ],
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "docs": [
+            "Authority of the pool"
+          ],
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "funder_to_add",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "deauthorize_funder",
+      "docs": [
+        "Deauthorize funders for the pool"
+      ],
+      "discriminator": [
+        75,
+        130,
+        38,
+        206,
+        85,
+        75,
+        82,
+        37
+      ],
+      "accounts": [
+        {
+          "name": "pool",
+          "docs": [
+            "Global accounts for the staking instance."
+          ],
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "docs": [
+            "Authority of the pool"
+          ],
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "funder_to_remove",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "fund",
+      "docs": [
+        "Fund the pool with rewards.  This resets the clock on the end date, pushing it out to the set duration. And, linearly redistributes remaining rewards."
+      ],
+      "discriminator": [
+        218,
+        188,
+        111,
+        221,
+        152,
+        113,
+        174,
+        7
+      ],
+      "accounts": [
+        {
+          "name": "pool",
+          "docs": [
+            "Global accounts for the staking instance."
+          ],
+          "writable": true
+        },
+        {
+          "name": "staking_vault",
+          "docs": [
+            "Staking vault PDA"
+          ],
+          "writable": true
+        },
+        {
+          "name": "reward_a_vault",
+          "docs": [
+            "Reward A Vault PDA"
+          ],
+          "writable": true
+        },
+        {
+          "name": "reward_b_vault",
+          "docs": [
+            "Reward B Vault PDA"
+          ],
+          "writable": true
+        },
+        {
+          "name": "funder",
+          "docs": [
+            "Funder"
+          ],
+          "signer": true
+        },
+        {
+          "name": "from_a",
+          "docs": [
+            "Funder reward A ATA"
+          ],
+          "writable": true
+        },
+        {
+          "name": "from_b",
+          "docs": [
+            "Funder reward B ATA"
+          ],
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "Misc."
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "amount_a",
+          "type": "u64"
+        },
+        {
+          "name": "amount_b",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "claim",
+      "docs": [
+        "User claim rewards"
+      ],
+      "discriminator": [
+        62,
+        198,
+        214,
+        193,
+        213,
+        159,
+        108,
+        210
+      ],
+      "accounts": [
+        {
+          "name": "pool",
+          "docs": [
+            "Global accounts for the staking instance."
+          ],
+          "writable": true
+        },
+        {
+          "name": "staking_vault",
+          "docs": [
+            "Staking vault PDA."
+          ],
+          "writable": true
+        },
+        {
+          "name": "reward_a_vault",
+          "docs": [
+            "Reward A Vault PDA"
+          ],
+          "writable": true
+        },
+        {
+          "name": "reward_b_vault",
+          "docs": [
+            "Reward B Vault PDA"
+          ],
+          "writable": true
+        },
+        {
+          "name": "user",
+          "docs": [
+            "User."
+          ],
+          "writable": true
+        },
+        {
+          "name": "owner",
+          "docs": [
+            "Authority of user"
+          ],
+          "signer": true
+        },
+        {
+          "name": "reward_a_account",
+          "docs": [
+            "User's Reward A ATA"
+          ],
+          "writable": true
+        },
+        {
+          "name": "reward_b_account",
+          "docs": [
+            "User's Reward B ATA"
+          ],
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "withdraw_extra_token",
+      "docs": [
+        "Withdraw token that mistakenly deposited to staking_vault"
+      ],
+      "discriminator": [
+        5,
+        188,
+        29,
+        19,
+        10,
+        160,
+        82,
+        227
+      ],
+      "accounts": [
+        {
+          "name": "pool",
+          "docs": [
+            "Global accounts for the staking instance."
+          ]
+        },
+        {
+          "name": "staking_vault",
+          "docs": [
+            "Staking vault PDA"
+          ],
+          "writable": true
+        },
+        {
+          "name": "withdraw_to_account",
+          "docs": [
+            "Token account to receive mistakenly deposited token"
+          ],
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "docs": [
+            "Authority of the staking instance"
+          ],
+          "signer": true
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "Misc."
+          ]
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "close_user",
+      "docs": [
+        "Closes a users stake account. Validation is done to ensure this is only allowed when the user has nothing staked and no rewards pending."
+      ],
+      "discriminator": [
+        86,
+        219,
+        138,
+        140,
+        236,
+        24,
+        118,
+        200
+      ],
+      "accounts": [
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "user",
+          "writable": true
+        },
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "migrate_farming_rate",
+      "docs": [
+        "anyone can call this"
+      ],
+      "discriminator": [
+        90,
+        100,
+        86,
+        59,
+        115,
+        104,
+        184,
+        92
+      ],
+      "accounts": [
+        {
+          "name": "pool",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "close_pool",
+      "docs": [
+        "Closes a pool account. Only able to be done when there are no users staked."
+      ],
+      "discriminator": [
+        140,
+        189,
+        209,
+        23,
+        239,
+        62,
+        239,
+        11
+      ],
+      "accounts": [
+        {
+          "name": "refundee",
+          "writable": true
+        },
+        {
+          "name": "staking_refundee",
+          "writable": true
+        },
+        {
+          "name": "reward_a_refundee",
+          "writable": true
+        },
+        {
+          "name": "reward_b_refundee",
+          "writable": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "signer": true
+        },
+        {
+          "name": "staking_vault",
+          "writable": true
+        },
+        {
+          "name": "reward_a_vault",
+          "writable": true
+        },
+        {
+          "name": "reward_b_vault",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "pool",
+      "discriminator": [
+        209,
+        88,
+        127,
+        156,
+        213,
+        147,
+        70,
+        23
+      ]
+    },
+    {
+      "name": "user",
+      "discriminator": [
+        240,
+        109,
+        142,
+        169,
+        107,
+        188,
+        71,
+        38
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "EventDeposit",
+      "discriminator": [
+        36,
+        210,
+        117,
+        168,
+        181,
+        241,
+        236,
+        248
+      ]
+    },
+    {
+      "name": "EventWithdraw",
+      "discriminator": [
+        216,
+        247,
+        255,
+        93,
+        80,
+        238,
+        33,
+        136
+      ]
+    },
+    {
+      "name": "EventFund",
+      "discriminator": [
+        3,
+        82,
+        235,
+        70,
+        19,
+        132,
+        74,
+        149
+      ]
+    },
+    {
+      "name": "EventClaim",
+      "discriminator": [
+        171,
+        144,
+        1,
+        189,
+        120,
+        200,
+        38,
+        11
+      ]
+    },
+    {
+      "name": "EventAuthorizeFunder",
+      "discriminator": [
+        110,
+        19,
+        172,
+        165,
+        222,
+        214,
+        0,
+        171
+      ]
+    },
+    {
+      "name": "EventUnauthorizeFunder",
+      "discriminator": [
+        50,
+        63,
+        139,
+        226,
+        196,
+        102,
+        109,
+        229
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InsufficientFundWithdraw",
+      "msg": "Insufficient funds to withdraw."
+    },
+    {
+      "code": 6001,
+      "name": "AmountMustBeGreaterThanZero",
+      "msg": "Amount must be greater than zero."
+    },
+    {
+      "code": 6002,
+      "name": "SingleDepositTokenBCannotBeFunded",
+      "msg": "Reward B cannot be funded - pool is single deposit."
+    },
+    {
+      "code": 6003,
+      "name": "PoolPaused",
+      "msg": "Pool is paused."
+    },
+    {
+      "code": 6004,
+      "name": "DurationTooShort",
+      "msg": "Duration cannot be shorter than one day."
+    },
+    {
+      "code": 6005,
+      "name": "FunderAlreadyAuthorized",
+      "msg": "Provided funder is already authorized to fund."
+    },
+    {
+      "code": 6006,
+      "name": "MaxFunders",
+      "msg": "Maximum funders already authorized."
+    },
+    {
+      "code": 6007,
+      "name": "CannotDeauthorizePoolAuthority",
+      "msg": "Cannot deauthorize the primary pool authority."
+    },
+    {
+      "code": 6008,
+      "name": "CannotDeauthorizeMissingAuthority",
+      "msg": "Authority not found for deauthorization."
+    },
+    {
+      "code": 6009,
+      "name": "MathOverflow",
+      "msg": "Math operation overflow"
+    }
+  ],
+  "types": [
+    {
+      "name": "pool",
+      "docs": [
+        "Pool account wrapper"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "docs": [
+              "Privileged account."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "paused",
+            "docs": [
+              "Paused state of the program"
+            ],
+            "type": "bool"
+          },
+          {
+            "name": "staking_mint",
+            "docs": [
+              "Mint of the token that can be staked."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "staking_vault",
+            "docs": [
+              "Vault to store staked tokens."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "reward_a_mint",
+            "docs": [
+              "Mint of the reward A token."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "reward_a_vault",
+            "docs": [
+              "Vault to store reward A tokens."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "reward_b_mint",
+            "docs": [
+              "Mint of the reward B token."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "reward_b_vault",
+            "docs": [
+              "Vault to store reward B tokens."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "base_key",
+            "docs": [
+              "Base key"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "reward_duration",
+            "docs": [
+              "The period which rewards are linearly distributed."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "reward_duration_end",
+            "docs": [
+              "The timestamp at which the current reward period ends."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "last_update_time",
+            "docs": [
+              "The last time reward states were updated."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "reward_a_rate",
+            "docs": [
+              "deprecated field"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "reward_b_rate",
+            "docs": [
+              "deprecated field"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "reward_a_per_token_stored",
+            "docs": [
+              "Last calculated reward A per pool token."
+            ],
+            "type": "u128"
+          },
+          {
+            "name": "reward_b_per_token_stored",
+            "docs": [
+              "Last calculated reward B per pool token."
+            ],
+            "type": "u128"
+          },
+          {
+            "name": "user_stake_count",
+            "docs": [
+              "Users staked"
+            ],
+            "type": "u32"
+          },
+          {
+            "name": "funders",
+            "docs": [
+              "authorized funders",
+              "[] because short size, fixed account size, and ease of use on",
+              "client due to auto generated account size property"
+            ],
+            "type": {
+              "array": [
+                "pubkey",
+                3
+              ]
+            }
+          },
+          {
+            "name": "reward_a_rate_u128",
+            "docs": [
+              "reward_a_rate in u128 form"
+            ],
+            "type": "u128"
+          },
+          {
+            "name": "reward_b_rate_u128",
+            "docs": [
+              "reward_b_rate in u128 form"
+            ],
+            "type": "u128"
+          },
+          {
+            "name": "pool_bump",
+            "docs": [
+              "Pool bump"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "total_staked",
+            "docs": [
+              "Total staked amount"
+            ],
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "user",
+      "docs": [
+        "Farming user account"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "pool",
+            "docs": [
+              "Pool the this user belongs to."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "owner",
+            "docs": [
+              "The owner of this account."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "reward_a_per_token_complete",
+            "docs": [
+              "The amount of token A claimed."
+            ],
+            "type": "u128"
+          },
+          {
+            "name": "reward_b_per_token_complete",
+            "docs": [
+              "The amount of token B claimed."
+            ],
+            "type": "u128"
+          },
+          {
+            "name": "reward_a_per_token_pending",
+            "docs": [
+              "The amount of token A pending claim."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "reward_b_per_token_pending",
+            "docs": [
+              "The amount of token B pending claim."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "balance_staked",
+            "docs": [
+              "The amount staked."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "nonce",
+            "docs": [
+              "Signer nonce."
+            ],
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "EventDeposit",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "EventWithdraw",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "EventFund",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "amount_a",
+            "type": "u64"
+          },
+          {
+            "name": "amount_b",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "EventClaim",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "amount_a",
+            "type": "u64"
+          },
+          {
+            "name": "amount_b",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "EventAuthorizeFunder",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "new_funder",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "EventUnauthorizeFunder",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "funder",
+            "type": "pubkey"
+          }
+        ]
+      }
+    }
+  ]
+}

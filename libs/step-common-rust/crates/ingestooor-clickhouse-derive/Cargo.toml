@@ -1,0 +1,20 @@
+[package]
+name = "step-ingestooor-clickhouse-derive"
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+edition.workspace = true
+version.workspace = true
+
+[lints]
+workspace = true
+
+[lib]
+proc-macro = true
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+proc-macro2 = { workspace = true }
+quote = { workspace = true }
+syn = { workspace = true }

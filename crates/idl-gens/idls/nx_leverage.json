@@ -1,0 +1,4336 @@
+{
+  "address": "EHBN9YKtMmrZhj8JZqyBQRGqyyeHw5xUB1Q5eAHszuMt",
+  "metadata": {
+    "name": "leverage_finance",
+    "version": "0.1.0",
+    "spec": "0.1.0"
+  },
+  "instructions": [
+    {
+      "name": "create_leveragefi",
+      "discriminator": [
+        126,
+        130,
+        148,
+        59,
+        235,
+        180,
+        73,
+        10
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi",
+          "writable": true
+        },
+        {
+          "name": "admin",
+          "docs": [
+            "The admin of the LeverageFi"
+          ]
+        },
+        {
+          "name": "payer",
+          "docs": [
+            "The account paying for all rents"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "id",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "create_pool",
+      "discriminator": [
+        233,
+        146,
+        209,
+        142,
+        207,
+        104,
+        64,
+        188
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi",
+          "docs": [
+            "The LeverageFi platform"
+          ]
+        },
+        {
+          "name": "margin_pool",
+          "docs": [
+            "The pool to be created"
+          ],
+          "writable": true
+        },
+        {
+          "name": "token_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "pool_authority"
+        },
+        {
+          "name": "vault",
+          "docs": [
+            "The token account holding the pool's deposited funds"
+          ],
+          "writable": true
+        },
+        {
+          "name": "token_mint",
+          "docs": [
+            "The mint for the token being custodied by the pool"
+          ]
+        },
+        {
+          "name": "payer",
+          "docs": [
+            "The payer of rent for new accounts"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "fee_destination",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "register_jupiter",
+      "discriminator": [
+        96,
+        82,
+        155,
+        7,
+        150,
+        53,
+        31,
+        154
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi",
+          "docs": [
+            "The LeverageFi platform"
+          ]
+        },
+        {
+          "name": "jupiter_account",
+          "docs": [
+            "The jupiter account to be created"
+          ],
+          "writable": true
+        },
+        {
+          "name": "jupiter_authority"
+        },
+        {
+          "name": "jlp_mint",
+          "docs": [
+            "The mint for JLP token"
+          ]
+        },
+        {
+          "name": "jlp_account",
+          "docs": [
+            "The token account holding JLP"
+          ],
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "docs": [
+            "The payer of rent for new accounts"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "lending_borrow",
+      "discriminator": [
+        233,
+        23,
+        102,
+        134,
+        79,
+        90,
+        193,
+        120
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi",
+          "docs": [
+            "The LeverageFi platform"
+          ]
+        },
+        {
+          "name": "pool_authority"
+        },
+        {
+          "name": "margin_pool",
+          "docs": [
+            "The pool to borrow from"
+          ],
+          "writable": true
+        },
+        {
+          "name": "vault",
+          "docs": [
+            "The token account holding the pool's deposited funds"
+          ],
+          "writable": true
+        },
+        {
+          "name": "receiver_token_account",
+          "docs": [
+            "The source of the tokens to be deposited"
+          ],
+          "writable": true
+        },
+        {
+          "name": "fee_receiver_token_account",
+          "docs": [
+            "The source of the tokens to be deposited"
+          ],
+          "writable": true
+        },
+        {
+          "name": "strategy_authority",
+          "signer": true
+        },
+        {
+          "name": "market_config"
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "token_mint",
+          "type": "pubkey"
+        },
+        {
+          "name": "receiver",
+          "type": "pubkey"
+        },
+        {
+          "name": "full_amount",
+          "type": {
+            "defined": {
+              "name": "FullAmount"
+            }
+          }
+        },
+        {
+          "name": "fee_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "lending_repay",
+      "discriminator": [
+        90,
+        219,
+        233,
+        192,
+        204,
+        71,
+        98,
+        50
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi",
+          "docs": [
+            "The LeverageFi platform"
+          ]
+        },
+        {
+          "name": "margin_pool",
+          "docs": [
+            "The pool to borrow from"
+          ],
+          "writable": true
+        },
+        {
+          "name": "strategy_authority",
+          "signer": true
+        },
+        {
+          "name": "market_config"
+        },
+        {
+          "name": "pool_vault",
+          "writable": true
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "token_mint",
+          "type": "pubkey"
+        },
+        {
+          "name": "full_amount",
+          "type": {
+            "defined": {
+              "name": "FullAmount"
+            }
+          }
+        },
+        {
+          "name": "deduction_amount",
+          "type": {
+            "defined": {
+              "name": "FullAmount"
+            }
+          }
+        },
+        {
+          "name": "transfer_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "deposit",
+      "docs": [
+        "* amount: token amount"
+      ],
+      "discriminator": [
+        242,
+        35,
+        198,
+        137,
+        82,
+        225,
+        242,
+        182
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi",
+          "docs": [
+            "The LeverageFi platform"
+          ]
+        },
+        {
+          "name": "margin_pool",
+          "docs": [
+            "The pool to deposit into"
+          ],
+          "writable": true
+        },
+        {
+          "name": "token_price_oracle",
+          "docs": [
+            "Oracle of token to deposit"
+          ]
+        },
+        {
+          "name": "loan_price_oracle",
+          "docs": [
+            "Oracle of loan token (if in debt and token to deposit is collateral),",
+            "pass pyth usdc oracle if not used"
+          ]
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "pool_authority"
+        },
+        {
+          "name": "vault",
+          "docs": [
+            "Read-only, the token account holding the pool's deposited funds"
+          ],
+          "writable": true
+        },
+        {
+          "name": "token_mint"
+        },
+        {
+          "name": "depositor",
+          "docs": [
+            "The address with authority to deposit the tokens"
+          ],
+          "signer": true
+        },
+        {
+          "name": "depositor_token_mint_account",
+          "docs": [
+            "The source of the tokens to be deposited"
+          ],
+          "writable": true
+        },
+        {
+          "name": "margin_account",
+          "docs": [
+            "The margin account for depositor"
+          ],
+          "writable": true
+        },
+        {
+          "name": "lp_mint"
+        },
+        {
+          "name": "payer",
+          "docs": [
+            "The account paying for all rents"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "flp",
+          "type": "bool"
+        },
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "borrow",
+      "docs": [
+        "* amount: token amount"
+      ],
+      "discriminator": [
+        228,
+        253,
+        131,
+        202,
+        207,
+        116,
+        89,
+        18
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi",
+          "docs": [
+            "The LeverageFi platform"
+          ]
+        },
+        {
+          "name": "margin_pool",
+          "docs": [
+            "The pool to borrow from"
+          ],
+          "writable": true
+        },
+        {
+          "name": "token_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "collateral_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "lp_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "pool_authority"
+        },
+        {
+          "name": "vault",
+          "docs": [
+            "Read-only, the token account holding the pool's deposited funds"
+          ],
+          "writable": true
+        },
+        {
+          "name": "token_mint"
+        },
+        {
+          "name": "lp_mint",
+          "docs": [
+            "The mint for JLP token"
+          ]
+        },
+        {
+          "name": "borrower",
+          "docs": [
+            "The address with authority to deposit the tokens"
+          ],
+          "signer": true
+        },
+        {
+          "name": "borrower_token_mint_account",
+          "writable": true
+        },
+        {
+          "name": "borrower_lp_mint_account"
+        },
+        {
+          "name": "margin_account",
+          "docs": [
+            "The margin account for borrower, which was initialized at the first deposit"
+          ],
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "docs": [
+            "The account paying for all rents"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "flp",
+          "type": "bool"
+        },
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "collateral",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "after_borrow",
+      "docs": [
+        "* jlp_amount: jlp amount"
+      ],
+      "discriminator": [
+        153,
+        118,
+        135,
+        205,
+        184,
+        73,
+        245,
+        90
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi",
+          "docs": [
+            "The LeverageFi platform"
+          ]
+        },
+        {
+          "name": "margin_pool",
+          "docs": [
+            "The pool to borrow from"
+          ],
+          "writable": true
+        },
+        {
+          "name": "margin_account",
+          "docs": [
+            "The margin account for borrower, which was initialized at the first deposit"
+          ],
+          "writable": true
+        },
+        {
+          "name": "jupiter_account",
+          "docs": [
+            "The jupiter account to receive the leveraged loan tokens"
+          ],
+          "writable": true
+        },
+        {
+          "name": "token_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "collateral_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "lp_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "lp_mint",
+          "docs": [
+            "The mint for JLP token"
+          ]
+        },
+        {
+          "name": "borrower_lp_mint_account",
+          "docs": [
+            "The jlp_mint account for borrower"
+          ],
+          "writable": true
+        },
+        {
+          "name": "jupiter_lp_mint_account",
+          "docs": [
+            "The jlp_mint account for jupiter account"
+          ],
+          "writable": true
+        },
+        {
+          "name": "jupiter_authority"
+        },
+        {
+          "name": "borrower",
+          "docs": [
+            "The address with authority to deposit the tokens"
+          ],
+          "signer": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "flp",
+          "type": "bool"
+        },
+        {
+          "name": "address",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "repay",
+      "docs": [
+        "* amount: jlp amount"
+      ],
+      "discriminator": [
+        234,
+        103,
+        67,
+        82,
+        208,
+        234,
+        219,
+        166
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi",
+          "docs": [
+            "The LeverageFi platform"
+          ]
+        },
+        {
+          "name": "margin_pool",
+          "docs": [
+            "The pool borrowed from"
+          ],
+          "writable": true
+        },
+        {
+          "name": "margin_account",
+          "docs": [
+            "The margin account for borrower, which was initialized at the first deposit"
+          ],
+          "writable": true
+        },
+        {
+          "name": "jupiter_account",
+          "docs": [
+            "The jupiter account to send the leveraged loan tokens"
+          ],
+          "writable": true
+        },
+        {
+          "name": "token_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "collateral_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "lp_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "lp_mint",
+          "docs": [
+            "The mint for JLP token"
+          ]
+        },
+        {
+          "name": "repayer_lp_mint_account",
+          "docs": [
+            "The jlp_mint account for repayer"
+          ],
+          "writable": true
+        },
+        {
+          "name": "repayer_loan_mint_account"
+        },
+        {
+          "name": "jupiter_lp_mint_account",
+          "docs": [
+            "The jlp_mint account for jupiter account"
+          ],
+          "writable": true
+        },
+        {
+          "name": "jupiter_authority"
+        },
+        {
+          "name": "repayer",
+          "docs": [
+            "The address with authority to deposit the tokens"
+          ],
+          "signer": true
+        },
+        {
+          "name": "payer",
+          "docs": [
+            "The account paying for all rents"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "flp",
+          "type": "bool"
+        },
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "withdraw_repay",
+      "docs": [
+        "* amount: collateral amount"
+      ],
+      "discriminator": [
+        158,
+        15,
+        147,
+        21,
+        139,
+        184,
+        78,
+        17
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi",
+          "docs": [
+            "The LeverageFi platform"
+          ]
+        },
+        {
+          "name": "collateral_margin_pool",
+          "writable": true
+        },
+        {
+          "name": "margin_account",
+          "docs": [
+            "The margin account for borrower, which was initialized at the first deposit"
+          ],
+          "writable": true
+        },
+        {
+          "name": "token_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "collateral_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "lp_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "collateral_mint"
+        },
+        {
+          "name": "lp_mint",
+          "docs": [
+            "The mint for JLP token"
+          ]
+        },
+        {
+          "name": "collateral_pool_authority"
+        },
+        {
+          "name": "collateral_vault",
+          "docs": [
+            "Token account holding JLP margin pool deposits"
+          ],
+          "writable": true
+        },
+        {
+          "name": "repayer_collateral_mint_account",
+          "writable": true
+        },
+        {
+          "name": "repayer_loan_mint_account"
+        },
+        {
+          "name": "repayer",
+          "docs": [
+            "The address with authority to deposit the tokens"
+          ],
+          "signer": true
+        },
+        {
+          "name": "payer",
+          "docs": [
+            "The account paying for all rents"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "flp",
+          "type": "bool"
+        },
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "after_repay",
+      "docs": [
+        "* amount: token amount"
+      ],
+      "discriminator": [
+        106,
+        72,
+        49,
+        143,
+        216,
+        189,
+        207,
+        178
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi",
+          "docs": [
+            "The LeverageFi platform"
+          ]
+        },
+        {
+          "name": "margin_pool",
+          "docs": [
+            "The pool to borrow from"
+          ],
+          "writable": true
+        },
+        {
+          "name": "margin_account",
+          "docs": [
+            "The margin account for borrower, which was initialized at the first deposit"
+          ],
+          "writable": true
+        },
+        {
+          "name": "token_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "collateral_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "lp_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "repayer_token_mint_account",
+          "docs": [
+            "Repayer loan token ATA"
+          ],
+          "writable": true
+        },
+        {
+          "name": "vault",
+          "docs": [
+            "Read-only, the token account holding the pool's deposited funds"
+          ],
+          "writable": true
+        },
+        {
+          "name": "repayer",
+          "docs": [
+            "The address with authority to deposit the tokens"
+          ],
+          "signer": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "lp_mint",
+          "docs": [
+            "The mint for JLP token"
+          ]
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "flp",
+          "type": "bool"
+        },
+        {
+          "name": "loan_owner",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "withdraw",
+      "docs": [
+        "* amount: token amount"
+      ],
+      "discriminator": [
+        183,
+        18,
+        70,
+        156,
+        148,
+        109,
+        161,
+        34
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi",
+          "docs": [
+            "The LeverageFi platform"
+          ]
+        },
+        {
+          "name": "token_margin_pool",
+          "docs": [
+            "The pool to withdraw from"
+          ],
+          "writable": true
+        },
+        {
+          "name": "loan_margin_pool",
+          "writable": true
+        },
+        {
+          "name": "token_price_oracle",
+          "docs": [
+            "Oracle of token to withdraw"
+          ]
+        },
+        {
+          "name": "loan_price_oracle",
+          "docs": [
+            "Oracle of loan token (if in debt, or token to withdraw is collateral),",
+            "pass pyth usdc oracle if not used"
+          ]
+        },
+        {
+          "name": "lp_price_oracle"
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "pool_authority"
+        },
+        {
+          "name": "vault",
+          "docs": [
+            "Read-only, the token account holding the pool's deposited funds"
+          ],
+          "writable": true
+        },
+        {
+          "name": "token_mint"
+        },
+        {
+          "name": "withdrawer",
+          "docs": [
+            "The address with authority to deposit the tokens"
+          ],
+          "signer": true
+        },
+        {
+          "name": "depositor_token_mint_account",
+          "docs": [
+            "The destination of the tokens to be withdrawn"
+          ],
+          "writable": true
+        },
+        {
+          "name": "margin_account",
+          "docs": [
+            "The margin account for borrower, which was initialized at the first deposit"
+          ],
+          "writable": true
+        },
+        {
+          "name": "fee_destination",
+          "docs": [
+            "Fee receiver"
+          ],
+          "writable": true
+        },
+        {
+          "name": "lp_mint",
+          "docs": [
+            "The mint for JLP token"
+          ]
+        },
+        {
+          "name": "payer",
+          "docs": [
+            "The account paying for all rents"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "flp",
+          "type": "bool"
+        },
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "withdraw_all",
+      "discriminator": [
+        96,
+        246,
+        166,
+        130,
+        229,
+        50,
+        43,
+        70
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi",
+          "docs": [
+            "The LeverageFi platform"
+          ]
+        },
+        {
+          "name": "token_margin_pool",
+          "docs": [
+            "The pool to withdraw from"
+          ],
+          "writable": true
+        },
+        {
+          "name": "loan_margin_pool",
+          "writable": true
+        },
+        {
+          "name": "token_price_oracle",
+          "docs": [
+            "Oracle of token to withdraw"
+          ]
+        },
+        {
+          "name": "loan_price_oracle",
+          "docs": [
+            "Oracle of loan token (if in debt, or token to withdraw is collateral),",
+            "pass pyth usdc oracle if not used"
+          ]
+        },
+        {
+          "name": "lp_price_oracle"
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "pool_authority"
+        },
+        {
+          "name": "vault",
+          "docs": [
+            "Read-only, the token account holding the pool's deposited funds"
+          ],
+          "writable": true
+        },
+        {
+          "name": "token_mint"
+        },
+        {
+          "name": "withdrawer",
+          "docs": [
+            "The address with authority to deposit the tokens"
+          ],
+          "signer": true
+        },
+        {
+          "name": "depositor_token_mint_account",
+          "docs": [
+            "The destination of the tokens to be withdrawn"
+          ],
+          "writable": true
+        },
+        {
+          "name": "margin_account",
+          "docs": [
+            "The margin account for borrower, which was initialized at the first deposit"
+          ],
+          "writable": true
+        },
+        {
+          "name": "fee_destination",
+          "docs": [
+            "Fee receiver"
+          ],
+          "writable": true
+        },
+        {
+          "name": "lp_mint",
+          "docs": [
+            "The mint for JLP token"
+          ]
+        },
+        {
+          "name": "payer",
+          "docs": [
+            "The account paying for all rents"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "flp",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "liquidate",
+      "discriminator": [
+        223,
+        179,
+        226,
+        125,
+        48,
+        46,
+        39,
+        74
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi",
+          "docs": [
+            "The LeverageFi platform"
+          ]
+        },
+        {
+          "name": "margin_account",
+          "docs": [
+            "The margin account for borrower, which was initialized at the first deposit"
+          ],
+          "writable": true
+        },
+        {
+          "name": "jupiter_account",
+          "docs": [
+            "The jupiter account to send the leveraged loan tokens"
+          ],
+          "writable": true
+        },
+        {
+          "name": "loan_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "collateral_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "lp_price_oracle"
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "liquidator_lp_mint_account",
+          "docs": [
+            "The JLP mint account for liquidator"
+          ],
+          "writable": true
+        },
+        {
+          "name": "liquidator_loan_mint_account",
+          "docs": [
+            "The loan mint account for liquidator"
+          ]
+        },
+        {
+          "name": "jupiter_authority"
+        },
+        {
+          "name": "jupiter_lp_mint_account",
+          "docs": [
+            "The jlp_mint account for jupiter account"
+          ],
+          "writable": true
+        },
+        {
+          "name": "liquidator",
+          "docs": [
+            "The address with authority to the liquidator rewards"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "flp",
+          "type": "bool"
+        },
+        {
+          "name": "liquidatee",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "withdraw_liquidate",
+      "discriminator": [
+        120,
+        230,
+        251,
+        12,
+        151,
+        124,
+        51,
+        80
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi",
+          "docs": [
+            "The LeverageFi platform"
+          ]
+        },
+        {
+          "name": "loan_margin_pool",
+          "docs": [
+            "Pool where loan is borrowed from"
+          ],
+          "writable": true
+        },
+        {
+          "name": "collateral_margin_pool",
+          "docs": [
+            "Pool where collateral is deposited"
+          ],
+          "writable": true
+        },
+        {
+          "name": "margin_account",
+          "docs": [
+            "The margin account for borrower, which was initialized at the first deposit"
+          ],
+          "writable": true
+        },
+        {
+          "name": "loan_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "collateral_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "lp_price_oracle"
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "collateral_pool_authority"
+        },
+        {
+          "name": "collateral_vault",
+          "docs": [
+            "Token account holding collateral margin pool deposits"
+          ],
+          "writable": true
+        },
+        {
+          "name": "liquidator_collateral_mint_account",
+          "docs": [
+            "The collateral mint account for liquidator"
+          ],
+          "writable": true
+        },
+        {
+          "name": "liquidator_loan_mint_account",
+          "docs": [
+            "The loan mint account for liquidator"
+          ]
+        },
+        {
+          "name": "liquidator",
+          "docs": [
+            "The address with authority to the liquidator rewards"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "flp",
+          "type": "bool"
+        },
+        {
+          "name": "liquidatee",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "after_withdraw_liquidate",
+      "discriminator": [
+        93,
+        111,
+        137,
+        3,
+        81,
+        44,
+        224,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi",
+          "docs": [
+            "The LeverageFi platform"
+          ]
+        },
+        {
+          "name": "margin_pool",
+          "docs": [
+            "The pool to borrow from"
+          ],
+          "writable": true
+        },
+        {
+          "name": "margin_account",
+          "docs": [
+            "The margin account for borrower, which was initialized at the first deposit"
+          ],
+          "writable": true
+        },
+        {
+          "name": "token_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "collateral_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "lp_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "sol_price_oracle"
+        },
+        {
+          "name": "liquidator_loan_mint_account",
+          "docs": [
+            "Repayer loan token ATA"
+          ],
+          "writable": true
+        },
+        {
+          "name": "liquidatee_loan_mint_account",
+          "docs": [
+            "Liquidatee loan token ATA"
+          ],
+          "writable": true
+        },
+        {
+          "name": "vault",
+          "docs": [
+            "Read-only, the token account holding the pool's deposited funds"
+          ],
+          "writable": true
+        },
+        {
+          "name": "liquidator",
+          "docs": [
+            "The address with authority to deposit the tokens"
+          ],
+          "signer": true
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "lp_mint",
+          "docs": [
+            "The mint for JLP token"
+          ]
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "flp",
+          "type": "bool"
+        },
+        {
+          "name": "liquidatee",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "after_liquidate",
+      "docs": [
+        "* amount: token amount"
+      ],
+      "discriminator": [
+        167,
+        117,
+        90,
+        129,
+        140,
+        179,
+        233,
+        141
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi",
+          "docs": [
+            "The LeverageFi platform"
+          ]
+        },
+        {
+          "name": "loan_margin_pool",
+          "docs": [
+            "Pool where loan is borrowed from"
+          ],
+          "writable": true
+        },
+        {
+          "name": "margin_account",
+          "docs": [
+            "The margin account for borrower, which was initialized at the first deposit"
+          ],
+          "writable": true
+        },
+        {
+          "name": "loan_mint"
+        },
+        {
+          "name": "liquidator_loan_mint_account",
+          "docs": [
+            "The usdc_mint account for liquidator"
+          ],
+          "writable": true
+        },
+        {
+          "name": "liquidatee_loan_mint_account",
+          "writable": true
+        },
+        {
+          "name": "loan_vault",
+          "docs": [
+            "Token account holding the loan margin pool deposits"
+          ],
+          "writable": true
+        },
+        {
+          "name": "liquidator",
+          "docs": [
+            "The address with authority to the liquidator rewards"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "liquidatee_account"
+        },
+        {
+          "name": "instructions"
+        },
+        {
+          "name": "record",
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "flp",
+          "type": "bool"
+        },
+        {
+          "name": "liquidatee",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "lp_withdraw",
+      "discriminator": [
+        205,
+        206,
+        130,
+        170,
+        173,
+        51,
+        11,
+        169
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi",
+          "docs": [
+            "The LeverageFi platform"
+          ]
+        },
+        {
+          "name": "loan_margin_pool",
+          "docs": [
+            "Pool where asset is borrowed from"
+          ],
+          "writable": true
+        },
+        {
+          "name": "loan_price_oracle",
+          "writable": true
+        },
+        {
+          "name": "lp_price_oracle"
+        },
+        {
+          "name": "jupiter_account",
+          "docs": [
+            "The jupiter account recording jlp notes and jupiter info"
+          ],
+          "writable": true
+        },
+        {
+          "name": "jupiter_authority"
+        },
+        {
+          "name": "lp_mint",
+          "docs": [
+            "The mint for JLP token"
+          ]
+        },
+        {
+          "name": "jupiter_lp_mint_account",
+          "docs": [
+            "The jlp_mint account for jupiter account"
+          ],
+          "writable": true
+        },
+        {
+          "name": "withdrawer",
+          "docs": [
+            "The address with authority to deposit the tokens"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "withdrawer_lp_mint_account",
+          "docs": [
+            "The jlp_mint account for withdrawer"
+          ],
+          "writable": true
+        },
+        {
+          "name": "fee_destination",
+          "docs": [
+            "token account for fees, ATA for JLP"
+          ],
+          "writable": true
+        },
+        {
+          "name": "profit_share",
+          "writable": true
+        },
+        {
+          "name": "margin_account",
+          "docs": [
+            "The margin account for borrower, which was initialized at the first deposit"
+          ],
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "flp",
+          "type": "bool"
+        },
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "set_penalty_interest_rate",
+      "discriminator": [
+        94,
+        134,
+        129,
+        168,
+        81,
+        51,
+        82,
+        125
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi",
+          "writable": true
+        },
+        {
+          "name": "user",
+          "docs": [
+            "The address with authority"
+          ],
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "penalty_interest_rate",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "name": "set_withdraw_fee_rate",
+      "discriminator": [
+        94,
+        69,
+        65,
+        80,
+        5,
+        176,
+        213,
+        132
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi",
+          "writable": true
+        },
+        {
+          "name": "user",
+          "docs": [
+            "The address with authority"
+          ],
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "withdraw_fee_rate",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "name": "set_protocol_fee_rate",
+      "discriminator": [
+        95,
+        7,
+        4,
+        50,
+        154,
+        79,
+        156,
+        131
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi",
+          "writable": true
+        },
+        {
+          "name": "user",
+          "docs": [
+            "The address with authority"
+          ],
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "protocol_fee_rate",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "name": "set_paused",
+      "discriminator": [
+        91,
+        60,
+        125,
+        192,
+        176,
+        225,
+        166,
+        218
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi",
+          "writable": true
+        },
+        {
+          "name": "user",
+          "docs": [
+            "The address with authority"
+          ],
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "pause",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "set_swap_slippage",
+      "discriminator": [
+        201,
+        87,
+        236,
+        123,
+        206,
+        183,
+        27,
+        44
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi",
+          "writable": true
+        },
+        {
+          "name": "user",
+          "docs": [
+            "The address with authority"
+          ],
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "slippage",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "name": "set_liquidation_reward",
+      "discriminator": [
+        147,
+        57,
+        221,
+        250,
+        21,
+        183,
+        143,
+        205
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi",
+          "writable": true
+        },
+        {
+          "name": "user",
+          "docs": [
+            "The address with authority"
+          ],
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "reward_rate",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "name": "set_oracle",
+      "discriminator": [
+        186,
+        128,
+        81,
+        104,
+        74,
+        79,
+        18,
+        224
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi"
+        },
+        {
+          "name": "margin_pool",
+          "writable": true
+        },
+        {
+          "name": "user",
+          "docs": [
+            "The address with authority"
+          ],
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "oracle",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "claim_protocol_fee",
+      "discriminator": [
+        165,
+        228,
+        133,
+        48,
+        99,
+        249,
+        255,
+        33
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi",
+          "writable": true
+        },
+        {
+          "name": "margin_pool",
+          "writable": true
+        },
+        {
+          "name": "pool_authority"
+        },
+        {
+          "name": "vault",
+          "docs": [
+            "Read-only, the token account holding the pool's deposited funds"
+          ],
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "docs": [
+            "The address with authority"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "admin_token_mint_account",
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "add_strategy_whitelist",
+      "discriminator": [
+        156,
+        254,
+        220,
+        164,
+        107,
+        99,
+        203,
+        135
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi"
+        },
+        {
+          "name": "market_config",
+          "writable": true
+        },
+        {
+          "name": "user",
+          "docs": [
+            "The address with authority"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "strategy",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "remove_strategy_whitelist",
+      "discriminator": [
+        33,
+        75,
+        83,
+        194,
+        6,
+        72,
+        115,
+        6
+      ],
+      "accounts": [
+        {
+          "name": "leveragefi"
+        },
+        {
+          "name": "market_config",
+          "writable": true
+        },
+        {
+          "name": "user",
+          "docs": [
+            "The address with authority"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "docs": [
+            "Solana ecosystem accounts"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "strategy",
+          "type": "pubkey"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "perpetuals",
+      "discriminator": [
+        246,
+        82,
+        17,
+        248,
+        160,
+        7,
+        72,
+        85
+      ]
+    },
+    {
+      "name": "pool",
+      "discriminator": [
+        209,
+        88,
+        127,
+        156,
+        213,
+        147,
+        70,
+        23
+      ]
+    },
+    {
+      "name": "custody",
+      "discriminator": [
+        54,
+        180,
+        181,
+        70,
+        13,
+        31,
+        236,
+        115
+      ]
+    },
+    {
+      "name": "market",
+      "discriminator": [
+        205,
+        32,
+        141,
+        28,
+        180,
+        73,
+        192,
+        229
+      ]
+    },
+    {
+      "name": "position",
+      "discriminator": [
+        162,
+        191,
+        156,
+        34,
+        151,
+        131,
+        65,
+        140
+      ]
+    },
+    {
+      "name": "leveragefi",
+      "discriminator": [
+        208,
+        33,
+        3,
+        136,
+        231,
+        47,
+        173,
+        72
+      ]
+    },
+    {
+      "name": "jupiterAccount",
+      "discriminator": [
+        194,
+        41,
+        74,
+        255,
+        114,
+        184,
+        99,
+        99
+      ]
+    },
+    {
+      "name": "marginPool",
+      "discriminator": [
+        234,
+        94,
+        173,
+        220,
+        214,
+        249,
+        57,
+        212
+      ]
+    },
+    {
+      "name": "record",
+      "discriminator": [
+        210,
+        241,
+        92,
+        244,
+        108,
+        26,
+        32,
+        188
+      ]
+    },
+    {
+      "name": "marginAccount",
+      "discriminator": [
+        36,
+        185,
+        45,
+        208,
+        96,
+        216,
+        180,
+        132
+      ]
+    },
+    {
+      "name": "marketConfig",
+      "discriminator": [
+        121,
+        232,
+        6,
+        235,
+        171,
+        109,
+        194,
+        104
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "NotAuthorized",
+      "msg": "Not authorized user"
+    },
+    {
+      "code": 6001,
+      "name": "NotEnoughTokens",
+      "msg": "Pool is in full use"
+    },
+    {
+      "code": 6002,
+      "name": "LeverageTooHigh",
+      "msg": "Leverage too high"
+    },
+    {
+      "code": 6003,
+      "name": "InvalidFee",
+      "msg": "Invalid fee"
+    },
+    {
+      "code": 6004,
+      "name": "InvalidLiquidation",
+      "msg": "Invalid liquidation"
+    },
+    {
+      "code": 6005,
+      "name": "LiquidateTooMuch",
+      "msg": "Liquidate too much"
+    },
+    {
+      "code": 6006,
+      "name": "InvalidOperation",
+      "msg": "Operation leads to liquidation"
+    },
+    {
+      "code": 6007,
+      "name": "InvalidAmount",
+      "msg": "Invalid operation amount"
+    },
+    {
+      "code": 6008,
+      "name": "InsufficientLiquidity",
+      "msg": "Insufficient liquidity"
+    },
+    {
+      "code": 6009,
+      "name": "NoCollateral",
+      "msg": "No collateral deposited"
+    },
+    {
+      "code": 6010,
+      "name": "StrategyAlreadyExists",
+      "msg": "Strategy already exists"
+    },
+    {
+      "code": 6011,
+      "name": "TooManyStrategies",
+      "msg": "Too many strategies"
+    },
+    {
+      "code": 6012,
+      "name": "StrategyNotFound",
+      "msg": "Strategy not found"
+    },
+    {
+      "code": 6013,
+      "name": "InvalidStrategy",
+      "msg": "Invalid strategy"
+    },
+    {
+      "code": 6014,
+      "name": "MathOverflow",
+      "msg": "Math operation overflow"
+    },
+    {
+      "code": 6015,
+      "name": "TryToSerializePriceAccount",
+      "msg": "Failed to serialize price account"
+    },
+    {
+      "code": 6016,
+      "name": "NotStakePool",
+      "msg": "Failed to deserialize stake pool account"
+    },
+    {
+      "code": 6017,
+      "name": "InvalidArgument",
+      "msg": "Invalid argument provided"
+    },
+    {
+      "code": 6018,
+      "name": "InvalidLoanType",
+      "msg": "Only one type of loan asset per account"
+    },
+    {
+      "code": 6019,
+      "name": "InvalidCollateralType",
+      "msg": "Only one type of collateral asset per account"
+    },
+    {
+      "code": 6020,
+      "name": "Paused",
+      "msg": "Protocol paused"
+    },
+    {
+      "code": 6021,
+      "name": "UnableToDeserializeAccount",
+      "msg": "Unable to deserialize account"
+    },
+    {
+      "code": 6022,
+      "name": "StillHasLoans",
+      "msg": "Still has loans"
+    },
+    {
+      "code": 6023,
+      "name": "PythError",
+      "msg": "Could not load price account"
+    },
+    {
+      "code": 6024,
+      "name": "SwitchboardError",
+      "msg": "Invalid aggregator round"
+    },
+    {
+      "code": 6025,
+      "name": "InvalidOracle",
+      "msg": "Invalid pool oracle"
+    },
+    {
+      "code": 6026,
+      "name": "StalePrice",
+      "msg": "Stale price"
+    },
+    {
+      "code": 6027,
+      "name": "AddressMismatch",
+      "msg": "Address Mismatch"
+    },
+    {
+      "code": 6028,
+      "name": "ProgramMismatch",
+      "msg": "Program Mismatch"
+    },
+    {
+      "code": 6029,
+      "name": "DiscriminatorMismatch",
+      "msg": "Discriminator mismatch"
+    },
+    {
+      "code": 6030,
+      "name": "UnknownInstruction",
+      "msg": "Unknown Instruction"
+    },
+    {
+      "code": 6031,
+      "name": "MissingBeforeInstruction",
+      "msg": "Missing pre-swap ix"
+    },
+    {
+      "code": 6032,
+      "name": "MissingMiddleInstruction",
+      "msg": "Missing middle ix"
+    },
+    {
+      "code": 6033,
+      "name": "MissingAfterInstruction",
+      "msg": "Missing post-swap ix"
+    },
+    {
+      "code": 6034,
+      "name": "IncorrectAccount",
+      "msg": "Incorrect account"
+    },
+    {
+      "code": 6035,
+      "name": "InvalidAfterAmount",
+      "msg": "Invalid amount provided to post-swap ix"
+    }
+  ],
+  "types": [
+    {
+      "name": "Permissions",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "allow_swap",
+            "type": "bool"
+          },
+          {
+            "name": "allow_add_liquidity",
+            "type": "bool"
+          },
+          {
+            "name": "allow_remove_liquidity",
+            "type": "bool"
+          },
+          {
+            "name": "allow_open_position",
+            "type": "bool"
+          },
+          {
+            "name": "allow_close_position",
+            "type": "bool"
+          },
+          {
+            "name": "allow_collateral_withdrawal",
+            "type": "bool"
+          },
+          {
+            "name": "allow_size_change",
+            "type": "bool"
+          },
+          {
+            "name": "allow_liquidation",
+            "type": "bool"
+          },
+          {
+            "name": "allow_flp_staking",
+            "type": "bool"
+          },
+          {
+            "name": "allow_fee_distribution",
+            "type": "bool"
+          },
+          {
+            "name": "allow_ungated_trading",
+            "type": "bool"
+          },
+          {
+            "name": "allow_fee_discounts",
+            "type": "bool"
+          },
+          {
+            "name": "allow_referral_rebates",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "VoltageMultiplier",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "volume",
+            "type": "u64"
+          },
+          {
+            "name": "rewards",
+            "type": "u64"
+          },
+          {
+            "name": "rebates",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OraclePrice",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "price",
+            "type": "u64"
+          },
+          {
+            "name": "exponent",
+            "type": "i32"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OracleParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "int_oracle_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "ext_oracle_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "oracle_type",
+            "type": {
+              "defined": {
+                "name": "OracleType"
+              }
+            }
+          },
+          {
+            "name": "max_divergence_bps",
+            "type": "u64"
+          },
+          {
+            "name": "max_conf_bps",
+            "type": "u64"
+          },
+          {
+            "name": "max_price_age_sec",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TokenRatios",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "target",
+            "type": "u64"
+          },
+          {
+            "name": "min",
+            "type": "u64"
+          },
+          {
+            "name": "max",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "CompoundingStats",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "active_amount",
+            "type": "u64"
+          },
+          {
+            "name": "total_supply",
+            "type": "u64"
+          },
+          {
+            "name": "reward_snapshot",
+            "type": "u128"
+          },
+          {
+            "name": "fee_share_bps",
+            "type": "u64"
+          },
+          {
+            "name": "last_compound_time",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "CustodyDetails",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "trade_spread_min",
+            "type": "u64"
+          },
+          {
+            "name": "trade_spread_max",
+            "type": "u64"
+          },
+          {
+            "name": "delay_seconds",
+            "type": "i64"
+          },
+          {
+            "name": "min_price",
+            "type": {
+              "defined": {
+                "name": "OraclePrice"
+              }
+            }
+          },
+          {
+            "name": "max_price",
+            "type": {
+              "defined": {
+                "name": "OraclePrice"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Fees",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "mode",
+            "type": {
+              "defined": {
+                "name": "FeesMode"
+              }
+            }
+          },
+          {
+            "name": "swap_in",
+            "type": {
+              "defined": {
+                "name": "RatioFees"
+              }
+            }
+          },
+          {
+            "name": "swap_out",
+            "type": {
+              "defined": {
+                "name": "RatioFees"
+              }
+            }
+          },
+          {
+            "name": "stable_swap_in",
+            "type": {
+              "defined": {
+                "name": "RatioFees"
+              }
+            }
+          },
+          {
+            "name": "stable_swap_out",
+            "type": {
+              "defined": {
+                "name": "RatioFees"
+              }
+            }
+          },
+          {
+            "name": "add_liquidity",
+            "type": {
+              "defined": {
+                "name": "RatioFees"
+              }
+            }
+          },
+          {
+            "name": "remove_liquidity",
+            "type": {
+              "defined": {
+                "name": "RatioFees"
+              }
+            }
+          },
+          {
+            "name": "open_position",
+            "type": "u64"
+          },
+          {
+            "name": "close_position",
+            "type": "u64"
+          },
+          {
+            "name": "remove_collateral",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RatioFees",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "min_fee",
+            "type": "u64"
+          },
+          {
+            "name": "target_fee",
+            "type": "u64"
+          },
+          {
+            "name": "max_fee",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Assets",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "collateral",
+            "type": "u64"
+          },
+          {
+            "name": "owned",
+            "type": "u64"
+          },
+          {
+            "name": "locked",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "FeesStats",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "accrued",
+            "type": "u128"
+          },
+          {
+            "name": "distributed",
+            "type": "u128"
+          },
+          {
+            "name": "paid",
+            "type": "u128"
+          },
+          {
+            "name": "reward_per_lp_staked",
+            "type": "u64"
+          },
+          {
+            "name": "protocol_fee",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PricingParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "trade_spread_min",
+            "type": "u64"
+          },
+          {
+            "name": "trade_spread_max",
+            "type": "u64"
+          },
+          {
+            "name": "swap_spread",
+            "type": "u64"
+          },
+          {
+            "name": "min_initial_leverage",
+            "type": "u64"
+          },
+          {
+            "name": "max_initial_leverage",
+            "type": "u64"
+          },
+          {
+            "name": "max_leverage",
+            "type": "u64"
+          },
+          {
+            "name": "min_collateral_usd",
+            "type": "u64"
+          },
+          {
+            "name": "delay_seconds",
+            "type": "i64"
+          },
+          {
+            "name": "max_utilization",
+            "type": "u64"
+          },
+          {
+            "name": "max_position_locked_usd",
+            "type": "u64"
+          },
+          {
+            "name": "max_exposure_usd",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BorrowRateParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "base_rate",
+            "type": "u64"
+          },
+          {
+            "name": "slope1",
+            "type": "u64"
+          },
+          {
+            "name": "slope2",
+            "type": "u64"
+          },
+          {
+            "name": "optimal_utilization",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BorrowRateState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "current_rate",
+            "type": "u64"
+          },
+          {
+            "name": "cumulative_lock_fee",
+            "type": "u128"
+          },
+          {
+            "name": "last_update",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MarketPermissions",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "allow_open_position",
+            "type": "bool"
+          },
+          {
+            "name": "allow_close_position",
+            "type": "bool"
+          },
+          {
+            "name": "allow_collateral_withdrawal",
+            "type": "bool"
+          },
+          {
+            "name": "allow_size_change",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PositionStats",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "open_positions",
+            "type": "u64"
+          },
+          {
+            "name": "update_time",
+            "type": "i64"
+          },
+          {
+            "name": "average_entry_price",
+            "type": {
+              "defined": {
+                "name": "OraclePrice"
+              }
+            }
+          },
+          {
+            "name": "size_amount",
+            "type": "u64"
+          },
+          {
+            "name": "size_usd",
+            "type": "u64"
+          },
+          {
+            "name": "locked_amount",
+            "type": "u64"
+          },
+          {
+            "name": "locked_usd",
+            "type": "u64"
+          },
+          {
+            "name": "collateral_amount",
+            "type": "u64"
+          },
+          {
+            "name": "collateral_usd",
+            "type": "u64"
+          },
+          {
+            "name": "unsettled_fee_usd",
+            "type": "u64"
+          },
+          {
+            "name": "cumulative_lock_fee_snapshot",
+            "type": "u128"
+          },
+          {
+            "name": "size_decimals",
+            "type": "u8"
+          },
+          {
+            "name": "locked_decimals",
+            "type": "u8"
+          },
+          {
+            "name": "collateral_decimals",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "StakeStats",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "pending_activation",
+            "type": "u64"
+          },
+          {
+            "name": "active_amount",
+            "type": "u64"
+          },
+          {
+            "name": "pending_deactivation",
+            "type": "u64"
+          },
+          {
+            "name": "deactivated_amount",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "CollateralDetail",
+      "docs": [
+        "collateral detailed state"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "token_mint",
+            "docs": [
+              "The deposited token"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "deposit_note",
+            "docs": [
+              "Amount of collateral deposited, deposit note"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "deposit_token",
+            "docs": [
+              "Amount of collateral deposited, token"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "market_value",
+            "docs": [
+              "Total value of deposits, front-end use only"
+            ],
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LoanDetail",
+      "docs": [
+        "Obligation liquidity state"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "token_mint",
+            "docs": [
+              "The borrowed token"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "loan_note",
+            "docs": [
+              "Amount of asset loan, loan note"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "loan_token",
+            "docs": [
+              "Amount of asset loan, token"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "loan_value",
+            "docs": [
+              "Total value of loan, front-end use only"
+            ],
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "FullAmount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "tokens",
+            "type": "u64"
+          },
+          {
+            "name": "notes",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Amount",
+      "docs": [
+        "Represent an amount of some value (like tokens, or notes)"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "kind",
+            "type": {
+              "defined": {
+                "name": "AmountKind"
+              }
+            }
+          },
+          {
+            "name": "value",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "SwapTemp",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "before_amount",
+            "type": "u64"
+          },
+          {
+            "name": "expected",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "FlashTradeError",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "WrongMarginAccount"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ConstraintError",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "ProtocolMismatch"
+          },
+          {
+            "name": "OracleMismatch"
+          },
+          {
+            "name": "TokenMismatch"
+          },
+          {
+            "name": "ActiveTokenMismatch"
+          },
+          {
+            "name": "OwnerMismatch"
+          },
+          {
+            "name": "IdenticalPool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "CompError",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "MathOverflow"
+          },
+          {
+            "name": "ExponentMismatch"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OracleType",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "None"
+          },
+          {
+            "name": "Custom"
+          },
+          {
+            "name": "Pyth"
+          }
+        ]
+      }
+    },
+    {
+      "name": "FeesMode",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Fixed"
+          },
+          {
+            "name": "Linear"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Side",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "None"
+          },
+          {
+            "name": "Long"
+          },
+          {
+            "name": "Short"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AmountKind",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Tokens"
+          },
+          {
+            "name": "Notes"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PoolAction",
+      "docs": [
+        "Represents the primary pool actions, used in determining the",
+        "rounding direction between tokens and notes."
+      ],
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Borrow"
+          },
+          {
+            "name": "Deposit"
+          },
+          {
+            "name": "Repay"
+          },
+          {
+            "name": "Withdraw"
+          },
+          {
+            "name": "Liquidate"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RoundingDirection",
+      "docs": [
+        "Represents the direction in which we should round when converting",
+        "between tokens and notes."
+      ],
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Down"
+          },
+          {
+            "name": "Up"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TokenType",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "COLLATERAL"
+          },
+          {
+            "name": "LOAN"
+          }
+        ]
+      }
+    },
+    {
+      "name": "perpetuals",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "permissions",
+            "type": {
+              "defined": {
+                "name": "Permissions"
+              }
+            }
+          },
+          {
+            "name": "pools",
+            "type": {
+              "vec": "pubkey"
+            }
+          },
+          {
+            "name": "collections",
+            "type": {
+              "vec": "pubkey"
+            }
+          },
+          {
+            "name": "voltage_multiplier",
+            "type": {
+              "defined": {
+                "name": "VoltageMultiplier"
+              }
+            }
+          },
+          {
+            "name": "trading_discount",
+            "type": {
+              "array": [
+                "u64",
+                6
+              ]
+            }
+          },
+          {
+            "name": "referral_rebate",
+            "type": {
+              "array": [
+                "u64",
+                6
+              ]
+            }
+          },
+          {
+            "name": "referral_discount",
+            "type": "u64"
+          },
+          {
+            "name": "inception_time",
+            "type": "i64"
+          },
+          {
+            "name": "transfer_authority_bump",
+            "type": "u8"
+          },
+          {
+            "name": "perpetuals_bump",
+            "type": "u8"
+          },
+          {
+            "name": "trade_limit",
+            "type": "u16"
+          },
+          {
+            "name": "rebate_limit_usd",
+            "type": "u32"
+          }
+        ]
+      }
+    },
+    {
+      "name": "pool",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "permissions",
+            "type": {
+              "defined": {
+                "name": "Permissions"
+              }
+            }
+          },
+          {
+            "name": "inception_time",
+            "type": "i64"
+          },
+          {
+            "name": "lp_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "oracle_authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "staked_lp_vault",
+            "type": "pubkey"
+          },
+          {
+            "name": "reward_custody",
+            "type": "pubkey"
+          },
+          {
+            "name": "custodies",
+            "type": {
+              "vec": "pubkey"
+            }
+          },
+          {
+            "name": "ratios",
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "TokenRatios"
+                }
+              }
+            }
+          },
+          {
+            "name": "markets",
+            "type": {
+              "vec": "pubkey"
+            }
+          },
+          {
+            "name": "max_aum_usd",
+            "type": "u128"
+          },
+          {
+            "name": "aum_usd",
+            "type": "u128"
+          },
+          {
+            "name": "total_staked",
+            "type": {
+              "defined": {
+                "name": "StakeStats"
+              }
+            }
+          },
+          {
+            "name": "staking_fee_share_bps",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "lp_mint_bump",
+            "type": "u8"
+          },
+          {
+            "name": "staked_lp_vault_bump",
+            "type": "u8"
+          },
+          {
+            "name": "vp_volume_factor",
+            "type": "u8"
+          },
+          {
+            "name": "padding",
+            "type": {
+              "array": [
+                "u8",
+                4
+              ]
+            }
+          },
+          {
+            "name": "staking_fee_boost_bps",
+            "type": {
+              "array": [
+                "u64",
+                6
+              ]
+            }
+          },
+          {
+            "name": "compounding_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "compounding_lp_vault",
+            "type": "pubkey"
+          },
+          {
+            "name": "compounding_stats",
+            "type": {
+              "defined": {
+                "name": "CompoundingStats"
+              }
+            }
+          },
+          {
+            "name": "compounding_mint_bump",
+            "type": "u8"
+          },
+          {
+            "name": "compounding_lp_vault_bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "custody",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "pool",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "decimals",
+            "type": "u8"
+          },
+          {
+            "name": "is_stable",
+            "type": "bool"
+          },
+          {
+            "name": "depeg_adjustment",
+            "type": "bool"
+          },
+          {
+            "name": "is_virtual",
+            "type": "bool"
+          },
+          {
+            "name": "distribute_rewards",
+            "type": "bool"
+          },
+          {
+            "name": "oracle",
+            "type": {
+              "defined": {
+                "name": "OracleParams"
+              }
+            }
+          },
+          {
+            "name": "pricing",
+            "type": {
+              "defined": {
+                "name": "PricingParams"
+              }
+            }
+          },
+          {
+            "name": "permissions",
+            "type": {
+              "defined": {
+                "name": "Permissions"
+              }
+            }
+          },
+          {
+            "name": "fees",
+            "type": {
+              "defined": {
+                "name": "Fees"
+              }
+            }
+          },
+          {
+            "name": "borrow_rate",
+            "type": {
+              "defined": {
+                "name": "BorrowRateParams"
+              }
+            }
+          },
+          {
+            "name": "reward_threshold",
+            "type": "u64"
+          },
+          {
+            "name": "assets",
+            "type": {
+              "defined": {
+                "name": "Assets"
+              }
+            }
+          },
+          {
+            "name": "fees_stats",
+            "type": {
+              "defined": {
+                "name": "FeesStats"
+              }
+            }
+          },
+          {
+            "name": "borrow_rate_state",
+            "type": {
+              "defined": {
+                "name": "BorrowRateState"
+              }
+            }
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "token_account_bump",
+            "type": "u8"
+          },
+          {
+            "name": "size_factor_for_spread",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "market",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "pool",
+            "type": "pubkey"
+          },
+          {
+            "name": "target_custody",
+            "type": "pubkey"
+          },
+          {
+            "name": "collateral_custody",
+            "type": "pubkey"
+          },
+          {
+            "name": "side",
+            "type": {
+              "defined": {
+                "name": "Side"
+              }
+            }
+          },
+          {
+            "name": "correlation",
+            "type": "bool"
+          },
+          {
+            "name": "max_payoff_bps",
+            "type": "u64"
+          },
+          {
+            "name": "permissions",
+            "type": {
+              "defined": {
+                "name": "MarketPermissions"
+              }
+            }
+          },
+          {
+            "name": "open_interest",
+            "type": "u64"
+          },
+          {
+            "name": "collective_position",
+            "type": {
+              "defined": {
+                "name": "PositionStats"
+              }
+            }
+          },
+          {
+            "name": "target_custody_id",
+            "type": "u64"
+          },
+          {
+            "name": "collateral_custody_id",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "position",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "market",
+            "type": "pubkey"
+          },
+          {
+            "name": "delegate",
+            "type": "pubkey"
+          },
+          {
+            "name": "open_time",
+            "type": "i64"
+          },
+          {
+            "name": "update_time",
+            "type": "i64"
+          },
+          {
+            "name": "entry_price",
+            "type": {
+              "defined": {
+                "name": "OraclePrice"
+              }
+            }
+          },
+          {
+            "name": "size_amount",
+            "type": "u64"
+          },
+          {
+            "name": "size_usd",
+            "type": "u64"
+          },
+          {
+            "name": "locked_amount",
+            "type": "u64"
+          },
+          {
+            "name": "locked_usd",
+            "type": "u64"
+          },
+          {
+            "name": "collateral_amount",
+            "type": "u64"
+          },
+          {
+            "name": "collateral_usd",
+            "type": "u64"
+          },
+          {
+            "name": "unsettled_amount",
+            "type": "u64"
+          },
+          {
+            "name": "unsettled_fees_usd",
+            "type": "u64"
+          },
+          {
+            "name": "cumulative_lock_fee_snapshot",
+            "type": "u128"
+          },
+          {
+            "name": "take_profit_price",
+            "type": {
+              "defined": {
+                "name": "OraclePrice"
+              }
+            }
+          },
+          {
+            "name": "stop_loss_price",
+            "type": {
+              "defined": {
+                "name": "OraclePrice"
+              }
+            }
+          },
+          {
+            "name": "size_decimals",
+            "type": "u8"
+          },
+          {
+            "name": "locked_decimals",
+            "type": "u8"
+          },
+          {
+            "name": "collateral_decimals",
+            "type": "u8"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "leveragefi",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "id",
+            "docs": [
+              "The primary key of the leverage finance"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "admin",
+            "docs": [
+              "Account that has admin authority over the leveragefi"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "paused",
+            "docs": [
+              "Disable all protocol operations"
+            ],
+            "type": "bool"
+          },
+          {
+            "name": "swap_slippage",
+            "type": "u16"
+          },
+          {
+            "name": "jlp_interest_rate",
+            "docs": [
+              "The jlp interest rate, basic unit for margin interest calculation"
+            ],
+            "type": "u16"
+          },
+          {
+            "name": "penalty_interest_rate",
+            "docs": [
+              "Penalty interest point"
+            ],
+            "type": "u16"
+          },
+          {
+            "name": "liquidation_reward",
+            "type": "u16"
+          },
+          {
+            "name": "withdraw_fee_rate",
+            "docs": [
+              "jlp withdraw fee rate for taking profit, 10000 as unit"
+            ],
+            "type": "u16"
+          },
+          {
+            "name": "protocol_fee_rate",
+            "docs": [
+              "interest fee rate, 10000 as unit"
+            ],
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "jupiterAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "leveragefi",
+            "docs": [
+              "Primary key of the LeverageFi to create pool"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "admin",
+            "docs": [
+              "Account that has admin authority over the account"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "jlp_mint",
+            "docs": [
+              "The JLP token mint"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "jlp_account",
+            "docs": [
+              "The JLP token account"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "jupiter_notes",
+            "docs": [
+              "The total amount of notes issued to jupiter account users"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "jlp_position",
+            "docs": [
+              "The total amount of JLP position, currently unused, value: 0"
+            ],
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "marginPool",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "leveragefi",
+            "docs": [
+              "Primary key of the LeverageFi to create pool"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "vault",
+            "docs": [
+              "The address of the vault account, which has custody of the",
+              "pool's tokens"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "fee_destination",
+            "docs": [
+              "The address of the account to deposit collected fees, represented as",
+              "deposit notes"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "pool_authority",
+            "docs": [
+              "The pool authority to act"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "token_mint",
+            "docs": [
+              "The token the pool allows lending and borrowing on"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "token_price_oracle",
+            "docs": [
+              "The address of the pyth oracle with price information for the token"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "borrowed_tokens",
+            "docs": [
+              "The total amount of tokens borrowed, that need to be repaid to",
+              "the pool."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "deposit_tokens",
+            "docs": [
+              "The total amount of tokens available in the pool's vault"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "deposit_notes",
+            "docs": [
+              "The total amount of notes issued to depositors of tokens."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "loan_notes",
+            "docs": [
+              "The total amount of notes issued to borrowers of tokens"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "deposit_interest",
+            "docs": [
+              "Amount of unpaid interest to depositors, for deposit note exchange rate calculation"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "loan_interest",
+            "docs": [
+              "Amount of unrepaid interest by borrowers, for loan note exchange rate calculation"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "protocol_fee",
+            "docs": [
+              "10% of interest goes to the protocol,"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "accrued_until",
+            "docs": [
+              "The time the interest was last accrued up to"
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "utilization_flag",
+            "docs": [
+              "If the utilization rate is flagged as full"
+            ],
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "record",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "marginAccount",
+      "docs": [
+        "User margin state, with collateral & loan details"
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "leveragefi",
+            "docs": [
+              "Primary key of the LeverageFi to create pool"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "owner",
+            "docs": [
+              "Owner authority which can borrow liquidity"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "deposits",
+            "docs": [
+              "Deposited collateral, unique by deposit reserve address"
+            ],
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "CollateralDetail"
+                }
+              }
+            }
+          },
+          {
+            "name": "loans",
+            "docs": [
+              "Borrowed liquidity, unique by borrow reserve address"
+            ],
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "LoanDetail"
+                }
+              }
+            }
+          },
+          {
+            "name": "leverage",
+            "docs": [
+              "Leverage info"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "jlp_notes",
+            "docs": [
+              "Holding JLP quota, JLP obtained from swapping borrowed USDC"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "active_loan",
+            "docs": [
+              "Loan asset used for leverage, each account can only borrow one type of asset",
+              "Resets to PUBKEY_DEFAULT upon repaying all loan with interest"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "active_collateral",
+            "docs": [
+              "Collateral asset used for leverage, each account can only collateralize one type of asset",
+              "Resets to PUBKEY_DEFAULT upon repaying all loan with interest"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "swap_temp",
+            "type": {
+              "defined": {
+                "name": "SwapTemp"
+              }
+            }
+          },
+          {
+            "name": "account_type",
+            "type": "u8"
+          },
+          {
+            "name": "liquidation_flag",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "marketConfig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "strategies",
+            "type": {
+              "array": [
+                "pubkey",
+                10
+              ]
+            }
+          },
+          {
+            "name": "padding",
+            "type": {
+              "array": [
+                "u64",
+                15
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

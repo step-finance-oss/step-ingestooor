@@ -1,0 +1,9 @@
+pub const TOKEN_PROGRAM_ID: &str = "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA";
+pub const TOKEN_2022_PROGRAM_ID: &str = "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb";
+pub const SYSTEM_PROGRAM_ID: &str = "11111111111111111111111111111111";
+pub const STAKE_PROGRAM_ID: &str = "Stake11111111111111111111111111111111111111";
+pub const XSTEP_PROGRAM_ID: &str = "Stk5NCWomVN3itaFjLu382u9ibb5jMSHEsh6CuhaGjB";
+
+pub const XSTEP_VAULT: &str = "ANYxxG365hutGYaTdtUQG8u2hC4dFX9mFHKuzy9ABQJi";
+pub const XSTEP_MINT: &str = "xStpgUCss9piqeFUk2iLVcvJEGhAdJxJQuwLkXP555G";
+pub const STEP_MINT: &str = "StepAscQoEioFxxWGnh2sLBDFp9d8rvKz2Yp39iDpyT";

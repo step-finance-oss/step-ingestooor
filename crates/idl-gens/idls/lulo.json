@@ -1,0 +1,7061 @@
+{
+  "address": "FL3X2pRsQ9zHENpZSKDRREtccwJuei8yg9fwDu9UN69Q",
+  "metadata": {
+    "name": "flexlend",
+    "version": "0.1.0",
+    "spec": "0.1.0"
+  },
+  "instructions": [
+    {
+      "name": "init_flex",
+      "discriminator": [
+        52,
+        197,
+        248,
+        214,
+        73,
+        210,
+        135,
+        164
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "user_account",
+          "docs": [
+            "becomes the \"authority\" in CPI"
+          ],
+          "writable": true
+        },
+        {
+          "name": "fees_reserve",
+          "writable": true
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "referrer_user_account",
+          "optional": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "close_token_account",
+      "discriminator": [
+        132,
+        172,
+        24,
+        60,
+        100,
+        156,
+        135,
+        97
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "user_account"
+        },
+        {
+          "name": "mint_address"
+        },
+        {
+          "name": "token_account",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "associated_token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "user_deposit",
+      "discriminator": [
+        186,
+        198,
+        140,
+        233,
+        129,
+        39,
+        98,
+        153
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "owner_token_account",
+          "writable": true
+        },
+        {
+          "name": "user_account"
+        },
+        {
+          "name": "flex_user_token_account",
+          "writable": true
+        },
+        {
+          "name": "mint_address"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "associated_token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "initiate_deposit",
+      "discriminator": [
+        55,
+        112,
+        107,
+        80,
+        141,
+        217,
+        147,
+        37
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "owner_token_account",
+          "writable": true
+        },
+        {
+          "name": "user_account",
+          "writable": true
+        },
+        {
+          "name": "flex_user_token_account",
+          "writable": true
+        },
+        {
+          "name": "mint_address"
+        },
+        {
+          "name": "fees_reserve",
+          "writable": true
+        },
+        {
+          "name": "flex_program"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "associated_token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "allowed_protocols",
+          "type": {
+            "option": {
+              "array": [
+                "u8",
+                64
+              ]
+            }
+          }
+        },
+        {
+          "name": "end_date",
+          "type": {
+            "option": "u64"
+          }
+        },
+        {
+          "name": "return_type",
+          "type": {
+            "option": {
+              "defined": {
+                "name": "PushOrPull"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "initiate_withdraw",
+      "discriminator": [
+        156,
+        172,
+        140,
+        245,
+        182,
+        250,
+        239,
+        160
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "owner_token_account",
+          "writable": true
+        },
+        {
+          "name": "user_account"
+        },
+        {
+          "name": "flex_user_token_account",
+          "writable": true
+        },
+        {
+          "name": "mint_address"
+        },
+        {
+          "name": "fees_reserve",
+          "writable": true
+        },
+        {
+          "name": "flex_program"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "associated_token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "withdraw_amount",
+          "type": "u64"
+        },
+        {
+          "name": "withdraw_all",
+          "type": "bool"
+        },
+        {
+          "name": "return_type",
+          "type": {
+            "option": {
+              "defined": {
+                "name": "PushOrPull"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "user_withdraw",
+      "discriminator": [
+        53,
+        254,
+        26,
+        242,
+        119,
+        237,
+        73,
+        33
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "owner"
+        },
+        {
+          "name": "owner_token_account",
+          "writable": true
+        },
+        {
+          "name": "user_account"
+        },
+        {
+          "name": "flex_user_token_account",
+          "writable": true
+        },
+        {
+          "name": "mint_address"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "associated_token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "init_action",
+      "discriminator": [
+        31,
+        128,
+        16,
+        151,
+        110,
+        224,
+        177,
+        81
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "mint_address"
+        }
+      ],
+      "args": [
+        {
+          "name": "request",
+          "type": {
+            "defined": {
+              "name": "ActionRequest"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "fund_fee_payer",
+      "discriminator": [
+        229,
+        43,
+        114,
+        214,
+        126,
+        65,
+        76,
+        235
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "fees_reserve",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "target",
+          "writable": true
+        },
+        {
+          "name": "flex_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "init_mfi_user_account",
+      "discriminator": [
+        115,
+        128,
+        32,
+        247,
+        41,
+        90,
+        115,
+        53
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "owner"
+        },
+        {
+          "name": "marginfi_group"
+        },
+        {
+          "name": "marginfi_account",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "user_account",
+          "writable": true
+        },
+        {
+          "name": "fees_reserve",
+          "writable": true
+        },
+        {
+          "name": "mfi_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "deposit_marginfi",
+      "discriminator": [
+        103,
+        7,
+        215,
+        123,
+        178,
+        244,
+        185,
+        163
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "marginfi_group"
+        },
+        {
+          "name": "marginfi_account",
+          "writable": true
+        },
+        {
+          "name": "owner",
+          "writable": true
+        },
+        {
+          "name": "bank",
+          "writable": true
+        },
+        {
+          "name": "mint_address"
+        },
+        {
+          "name": "flex_user_token_account",
+          "writable": true
+        },
+        {
+          "name": "bank_liquidity_vault",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "user_account"
+        },
+        {
+          "name": "mfi_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "deposit_amount",
+          "type": "u64"
+        },
+        {
+          "name": "deposit_all",
+          "type": "bool"
+        },
+        {
+          "name": "is_migration",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "withdraw_marginfi",
+      "discriminator": [
+        213,
+        133,
+        141,
+        93,
+        242,
+        58,
+        240,
+        133
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "user_account"
+        },
+        {
+          "name": "marginfi_group"
+        },
+        {
+          "name": "marginfi_account",
+          "writable": true
+        },
+        {
+          "name": "owner"
+        },
+        {
+          "name": "bank",
+          "writable": true
+        },
+        {
+          "name": "mint_address"
+        },
+        {
+          "name": "flex_user_token_account",
+          "writable": true
+        },
+        {
+          "name": "bank_liquidity_vault_authority",
+          "writable": true
+        },
+        {
+          "name": "bank_liquidity_vault",
+          "writable": true
+        },
+        {
+          "name": "mfi_program"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "associated_token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "withdrawal_amount",
+          "type": "u64"
+        },
+        {
+          "name": "withdraw_all",
+          "type": "bool"
+        },
+        {
+          "name": "is_migration",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "withdraw_marginfi_emissions",
+      "discriminator": [
+        239,
+        104,
+        79,
+        123,
+        2,
+        227,
+        200,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "marginfi_group"
+        },
+        {
+          "name": "marginfi_account",
+          "writable": true
+        },
+        {
+          "name": "owner",
+          "writable": true
+        },
+        {
+          "name": "user_account"
+        },
+        {
+          "name": "bank",
+          "writable": true
+        },
+        {
+          "name": "destination_token_account",
+          "writable": true
+        },
+        {
+          "name": "emissions_mint"
+        },
+        {
+          "name": "emissions_vault",
+          "writable": true
+        },
+        {
+          "name": "emissions_auth",
+          "writable": true
+        },
+        {
+          "name": "mfi_program"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "associated_token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "is_harvest",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "init_drift_user_account",
+      "discriminator": [
+        99,
+        25,
+        60,
+        124,
+        149,
+        8,
+        199,
+        231
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "owner"
+        },
+        {
+          "name": "drift_user",
+          "writable": true
+        },
+        {
+          "name": "drift_user_stats",
+          "writable": true
+        },
+        {
+          "name": "drift_state",
+          "writable": true
+        },
+        {
+          "name": "user_account",
+          "docs": [
+            "becomes the \"authority\" in CPI"
+          ],
+          "writable": true
+        },
+        {
+          "name": "fees_reserve",
+          "writable": true
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "drift_program"
+        },
+        {
+          "name": "rent"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "flex_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "sub_account_id",
+          "type": "u16"
+        },
+        {
+          "name": "transfer_lamports",
+          "type": "u64"
+        },
+        {
+          "name": "pool_id",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "deposit_drift",
+      "discriminator": [
+        18,
+        70,
+        190,
+        154,
+        86,
+        199,
+        132,
+        143
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "owner"
+        },
+        {
+          "name": "drift_user",
+          "writable": true
+        },
+        {
+          "name": "drift_user_stats",
+          "writable": true
+        },
+        {
+          "name": "drift_state"
+        },
+        {
+          "name": "spot_market_vault",
+          "writable": true
+        },
+        {
+          "name": "user_account",
+          "writable": true
+        },
+        {
+          "name": "flex_user_token_account",
+          "writable": true
+        },
+        {
+          "name": "mint_address"
+        },
+        {
+          "name": "spot_market",
+          "writable": true
+        },
+        {
+          "name": "oracle"
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "drift_program"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "market_index",
+          "type": "u16"
+        },
+        {
+          "name": "deposit_amount",
+          "type": "u64"
+        },
+        {
+          "name": "deposit_all",
+          "type": "bool"
+        },
+        {
+          "name": "is_migration",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "withdraw_drift",
+      "discriminator": [
+        219,
+        83,
+        232,
+        233,
+        239,
+        244,
+        58,
+        252
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "owner"
+        },
+        {
+          "name": "drift_user",
+          "writable": true
+        },
+        {
+          "name": "drift_user_stats",
+          "writable": true
+        },
+        {
+          "name": "drift_state"
+        },
+        {
+          "name": "drift_signer"
+        },
+        {
+          "name": "spot_market_vault",
+          "writable": true
+        },
+        {
+          "name": "mint_address"
+        },
+        {
+          "name": "user_account",
+          "docs": [
+            "becomes the \"authority\" in CPI"
+          ],
+          "writable": true
+        },
+        {
+          "name": "flex_user_token_account",
+          "writable": true
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "drift_program"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "associated_token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "market_index",
+          "type": "u16"
+        },
+        {
+          "name": "withdrawal_amount",
+          "type": "u64"
+        },
+        {
+          "name": "reduce_only",
+          "type": "bool"
+        },
+        {
+          "name": "is_migration",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "init_solend",
+      "discriminator": [
+        234,
+        210,
+        236,
+        189,
+        135,
+        115,
+        133,
+        111
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "owner"
+        },
+        {
+          "name": "user_account",
+          "writable": true
+        },
+        {
+          "name": "solend_market",
+          "writable": true
+        },
+        {
+          "name": "obligation",
+          "writable": true
+        },
+        {
+          "name": "solend_program"
+        },
+        {
+          "name": "fees_reserve",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "rent"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "deposit_solend",
+      "discriminator": [
+        101,
+        2,
+        26,
+        36,
+        72,
+        80,
+        253,
+        89
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "owner"
+        },
+        {
+          "name": "user_account",
+          "writable": true
+        },
+        {
+          "name": "collateral_mint_address",
+          "writable": true
+        },
+        {
+          "name": "liquidity_mint_address"
+        },
+        {
+          "name": "collateral_token_account",
+          "writable": true
+        },
+        {
+          "name": "flex_user_token_account",
+          "writable": true
+        },
+        {
+          "name": "solend_market",
+          "writable": true
+        },
+        {
+          "name": "solend_reserve",
+          "writable": true
+        },
+        {
+          "name": "lending_market_authority"
+        },
+        {
+          "name": "reserve_collateral_supply",
+          "writable": true
+        },
+        {
+          "name": "reserve_liquidity_supply",
+          "writable": true
+        },
+        {
+          "name": "obligation",
+          "writable": true
+        },
+        {
+          "name": "pyth"
+        },
+        {
+          "name": "switchboard"
+        },
+        {
+          "name": "solend_program"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "rent"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "associated_token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "deposit_amount",
+          "type": "u64"
+        },
+        {
+          "name": "deposit_all",
+          "type": "bool"
+        },
+        {
+          "name": "is_migration",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "withdraw_solend",
+      "discriminator": [
+        61,
+        140,
+        107,
+        131,
+        66,
+        36,
+        72,
+        2
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "owner"
+        },
+        {
+          "name": "user_account",
+          "writable": true
+        },
+        {
+          "name": "collateral_mint_address",
+          "writable": true
+        },
+        {
+          "name": "liquidity_mint_address"
+        },
+        {
+          "name": "collateral_token_account",
+          "writable": true
+        },
+        {
+          "name": "flex_user_token_account",
+          "writable": true
+        },
+        {
+          "name": "solend_market",
+          "writable": true
+        },
+        {
+          "name": "solend_reserve",
+          "writable": true
+        },
+        {
+          "name": "lending_market_authority"
+        },
+        {
+          "name": "reserve_collateral_supply",
+          "writable": true
+        },
+        {
+          "name": "reserve_liquidity_supply",
+          "writable": true
+        },
+        {
+          "name": "obligation",
+          "writable": true
+        },
+        {
+          "name": "pyth"
+        },
+        {
+          "name": "switchboard"
+        },
+        {
+          "name": "solend_program"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "rent"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "associated_token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "withdrawal_amount",
+          "type": "u64"
+        },
+        {
+          "name": "withdraw_all",
+          "type": "bool"
+        },
+        {
+          "name": "is_migration",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "init_kamino_user_account",
+      "discriminator": [
+        179,
+        163,
+        101,
+        60,
+        64,
+        16,
+        21,
+        48
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "owner"
+        },
+        {
+          "name": "user_account",
+          "writable": true
+        },
+        {
+          "name": "obligation",
+          "writable": true
+        },
+        {
+          "name": "lending_market"
+        },
+        {
+          "name": "seed1_account"
+        },
+        {
+          "name": "seed2_account"
+        },
+        {
+          "name": "owner_user_metadata",
+          "writable": true
+        },
+        {
+          "name": "referrer_user_metadata"
+        },
+        {
+          "name": "kamino_program"
+        },
+        {
+          "name": "fees_reserve",
+          "writable": true
+        },
+        {
+          "name": "rent"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "flex_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "tag",
+          "type": "u8"
+        },
+        {
+          "name": "id",
+          "type": "u8"
+        },
+        {
+          "name": "transfer_lamports",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "deposit_kamino",
+      "discriminator": [
+        6,
+        141,
+        14,
+        14,
+        186,
+        246,
+        202,
+        238
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "owner"
+        },
+        {
+          "name": "obligation",
+          "writable": true
+        },
+        {
+          "name": "user_account",
+          "writable": true
+        },
+        {
+          "name": "collateral_mint_address",
+          "writable": true
+        },
+        {
+          "name": "liquidity_mint_address",
+          "writable": true
+        },
+        {
+          "name": "collateral_token_account",
+          "writable": true
+        },
+        {
+          "name": "flex_user_token_account",
+          "writable": true
+        },
+        {
+          "name": "reserve",
+          "writable": true
+        },
+        {
+          "name": "lending_market",
+          "writable": true
+        },
+        {
+          "name": "lending_market_authority"
+        },
+        {
+          "name": "reserve_collateral_supply",
+          "writable": true
+        },
+        {
+          "name": "reserve_liquidity_supply",
+          "writable": true
+        },
+        {
+          "name": "kamino_program"
+        },
+        {
+          "name": "collateral_token_program"
+        },
+        {
+          "name": "liquidity_token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "instruction_sysvar_account"
+        }
+      ],
+      "args": [
+        {
+          "name": "deposit_amount",
+          "type": "u64"
+        },
+        {
+          "name": "deposit_all",
+          "type": "bool"
+        },
+        {
+          "name": "is_migration",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "withdraw_kamino",
+      "discriminator": [
+        193,
+        19,
+        204,
+        86,
+        17,
+        28,
+        161,
+        212
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "owner"
+        },
+        {
+          "name": "obligation",
+          "writable": true
+        },
+        {
+          "name": "user_account",
+          "writable": true
+        },
+        {
+          "name": "fees_reserve",
+          "writable": true
+        },
+        {
+          "name": "collateral_mint_address",
+          "writable": true
+        },
+        {
+          "name": "liquidity_mint_address",
+          "writable": true
+        },
+        {
+          "name": "collateral_token_account",
+          "writable": true
+        },
+        {
+          "name": "flex_user_token_account",
+          "writable": true
+        },
+        {
+          "name": "reserve",
+          "writable": true
+        },
+        {
+          "name": "lending_market",
+          "writable": true
+        },
+        {
+          "name": "lending_market_authority"
+        },
+        {
+          "name": "reserve_collateral_supply",
+          "writable": true
+        },
+        {
+          "name": "reserve_liquidity_supply",
+          "writable": true
+        },
+        {
+          "name": "kamino_program"
+        },
+        {
+          "name": "collateral_token_program"
+        },
+        {
+          "name": "liquidity_token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "instruction_sysvar_account"
+        },
+        {
+          "name": "obligation_farm_user_state"
+        },
+        {
+          "name": "reserve_farm_state"
+        },
+        {
+          "name": "farms_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "withdrawal_amount",
+          "type": "u64"
+        },
+        {
+          "name": "withdraw_all",
+          "type": "bool"
+        },
+        {
+          "name": "is_migration",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "harvest_kamino_reward",
+      "discriminator": [
+        18,
+        75,
+        137,
+        83,
+        78,
+        233,
+        153,
+        9
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "owner"
+        },
+        {
+          "name": "user_account",
+          "writable": true
+        },
+        {
+          "name": "user_state",
+          "writable": true
+        },
+        {
+          "name": "farm_state",
+          "writable": true
+        },
+        {
+          "name": "global_config"
+        },
+        {
+          "name": "reward_mint"
+        },
+        {
+          "name": "user_reward_ata",
+          "writable": true
+        },
+        {
+          "name": "rewards_vault",
+          "writable": true
+        },
+        {
+          "name": "rewards_treasury_vault",
+          "writable": true
+        },
+        {
+          "name": "farm_vaults_authority",
+          "writable": true
+        },
+        {
+          "name": "kamino_farms_program"
+        },
+        {
+          "name": "scope_prices"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "reward_index",
+          "type": "u64"
+        },
+        {
+          "name": "target_protocol",
+          "type": {
+            "array": [
+              "u8",
+              8
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "distributor_claim",
+      "discriminator": [
+        86,
+        252,
+        37,
+        227,
+        72,
+        81,
+        3,
+        1
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "user_account",
+          "writable": true
+        },
+        {
+          "name": "distributor",
+          "writable": true
+        },
+        {
+          "name": "claim_status",
+          "writable": true
+        },
+        {
+          "name": "from",
+          "docs": [
+            "Distributor ATA containing the tokens to distribute."
+          ],
+          "writable": true
+        },
+        {
+          "name": "to",
+          "docs": [
+            "Account to send the claimed tokens to."
+          ],
+          "writable": true
+        },
+        {
+          "name": "owner_token_account",
+          "writable": true
+        },
+        {
+          "name": "merkle_distributor_program"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "claim_mint"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount_unlocked",
+          "type": "u64"
+        },
+        {
+          "name": "amount_locked",
+          "type": "u64"
+        },
+        {
+          "name": "proof",
+          "type": {
+            "vec": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "admin_init_auth",
+      "discriminator": [
+        231,
+        192,
+        52,
+        227,
+        170,
+        254,
+        214,
+        201
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "fees_reserve",
+          "writable": true
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "admin_reclaim_sol",
+      "discriminator": [
+        198,
+        148,
+        108,
+        254,
+        101,
+        135,
+        151,
+        9
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "fees_reserve",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "initialize_pool",
+      "discriminator": [
+        95,
+        180,
+        10,
+        172,
+        84,
+        174,
+        232,
+        40
+      ],
+      "accounts": [
+        {
+          "name": "pool_creator",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "pool_admin",
+          "signer": true
+        },
+        {
+          "name": "pool_automation",
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "protected_mint",
+          "writable": true
+        },
+        {
+          "name": "protected_mint_metadata",
+          "writable": true
+        },
+        {
+          "name": "regular_mint",
+          "writable": true
+        },
+        {
+          "name": "regular_mint_metadata",
+          "writable": true
+        },
+        {
+          "name": "metadata_program"
+        },
+        {
+          "name": "sysvar_instructions"
+        },
+        {
+          "name": "lp_mint_token_program"
+        },
+        {
+          "name": "rent"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "pool_id",
+          "type": "u8"
+        },
+        {
+          "name": "decimals",
+          "type": "u8"
+        },
+        {
+          "name": "protected_max_exposure",
+          "type": "u32"
+        },
+        {
+          "name": "regular_max_exposure",
+          "type": "u32"
+        },
+        {
+          "name": "oracle_stale_max_seconds",
+          "type": "u64"
+        },
+        {
+          "name": "refresh_stale_max_seconds",
+          "type": "u64"
+        },
+        {
+          "name": "withdraw_cooldown_seconds",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "add_pool_allocation",
+      "discriminator": [
+        106,
+        160,
+        241,
+        83,
+        251,
+        21,
+        195,
+        240
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "input_mint"
+        },
+        {
+          "name": "pool_input_token_account",
+          "writable": true
+        },
+        {
+          "name": "input_mint_pyth_oracle"
+        },
+        {
+          "name": "input_mint_token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "rent"
+        }
+      ],
+      "args": [
+        {
+          "name": "deposit_limit",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "initialize_protocol_authority",
+      "discriminator": [
+        7,
+        122,
+        45,
+        43,
+        228,
+        44,
+        213,
+        114
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "signer": true
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "protocol_authority",
+          "writable": true
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "protocol",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "add_protocol",
+      "discriminator": [
+        149,
+        0,
+        150,
+        1,
+        226,
+        204,
+        111,
+        61
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "signer": true
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "input_mint"
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "protocol_authority"
+        }
+      ],
+      "args": [
+        {
+          "name": "protocol",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "remove_protocol",
+      "discriminator": [
+        16,
+        253,
+        112,
+        127,
+        145,
+        124,
+        14,
+        8
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "signer": true
+        },
+        {
+          "name": "input_mint"
+        },
+        {
+          "name": "pool",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "protocol",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "set_protocol_weights",
+      "discriminator": [
+        254,
+        115,
+        92,
+        42,
+        47,
+        184,
+        219,
+        41
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "signer": true
+        },
+        {
+          "name": "input_mint"
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "input_mint_token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "weights",
+          "type": {
+            "vec": "u32"
+          }
+        }
+      ]
+    },
+    {
+      "name": "refresh_pool_tvl",
+      "discriminator": [
+        34,
+        216,
+        238,
+        76,
+        105,
+        74,
+        60,
+        219
+      ],
+      "accounts": [
+        {
+          "name": "fee_payer",
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "redeem_pool_protocol_fees",
+      "discriminator": [
+        169,
+        97,
+        111,
+        247,
+        58,
+        147,
+        114,
+        252
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "input_mint"
+        },
+        {
+          "name": "admin_input_token_account",
+          "writable": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "pool_input_token_account",
+          "writable": true
+        },
+        {
+          "name": "input_mint_token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "rent"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "admin_claim_distributor",
+      "discriminator": [
+        13,
+        122,
+        67,
+        195,
+        157,
+        142,
+        176,
+        114
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "input_mint"
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "distributor",
+          "writable": true
+        },
+        {
+          "name": "claim_status",
+          "writable": true
+        },
+        {
+          "name": "claim_mint"
+        },
+        {
+          "name": "from",
+          "writable": true
+        },
+        {
+          "name": "to",
+          "docs": [
+            "Account to send the claimed tokens to.",
+            "Authority can be the pool or the protocol authority"
+          ],
+          "writable": true
+        },
+        {
+          "name": "admin_token_account",
+          "writable": true
+        },
+        {
+          "name": "merkle_distributor_program"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "protocol_authority",
+          "writable": true,
+          "optional": true
+        }
+      ],
+      "args": [
+        {
+          "name": "amount_unlocked",
+          "type": "u64"
+        },
+        {
+          "name": "amount_locked",
+          "type": "u64"
+        },
+        {
+          "name": "proof",
+          "type": {
+            "vec": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          }
+        },
+        {
+          "name": "protocol_str",
+          "type": {
+            "option": "string"
+          }
+        }
+      ]
+    },
+    {
+      "name": "update_max_exposures",
+      "discriminator": [
+        1,
+        189,
+        36,
+        158,
+        33,
+        213,
+        141,
+        95
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "pool_input_token_account"
+        }
+      ],
+      "args": [
+        {
+          "name": "protected_max_exposure",
+          "type": "u32"
+        },
+        {
+          "name": "regular_max_exposure",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "update_refresh_stale_maximum",
+      "discriminator": [
+        3,
+        102,
+        64,
+        185,
+        126,
+        191,
+        109,
+        134
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "pool_input_token_account"
+        }
+      ],
+      "args": [
+        {
+          "name": "refresh_stale_max_seconds",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "update_withdraw_cooldown",
+      "discriminator": [
+        22,
+        139,
+        239,
+        90,
+        141,
+        55,
+        125,
+        61
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "pool_input_token_account"
+        }
+      ],
+      "args": [
+        {
+          "name": "withdraw_cooldown_seconds",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "update_protected_interest_share",
+      "discriminator": [
+        135,
+        158,
+        80,
+        37,
+        121,
+        107,
+        170,
+        174
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "pool_input_token_account"
+        }
+      ],
+      "args": [
+        {
+          "name": "protected_interest_share_bps",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "name": "update_deposit_limit",
+      "discriminator": [
+        181,
+        115,
+        65,
+        169,
+        4,
+        1,
+        96,
+        109
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "pool_input_token_account"
+        }
+      ],
+      "args": [
+        {
+          "name": "deposit_limit",
+          "type": "u64"
+        },
+        {
+          "name": "mint_address",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "update_coverage_float",
+      "discriminator": [
+        123,
+        137,
+        146,
+        70,
+        87,
+        247,
+        205,
+        3
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "pool_input_token_account"
+        }
+      ],
+      "args": [
+        {
+          "name": "coverage_float_bps",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "name": "update_security_flag",
+      "discriminator": [
+        28,
+        131,
+        30,
+        136,
+        131,
+        49,
+        44,
+        120
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "pool_input_token_account"
+        }
+      ],
+      "args": [
+        {
+          "name": "security_flag",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "update_admin",
+      "discriminator": [
+        161,
+        176,
+        40,
+        213,
+        60,
+        184,
+        179,
+        228
+      ],
+      "accounts": [
+        {
+          "name": "old_admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "new_admin",
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "update_automation",
+      "discriminator": [
+        241,
+        23,
+        38,
+        245,
+        51,
+        30,
+        100,
+        111
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "new_automation",
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "update_referrer_config",
+      "discriminator": [
+        75,
+        100,
+        240,
+        224,
+        70,
+        63,
+        207,
+        192
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "owner"
+        },
+        {
+          "name": "user_referrer",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "referral_fee_bps",
+          "type": "u16"
+        },
+        {
+          "name": "claim_fee_bps",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "name": "backfill_user_referrer",
+      "discriminator": [
+        86,
+        196,
+        232,
+        160,
+        164,
+        104,
+        66,
+        188
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "user_account",
+          "writable": true
+        },
+        {
+          "name": "referrer"
+        },
+        {
+          "name": "user_referrer",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "update_price_bytes",
+      "discriminator": [
+        113,
+        244,
+        220,
+        167,
+        86,
+        130,
+        145,
+        200
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "user_account",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "protected_price",
+          "type": "u64"
+        },
+        {
+          "name": "regular_price",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "initialize_user_referrer",
+      "discriminator": [
+        233,
+        179,
+        147,
+        106,
+        45,
+        170,
+        132,
+        18
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "user_account",
+          "writable": true
+        },
+        {
+          "name": "user_referrer",
+          "writable": true
+        },
+        {
+          "name": "rent"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "referral_fee_bps",
+          "type": {
+            "option": "u16"
+          }
+        },
+        {
+          "name": "claim_fee_bps",
+          "type": {
+            "option": "u16"
+          }
+        }
+      ]
+    },
+    {
+      "name": "refresh_user_referral_fees",
+      "discriminator": [
+        201,
+        76,
+        67,
+        144,
+        37,
+        4,
+        102,
+        232
+      ],
+      "accounts": [
+        {
+          "name": "automation",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "input_mint"
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "user_account",
+          "writable": true
+        },
+        {
+          "name": "protected_mint",
+          "writable": true
+        },
+        {
+          "name": "flex_user_protected_token_account",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "regular_mint",
+          "writable": true
+        },
+        {
+          "name": "flex_user_regular_token_account",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "referrer_user_account",
+          "writable": true
+        },
+        {
+          "name": "input_mint_token_program"
+        },
+        {
+          "name": "lp_mint_token_program"
+        },
+        {
+          "name": "rent"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "claim_pool_referral_fees",
+      "discriminator": [
+        71,
+        26,
+        222,
+        159,
+        59,
+        138,
+        65,
+        16
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true
+        },
+        {
+          "name": "input_mint"
+        },
+        {
+          "name": "owner_input_token_account",
+          "writable": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "user_account"
+        },
+        {
+          "name": "user_referrer",
+          "writable": true
+        },
+        {
+          "name": "pool_input_token_account",
+          "writable": true
+        },
+        {
+          "name": "input_mint_token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "deposit_regular_pool",
+      "discriminator": [
+        119,
+        176,
+        237,
+        141,
+        224,
+        45,
+        231,
+        59
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "input_mint"
+        },
+        {
+          "name": "owner_input_token_account",
+          "writable": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "pool_input_token_account",
+          "writable": true
+        },
+        {
+          "name": "pool_mint",
+          "writable": true
+        },
+        {
+          "name": "user_account",
+          "writable": true
+        },
+        {
+          "name": "flex_user_lp_token_account",
+          "writable": true
+        },
+        {
+          "name": "input_mint_token_program"
+        },
+        {
+          "name": "lp_mint_token_program"
+        },
+        {
+          "name": "fees_reserve",
+          "writable": true
+        },
+        {
+          "name": "flex_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "rent"
+        },
+        {
+          "name": "referrer_user_account",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "deposit_protected_pool",
+      "discriminator": [
+        183,
+        216,
+        75,
+        226,
+        254,
+        144,
+        212,
+        7
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "input_mint"
+        },
+        {
+          "name": "owner_input_token_account",
+          "writable": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "pool_input_token_account",
+          "writable": true
+        },
+        {
+          "name": "pool_mint",
+          "writable": true
+        },
+        {
+          "name": "user_account",
+          "writable": true
+        },
+        {
+          "name": "flex_user_lp_token_account",
+          "writable": true
+        },
+        {
+          "name": "input_mint_token_program"
+        },
+        {
+          "name": "lp_mint_token_program"
+        },
+        {
+          "name": "fees_reserve",
+          "writable": true
+        },
+        {
+          "name": "flex_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "rent"
+        },
+        {
+          "name": "referrer_user_account",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "withdraw_protected_pool",
+      "discriminator": [
+        109,
+        247,
+        20,
+        102,
+        254,
+        61,
+        118,
+        108
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "input_mint"
+        },
+        {
+          "name": "owner_input_token_account",
+          "writable": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "pool_input_token_account",
+          "writable": true
+        },
+        {
+          "name": "protected_mint",
+          "writable": true
+        },
+        {
+          "name": "user_account",
+          "writable": true
+        },
+        {
+          "name": "flex_user_lp_token_account",
+          "writable": true
+        },
+        {
+          "name": "input_mint_token_program"
+        },
+        {
+          "name": "lp_mint_token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "rent"
+        },
+        {
+          "name": "referrer_user_account",
+          "writable": true
+        },
+        {
+          "name": "protocol_authority",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "protocol_authority_token_account",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "drift_state"
+        },
+        {
+          "name": "drift_user",
+          "writable": true
+        },
+        {
+          "name": "drift_user_stats",
+          "writable": true
+        },
+        {
+          "name": "spot_market_vault",
+          "writable": true
+        },
+        {
+          "name": "drift_signer",
+          "writable": true
+        },
+        {
+          "name": "drift_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "initiate_regular_pool_withdraw",
+      "discriminator": [
+        163,
+        41,
+        200,
+        57,
+        143,
+        231,
+        232,
+        12
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "input_mint"
+        },
+        {
+          "name": "pending_withdrawal",
+          "writable": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "regular_mint",
+          "writable": true
+        },
+        {
+          "name": "user_account",
+          "writable": true
+        },
+        {
+          "name": "flex_user_lp_token_account",
+          "writable": true
+        },
+        {
+          "name": "input_mint_token_program"
+        },
+        {
+          "name": "lp_mint_token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "rent"
+        },
+        {
+          "name": "referrer_user_account",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "withdrawal_id",
+          "type": "u16"
+        },
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "complete_regular_pool_withdraw",
+      "discriminator": [
+        65,
+        156,
+        75,
+        124,
+        82,
+        64,
+        245,
+        159
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true
+        },
+        {
+          "name": "fee_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "input_mint"
+        },
+        {
+          "name": "pending_withdrawal",
+          "writable": true
+        },
+        {
+          "name": "owner_input_token_account",
+          "writable": true
+        },
+        {
+          "name": "regular_mint",
+          "writable": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "pool_input_token_account",
+          "writable": true
+        },
+        {
+          "name": "user_account",
+          "writable": true
+        },
+        {
+          "name": "input_mint_token_program"
+        },
+        {
+          "name": "lp_mint_token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "rent"
+        },
+        {
+          "name": "protocol_authority",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "protocol_authority_token_account",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "drift_state"
+        },
+        {
+          "name": "drift_user",
+          "writable": true
+        },
+        {
+          "name": "drift_user_stats",
+          "writable": true
+        },
+        {
+          "name": "spot_market_vault",
+          "writable": true
+        },
+        {
+          "name": "drift_signer",
+          "writable": true
+        },
+        {
+          "name": "drift_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "withdrawal_id",
+          "type": "u16"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "pendingWithdrawal",
+      "discriminator": [
+        110,
+        134,
+        15,
+        252,
+        128,
+        47,
+        131,
+        105
+      ]
+    },
+    {
+      "name": "pool",
+      "discriminator": [
+        209,
+        88,
+        127,
+        156,
+        213,
+        147,
+        70,
+        23
+      ]
+    },
+    {
+      "name": "protocolAuthority",
+      "discriminator": [
+        85,
+        165,
+        187,
+        33,
+        8,
+        45,
+        222,
+        200
+      ]
+    },
+    {
+      "name": "userReferrer",
+      "discriminator": [
+        10,
+        53,
+        149,
+        99,
+        117,
+        238,
+        89,
+        228
+      ]
+    },
+    {
+      "name": "promotionReserve",
+      "discriminator": [
+        32,
+        31,
+        176,
+        11,
+        70,
+        68,
+        182,
+        58
+      ]
+    },
+    {
+      "name": "userAccount",
+      "discriminator": [
+        220,
+        63,
+        215,
+        152,
+        108,
+        198,
+        199,
+        43
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "InitializeFlexUserEvent",
+      "discriminator": [
+        159,
+        87,
+        234,
+        218,
+        217,
+        156,
+        254,
+        173
+      ]
+    },
+    {
+      "name": "PoolUserClaimReferralFeesEvent",
+      "discriminator": [
+        212,
+        253,
+        156,
+        195,
+        132,
+        219,
+        58,
+        175
+      ]
+    },
+    {
+      "name": "PoolUserCompleteWithdrawEvent",
+      "discriminator": [
+        96,
+        177,
+        223,
+        119,
+        181,
+        144,
+        223,
+        13
+      ]
+    },
+    {
+      "name": "PoolUserDepositEvent",
+      "discriminator": [
+        228,
+        103,
+        118,
+        186,
+        169,
+        147,
+        249,
+        119
+      ]
+    },
+    {
+      "name": "PoolDepositProtocolEvent",
+      "discriminator": [
+        133,
+        87,
+        208,
+        51,
+        119,
+        41,
+        54,
+        73
+      ]
+    },
+    {
+      "name": "InitializeUserReferrerEvent",
+      "discriminator": [
+        16,
+        115,
+        164,
+        210,
+        252,
+        113,
+        202,
+        49
+      ]
+    },
+    {
+      "name": "PoolUserInitiateWithdrawEvent",
+      "discriminator": [
+        211,
+        240,
+        61,
+        22,
+        139,
+        239,
+        119,
+        147
+      ]
+    },
+    {
+      "name": "PoolRefreshProtocolEvent",
+      "discriminator": [
+        190,
+        168,
+        176,
+        164,
+        34,
+        119,
+        31,
+        23
+      ]
+    },
+    {
+      "name": "PoolRefreshTvlEvent",
+      "discriminator": [
+        62,
+        43,
+        142,
+        67,
+        110,
+        90,
+        28,
+        218
+      ]
+    },
+    {
+      "name": "PoolRefreshReferralEvent",
+      "discriminator": [
+        215,
+        25,
+        213,
+        222,
+        64,
+        22,
+        108,
+        35
+      ]
+    },
+    {
+      "name": "PoolUserWithdrawEvent",
+      "discriminator": [
+        122,
+        39,
+        246,
+        179,
+        132,
+        16,
+        13,
+        146
+      ]
+    },
+    {
+      "name": "PoolWithdrawProtocolEvent",
+      "discriminator": [
+        135,
+        204,
+        132,
+        35,
+        106,
+        22,
+        203,
+        77
+      ]
+    },
+    {
+      "name": "NewOrderEvent",
+      "discriminator": [
+        28,
+        208,
+        69,
+        87,
+        226,
+        98,
+        90,
+        16
+      ]
+    },
+    {
+      "name": "InitiateDepositEvent",
+      "discriminator": [
+        196,
+        113,
+        158,
+        93,
+        230,
+        144,
+        163,
+        236
+      ]
+    },
+    {
+      "name": "InitiateWithdrawEvent",
+      "discriminator": [
+        68,
+        156,
+        251,
+        75,
+        169,
+        212,
+        67,
+        252
+      ]
+    },
+    {
+      "name": "CancelOrderEvent",
+      "discriminator": [
+        174,
+        66,
+        141,
+        17,
+        4,
+        224,
+        162,
+        77
+      ]
+    },
+    {
+      "name": "OrderWithdrawnEvent",
+      "discriminator": [
+        36,
+        196,
+        26,
+        251,
+        50,
+        212,
+        213,
+        63
+      ]
+    },
+    {
+      "name": "RevokeDelegateEvent",
+      "discriminator": [
+        35,
+        246,
+        52,
+        18,
+        211,
+        132,
+        203,
+        73
+      ]
+    },
+    {
+      "name": "RefreshOrderEvent",
+      "discriminator": [
+        233,
+        31,
+        114,
+        199,
+        125,
+        134,
+        225,
+        215
+      ]
+    },
+    {
+      "name": "TopUpBalanceEvent",
+      "discriminator": [
+        221,
+        112,
+        6,
+        21,
+        185,
+        24,
+        125,
+        167
+      ]
+    },
+    {
+      "name": "WithdrawPartialEvent",
+      "discriminator": [
+        170,
+        195,
+        126,
+        147,
+        48,
+        155,
+        196,
+        179
+      ]
+    },
+    {
+      "name": "OrderEditEvent",
+      "discriminator": [
+        155,
+        223,
+        223,
+        45,
+        200,
+        107,
+        177,
+        149
+      ]
+    },
+    {
+      "name": "TopUpBalanceEventV2",
+      "discriminator": [
+        129,
+        219,
+        176,
+        216,
+        103,
+        201,
+        21,
+        52
+      ]
+    },
+    {
+      "name": "WithdrawPartialEventV2",
+      "discriminator": [
+        62,
+        226,
+        166,
+        101,
+        114,
+        230,
+        68,
+        187
+      ]
+    },
+    {
+      "name": "OrderEditEventV2",
+      "discriminator": [
+        156,
+        43,
+        59,
+        153,
+        6,
+        52,
+        127,
+        235
+      ]
+    },
+    {
+      "name": "MigrationEvent",
+      "discriminator": [
+        255,
+        202,
+        76,
+        147,
+        91,
+        231,
+        73,
+        22
+      ]
+    },
+    {
+      "name": "MultiOrderEvent",
+      "discriminator": [
+        83,
+        225,
+        110,
+        206,
+        0,
+        182,
+        193,
+        186
+      ]
+    },
+    {
+      "name": "UpdateActiveProtocolEvent",
+      "discriminator": [
+        255,
+        227,
+        252,
+        144,
+        6,
+        95,
+        70,
+        79
+      ]
+    },
+    {
+      "name": "AccountSettingsEvent",
+      "discriminator": [
+        182,
+        197,
+        217,
+        106,
+        52,
+        231,
+        182,
+        60
+      ]
+    },
+    {
+      "name": "AccountSettingsV2Event",
+      "discriminator": [
+        103,
+        246,
+        82,
+        70,
+        144,
+        231,
+        161,
+        206
+      ]
+    },
+    {
+      "name": "AccountSettingsV3Event",
+      "discriminator": [
+        51,
+        110,
+        229,
+        199,
+        161,
+        244,
+        49,
+        92
+      ]
+    },
+    {
+      "name": "UserDepositEvent",
+      "discriminator": [
+        70,
+        55,
+        110,
+        118,
+        235,
+        187,
+        239,
+        33
+      ]
+    },
+    {
+      "name": "UserDepositV2Event",
+      "discriminator": [
+        68,
+        217,
+        151,
+        215,
+        131,
+        128,
+        61,
+        231
+      ]
+    },
+    {
+      "name": "UserWithdrawEvent",
+      "discriminator": [
+        133,
+        189,
+        140,
+        255,
+        132,
+        211,
+        143,
+        89
+      ]
+    },
+    {
+      "name": "UserWithdrawV2Event",
+      "discriminator": [
+        212,
+        188,
+        48,
+        168,
+        4,
+        245,
+        198,
+        145
+      ]
+    },
+    {
+      "name": "DepositMigrationEvent",
+      "discriminator": [
+        13,
+        37,
+        60,
+        186,
+        229,
+        134,
+        237,
+        67
+      ]
+    },
+    {
+      "name": "HarvestRewardsEvent",
+      "discriminator": [
+        17,
+        5,
+        74,
+        132,
+        156,
+        156,
+        89,
+        1
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidAllParameters",
+      "msg": "Invalid all paramteres"
+    },
+    {
+      "code": 6001,
+      "name": "InvalidMigrationDestination",
+      "msg": "Destination token account invalid for migration"
+    },
+    {
+      "code": 6002,
+      "name": "InvalidWithdrawDestination",
+      "msg": "Destination token account invalid for withdraw"
+    },
+    {
+      "code": 6003,
+      "name": "MarginFiAccountAlreadyExists",
+      "msg": "MarginFi account already exists for this Flex user"
+    },
+    {
+      "code": 6004,
+      "name": "InvalidAuthoritySeed",
+      "msg": "Invalid authority seed"
+    },
+    {
+      "code": 6005,
+      "name": "OverflowError",
+      "msg": "OverflowError"
+    },
+    {
+      "code": 6006,
+      "name": "UnderflowError",
+      "msg": "UnderflowError"
+    },
+    {
+      "code": 6007,
+      "name": "PromotionSeedsLimitReached",
+      "msg": "PromotionSeedsLimitReached"
+    },
+    {
+      "code": 6008,
+      "name": "InvalidTokenAmount",
+      "msg": "Invalid token amount"
+    },
+    {
+      "code": 6009,
+      "name": "ProtocolNotSupported",
+      "msg": "Protocol not supported"
+    },
+    {
+      "code": 6010,
+      "name": "InvalidSigner",
+      "msg": "Invalid Signer"
+    },
+    {
+      "code": 6011,
+      "name": "InvalidOwner",
+      "msg": "Invalid Owner"
+    },
+    {
+      "code": 6012,
+      "name": "InvalidProtocolMarket",
+      "msg": "Invalid Protocol Market"
+    },
+    {
+      "code": 6013,
+      "name": "InvalidLamportsAmount",
+      "msg": "Invalid lamports for fee payer"
+    },
+    {
+      "code": 6014,
+      "name": "ProtocolNotFound",
+      "msg": "Protocol not found in this pool"
+    },
+    {
+      "code": 6015,
+      "name": "ProtocolAlreadyExists",
+      "msg": "Protocol already exists in this pool"
+    },
+    {
+      "code": 6016,
+      "name": "BalanceStaleError",
+      "msg": "Protocol balance is stale"
+    },
+    {
+      "code": 6017,
+      "name": "InvalidPoolAllocation",
+      "msg": "Invalid protocol allocation"
+    },
+    {
+      "code": 6018,
+      "name": "PoolProtocolsFull",
+      "msg": "PoolProtocolsFull"
+    },
+    {
+      "code": 6019,
+      "name": "InvalidProtocolId",
+      "msg": "InvalidProtocolId"
+    },
+    {
+      "code": 6020,
+      "name": "InvalidWeights",
+      "msg": "InvalidWeights"
+    },
+    {
+      "code": 6021,
+      "name": "InvalidLpPrice",
+      "msg": "InvalidLpPrice"
+    },
+    {
+      "code": 6022,
+      "name": "MaxExposureExceeded",
+      "msg": "MaxExposureExceeded"
+    },
+    {
+      "code": 6023,
+      "name": "ProtectedPoolOverCapacity",
+      "msg": "ProtectedPoolOverCapacity"
+    },
+    {
+      "code": 6024,
+      "name": "InvalidProtocolDeposit",
+      "msg": "InvalidProtocolDeposit"
+    },
+    {
+      "code": 6025,
+      "name": "InvalidProtocolWithdraw",
+      "msg": "InvalidProtocolWithdraw"
+    },
+    {
+      "code": 6026,
+      "name": "InvalidPoolWithdraw",
+      "msg": "InvalidPoolWithdraw"
+    },
+    {
+      "code": 6027,
+      "name": "NotEnoughtInputPoolBalance",
+      "msg": "NotEnoughtInputPoolBalance, withdraw from protocol first"
+    },
+    {
+      "code": 6028,
+      "name": "InvalidPoolExposure",
+      "msg": "InvalidPoolExposure"
+    },
+    {
+      "code": 6029,
+      "name": "InvalidPoolMint",
+      "msg": "InvalidPoolMint"
+    },
+    {
+      "code": 6030,
+      "name": "CouldNotFindProtocolPosition",
+      "msg": "CouldNotFindProtocolPosition"
+    },
+    {
+      "code": 6031,
+      "name": "ConversionError",
+      "msg": "MathConversionError"
+    },
+    {
+      "code": 6032,
+      "name": "InvalidProtocolAccount",
+      "msg": "InvalidProtocolAccount"
+    },
+    {
+      "code": 6033,
+      "name": "InvalidRewardsRefresh",
+      "msg": "InvalidRewardsRefresh"
+    },
+    {
+      "code": 6034,
+      "name": "InvalidWithdrawInstruction",
+      "msg": "InvalidWithdrawInstruction"
+    },
+    {
+      "code": 6035,
+      "name": "InvalidRefreshPoolTvl",
+      "msg": "InvalidRefreshPoolTvl"
+    },
+    {
+      "code": 6036,
+      "name": "InvalidPythPullOracle",
+      "msg": "InvalidPythPullOracle"
+    },
+    {
+      "code": 6037,
+      "name": "OracleStale",
+      "msg": "OracleStale"
+    },
+    {
+      "code": 6038,
+      "name": "PriceOutOfTolerance",
+      "msg": "PriceOutOfTolerance"
+    },
+    {
+      "code": 6039,
+      "name": "PoolAllocationNotFound",
+      "msg": "PoolAllocationNotFound"
+    },
+    {
+      "code": 6040,
+      "name": "PoolAllocationFull",
+      "msg": "PoolAllocationFull"
+    },
+    {
+      "code": 6041,
+      "name": "AllocationAlreadyExists",
+      "msg": "AllocationAlreadyExists"
+    },
+    {
+      "code": 6042,
+      "name": "InvalidUserReferralAccount",
+      "msg": "InvalidUserReferralAccount"
+    },
+    {
+      "code": 6043,
+      "name": "DepositLimitExceeded",
+      "msg": "DepositLimitExceeded"
+    },
+    {
+      "code": 6044,
+      "name": "InvalidHash",
+      "msg": "InvalidHash"
+    },
+    {
+      "code": 6045,
+      "name": "ProtocolNotInitialized",
+      "msg": "ProtocolNotInitialized"
+    },
+    {
+      "code": 6046,
+      "name": "OracleVolatility",
+      "msg": "OracleVolatility"
+    },
+    {
+      "code": 6047,
+      "name": "OracleDepeg",
+      "msg": "OracleDepeg"
+    },
+    {
+      "code": 6048,
+      "name": "OraclesNotRefreshed",
+      "msg": "OraclesNotRefreshed"
+    },
+    {
+      "code": 6049,
+      "name": "SecurityHalted",
+      "msg": "SecurityHalted"
+    },
+    {
+      "code": 6050,
+      "name": "BelowMinimumTransfer",
+      "msg": "BelowMinimumTransfer"
+    },
+    {
+      "code": 6051,
+      "name": "UserWithdrawsFull",
+      "msg": "UserWithdrawsFull"
+    },
+    {
+      "code": 6052,
+      "name": "ReferrerSameAsOwner",
+      "msg": "ReferrerSameAsOwner"
+    },
+    {
+      "code": 6053,
+      "name": "InvalidPriceVariation",
+      "msg": "InvalidPriceVariation"
+    },
+    {
+      "code": 6054,
+      "name": "InputMustBeGreaterThanZero",
+      "msg": "InputMustBeGreaterThanZero"
+    },
+    {
+      "code": 6055,
+      "name": "NoWithdrawableFundsFound",
+      "msg": "NoWithdrawableFundsFound"
+    },
+    {
+      "code": 6056,
+      "name": "InsufficientFunds",
+      "msg": "InsufficientFunds"
+    },
+    {
+      "code": 6057,
+      "name": "CooldownNotPassed",
+      "msg": "CooldownNotPassed"
+    },
+    {
+      "code": 6058,
+      "name": "InvalidUserWithdrawAllocation",
+      "msg": "InvalidUserWithdrawAllocation"
+    },
+    {
+      "code": 6059,
+      "name": "InvalidWithdrawalId",
+      "msg": "InvalidWithdrawalId"
+    },
+    {
+      "code": 6060,
+      "name": "InvalidRegularWithdraw",
+      "msg": "InvalidRegularWithdraw"
+    }
+  ],
+  "types": [
+    {
+      "name": "ActionRequest",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "log_value",
+            "type": {
+              "defined": {
+                "name": "ActionValue"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Allocation",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "decimals",
+            "type": "u8"
+          },
+          {
+            "name": "padding",
+            "type": {
+              "array": [
+                "u8",
+                7
+              ]
+            }
+          },
+          {
+            "name": "regular_amount",
+            "docs": [
+              "regular native (USDC) amount which has been deposited across",
+              "all protocols (including the pool token account) which has yet",
+              "to be deposited"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "protected_amount",
+            "docs": [
+              "protcted native (USDC) amount which has been deposited across",
+              "all protocols (including the pool token account) which has yet",
+              "to be deposited"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "deposit_limit",
+            "type": "u64"
+          },
+          {
+            "name": "reserved1",
+            "type": {
+              "array": [
+                "u64",
+                8
+              ]
+            }
+          },
+          {
+            "name": "total_liquidity",
+            "docs": [
+              "total liquidity, including pending fees and withdrawals"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "accumulated_protocol_fees",
+            "type": "u64"
+          },
+          {
+            "name": "pending_withdrawals",
+            "docs": [
+              "pending withdrawals (for regular deposits) are removed",
+              "kept in the pool, while the lpTokens are burned, and the circulating",
+              "supply is removed from the protection / fees calculations"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "accumulated_referral_fees",
+            "docs": [
+              "total referral rewards, including unclaimed"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "reserved2",
+            "type": {
+              "array": [
+                "u64",
+                3
+              ]
+            }
+          },
+          {
+            "name": "protocols",
+            "type": {
+              "array": [
+                {
+                  "defined": {
+                    "name": "ProtocolConfig"
+                  }
+                },
+                8
+              ]
+            }
+          },
+          {
+            "name": "reserved3",
+            "docs": [
+              "@deprecated"
+            ],
+            "type": {
+              "array": [
+                "u64",
+                8
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProtocolConfig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "protocol_id",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          },
+          {
+            "name": "weight",
+            "type": "u32"
+          },
+          {
+            "name": "padding",
+            "type": {
+              "array": [
+                "u8",
+                4
+              ]
+            }
+          },
+          {
+            "name": "balance_native",
+            "docs": [
+              "total deposited balance in native (USDC) value"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "refresh_last_ts",
+            "docs": [
+              "refresh last timestamp"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "accrued_amount",
+            "docs": [
+              "the pending amount of interest which has been accrued",
+              "since last refresh, before it is moved to amount and",
+              "before it has been moved to the total amount"
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "hash_operations",
+            "docs": [
+              "Hash of important accounts for deposit/withdraw"
+            ],
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "hash_refresh",
+            "docs": [
+              "Hash of important accounts for refresh tvl"
+            ],
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "reserved",
+            "type": {
+              "array": [
+                "u64",
+                4
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Protocol",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Drift"
+          },
+          {
+            "name": "Kamino"
+          },
+          {
+            "name": "Marginfi"
+          },
+          {
+            "name": "Solend"
+          },
+          {
+            "name": "KaminoJLP"
+          },
+          {
+            "name": "KaminoAlt"
+          },
+          {
+            "name": "DriftJLP"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ActionValue",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "NewOrder",
+            "fields": [
+              {
+                "name": "order_id",
+                "type": {
+                  "array": [
+                    "u8",
+                    16
+                  ]
+                }
+              },
+              {
+                "name": "mint_address",
+                "type": "pubkey"
+              },
+              {
+                "name": "order_amount",
+                "type": "u64"
+              },
+              {
+                "name": "allowed_protocols",
+                "type": {
+                  "array": [
+                    "u8",
+                    64
+                  ]
+                }
+              },
+              {
+                "name": "minimum_rate",
+                "type": {
+                  "option": "u64"
+                }
+              },
+              {
+                "name": "homebase",
+                "type": {
+                  "option": {
+                    "array": [
+                      "u8",
+                      8
+                    ]
+                  }
+                }
+              },
+              {
+                "name": "referrer",
+                "type": {
+                  "option": {
+                    "array": [
+                      "u8",
+                      8
+                    ]
+                  }
+                }
+              },
+              {
+                "name": "delegate_only",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "CancelOrder",
+            "fields": [
+              {
+                "name": "order_id",
+                "type": {
+                  "array": [
+                    "u8",
+                    16
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "name": "RevokeDelegate",
+            "fields": []
+          },
+          {
+            "name": "RefreshOrder",
+            "fields": [
+              {
+                "name": "order_id",
+                "type": {
+                  "array": [
+                    "u8",
+                    16
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "name": "TopUpBalance",
+            "fields": [
+              {
+                "name": "order_id",
+                "type": {
+                  "array": [
+                    "u8",
+                    16
+                  ]
+                }
+              },
+              {
+                "name": "amount",
+                "type": "u64"
+              },
+              {
+                "name": "target_protocol",
+                "type": {
+                  "array": [
+                    "u8",
+                    8
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "name": "WithdrawPartial",
+            "fields": [
+              {
+                "name": "order_id",
+                "type": {
+                  "array": [
+                    "u8",
+                    16
+                  ]
+                }
+              },
+              {
+                "name": "amount",
+                "type": "u64"
+              },
+              {
+                "name": "target_protocol",
+                "type": {
+                  "array": [
+                    "u8",
+                    8
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "name": "OrderEdit",
+            "fields": [
+              {
+                "name": "order_id",
+                "type": {
+                  "array": [
+                    "u8",
+                    16
+                  ]
+                }
+              },
+              {
+                "name": "minimum_rate",
+                "type": {
+                  "option": "u64"
+                }
+              },
+              {
+                "name": "homebase",
+                "type": {
+                  "option": {
+                    "array": [
+                      "u8",
+                      8
+                    ]
+                  }
+                }
+              },
+              {
+                "name": "allowed_protocols",
+                "type": {
+                  "option": {
+                    "array": [
+                      "u8",
+                      64
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "TopUpBalanceV2",
+            "fields": [
+              {
+                "name": "order_id",
+                "type": {
+                  "array": [
+                    "u8",
+                    16
+                  ]
+                }
+              },
+              {
+                "name": "new_order_id",
+                "type": {
+                  "array": [
+                    "u8",
+                    16
+                  ]
+                }
+              },
+              {
+                "name": "amount",
+                "type": "u64"
+              },
+              {
+                "name": "target_protocol",
+                "type": {
+                  "array": [
+                    "u8",
+                    8
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "name": "WithdrawPartialV2",
+            "fields": [
+              {
+                "name": "order_id",
+                "type": {
+                  "array": [
+                    "u8",
+                    16
+                  ]
+                }
+              },
+              {
+                "name": "new_order_id",
+                "type": {
+                  "array": [
+                    "u8",
+                    16
+                  ]
+                }
+              },
+              {
+                "name": "amount",
+                "type": "u64"
+              },
+              {
+                "name": "target_protocol",
+                "type": {
+                  "array": [
+                    "u8",
+                    8
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "name": "OrderEditV2",
+            "fields": [
+              {
+                "name": "order_id",
+                "type": {
+                  "array": [
+                    "u8",
+                    16
+                  ]
+                }
+              },
+              {
+                "name": "new_order_id",
+                "type": {
+                  "array": [
+                    "u8",
+                    16
+                  ]
+                }
+              },
+              {
+                "name": "minimum_rate",
+                "type": {
+                  "option": "u64"
+                }
+              },
+              {
+                "name": "homebase",
+                "type": {
+                  "option": {
+                    "array": [
+                      "u8",
+                      8
+                    ]
+                  }
+                }
+              },
+              {
+                "name": "allowed_protocols",
+                "type": {
+                  "option": {
+                    "array": [
+                      "u8",
+                      64
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "Migration",
+            "fields": [
+              {
+                "name": "order_id",
+                "type": {
+                  "array": [
+                    "u8",
+                    16
+                  ]
+                }
+              },
+              {
+                "name": "current_protocol",
+                "type": {
+                  "array": [
+                    "u8",
+                    8
+                  ]
+                }
+              },
+              {
+                "name": "target_protocol",
+                "type": {
+                  "array": [
+                    "u8",
+                    8
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "name": "MultiOrder",
+            "fields": [
+              {
+                "name": "parent_order_id",
+                "type": {
+                  "array": [
+                    "u8",
+                    16
+                  ]
+                }
+              },
+              {
+                "name": "mint_address",
+                "type": "pubkey"
+              },
+              {
+                "name": "total_deposit_amount",
+                "type": "u64"
+              },
+              {
+                "name": "target_protocol",
+                "type": {
+                  "array": [
+                    "u8",
+                    8
+                  ]
+                }
+              },
+              {
+                "name": "allowed_protocols",
+                "type": {
+                  "array": [
+                    "u8",
+                    64
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "name": "UpdateActiveProtocol",
+            "fields": [
+              {
+                "name": "order_id",
+                "type": {
+                  "array": [
+                    "u8",
+                    16
+                  ]
+                }
+              },
+              {
+                "name": "active_protocol",
+                "type": {
+                  "array": [
+                    "u8",
+                    8
+                  ]
+                }
+              },
+              {
+                "name": "amount",
+                "type": "u64"
+              }
+            ]
+          },
+          {
+            "name": "AccountSettings",
+            "fields": [
+              {
+                "name": "allowed_protocols",
+                "type": {
+                  "array": [
+                    "u8",
+                    64
+                  ]
+                }
+              },
+              {
+                "name": "homebase",
+                "type": {
+                  "option": {
+                    "array": [
+                      "u8",
+                      8
+                    ]
+                  }
+                }
+              },
+              {
+                "name": "minimum_rate",
+                "type": {
+                  "option": "u64"
+                }
+              }
+            ]
+          },
+          {
+            "name": "UserDeposit",
+            "fields": [
+              {
+                "name": "mint_address",
+                "type": "pubkey"
+              },
+              {
+                "name": "amount",
+                "type": "u64"
+              },
+              {
+                "name": "target_protocol",
+                "type": {
+                  "array": [
+                    "u8",
+                    8
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "name": "UserWithdraw",
+            "fields": [
+              {
+                "name": "mint_address",
+                "type": "pubkey"
+              },
+              {
+                "name": "amount",
+                "type": "u64"
+              },
+              {
+                "name": "withdraw_all",
+                "type": "bool"
+              },
+              {
+                "name": "target_protocol",
+                "type": {
+                  "array": [
+                    "u8",
+                    8
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "name": "DepositMigration",
+            "fields": [
+              {
+                "name": "order_id",
+                "type": {
+                  "array": [
+                    "u8",
+                    16
+                  ]
+                }
+              },
+              {
+                "name": "amount",
+                "type": "u64"
+              },
+              {
+                "name": "current_protocol",
+                "type": {
+                  "array": [
+                    "u8",
+                    8
+                  ]
+                }
+              },
+              {
+                "name": "target_protocol",
+                "type": {
+                  "array": [
+                    "u8",
+                    8
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "name": "OrderWithdrawn",
+            "fields": [
+              {
+                "name": "order_id",
+                "type": {
+                  "array": [
+                    "u8",
+                    16
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "name": "InitiateDeposit",
+            "fields": [
+              {
+                "name": "owner",
+                "type": "pubkey"
+              },
+              {
+                "name": "mint_address",
+                "type": "pubkey"
+              },
+              {
+                "name": "order_amount",
+                "type": "u64"
+              },
+              {
+                "name": "allowed_protocols",
+                "type": {
+                  "option": {
+                    "array": [
+                      "u8",
+                      64
+                    ]
+                  }
+                }
+              },
+              {
+                "name": "end_date",
+                "type": {
+                  "option": "u64"
+                }
+              },
+              {
+                "name": "return_type",
+                "type": {
+                  "option": {
+                    "defined": {
+                      "name": "PushOrPull"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "InitiateWithdraw",
+            "fields": [
+              {
+                "name": "owner",
+                "type": "pubkey"
+              },
+              {
+                "name": "mint_address",
+                "type": "pubkey"
+              },
+              {
+                "name": "owner_token_account",
+                "type": "pubkey"
+              },
+              {
+                "name": "withdraw_amount",
+                "type": "u64"
+              },
+              {
+                "name": "withdraw_all",
+                "type": "bool"
+              },
+              {
+                "name": "return_type",
+                "type": {
+                  "option": {
+                    "defined": {
+                      "name": "PushOrPull"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "AccountSettingsV2",
+            "fields": [
+              {
+                "name": "allowed_protocols",
+                "type": {
+                  "array": [
+                    "u8",
+                    64
+                  ]
+                }
+              },
+              {
+                "name": "homebase",
+                "type": {
+                  "option": {
+                    "array": [
+                      "u8",
+                      8
+                    ]
+                  }
+                }
+              },
+              {
+                "name": "minimum_rate",
+                "type": {
+                  "option": "u64"
+                }
+              },
+              {
+                "name": "safe_route_type",
+                "type": {
+                  "option": "u8"
+                }
+              }
+            ]
+          },
+          {
+            "name": "UserDepositV2",
+            "fields": [
+              {
+                "name": "owner",
+                "type": "pubkey"
+              },
+              {
+                "name": "mint_address",
+                "type": "pubkey"
+              },
+              {
+                "name": "amount",
+                "type": "u64"
+              },
+              {
+                "name": "target_protocol",
+                "type": {
+                  "array": [
+                    "u8",
+                    8
+                  ]
+                }
+              },
+              {
+                "name": "batch_size",
+                "type": "u64"
+              }
+            ]
+          },
+          {
+            "name": "UserWithdrawV2",
+            "fields": [
+              {
+                "name": "owner",
+                "type": "pubkey"
+              },
+              {
+                "name": "mint_address",
+                "type": "pubkey"
+              },
+              {
+                "name": "amount",
+                "type": "u64"
+              },
+              {
+                "name": "withdraw_all",
+                "type": "bool"
+              },
+              {
+                "name": "target_protocol",
+                "type": {
+                  "array": [
+                    "u8",
+                    8
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "name": "AccountSettingsV3",
+            "fields": [
+              {
+                "name": "owner",
+                "type": "pubkey"
+              },
+              {
+                "name": "allowed_protocols",
+                "type": {
+                  "array": [
+                    "u8",
+                    64
+                  ]
+                }
+              },
+              {
+                "name": "homebase",
+                "type": {
+                  "option": {
+                    "array": [
+                      "u8",
+                      8
+                    ]
+                  }
+                }
+              },
+              {
+                "name": "minimum_rate",
+                "type": {
+                  "option": "u64"
+                }
+              },
+              {
+                "name": "safe_route_type",
+                "type": {
+                  "option": "u8"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "PushOrPull",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Push"
+          },
+          {
+            "name": "Pull"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PoolType",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Regular"
+          },
+          {
+            "name": "Protected"
+          }
+        ]
+      }
+    },
+    {
+      "name": "pendingWithdrawal",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "allocation_index",
+            "type": "u8"
+          },
+          {
+            "name": "withdrawal_id",
+            "type": "u16"
+          },
+          {
+            "name": "padding",
+            "type": {
+              "array": [
+                "u8",
+                5
+              ]
+            }
+          },
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "created_timestamp",
+            "type": "u64"
+          },
+          {
+            "name": "cooldown_seconds",
+            "type": "u64"
+          },
+          {
+            "name": "native_amount",
+            "docs": [
+              "native (USDC) requested amount, potentially overridden by withdrawal_all",
+              "to account for dust that is continuously accruing"
+            ],
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "pool",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bump",
+            "type": {
+              "array": [
+                "u8",
+                1
+              ]
+            }
+          },
+          {
+            "name": "pool_id",
+            "type": "u8"
+          },
+          {
+            "name": "decimals",
+            "docs": [
+              "regular/protected mint decimals"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "protected_bump",
+            "docs": [
+              "mint bumps"
+            ],
+            "type": {
+              "array": [
+                "u8",
+                1
+              ]
+            }
+          },
+          {
+            "name": "regular_bump",
+            "type": {
+              "array": [
+                "u8",
+                1
+              ]
+            }
+          },
+          {
+            "name": "security_flag",
+            "docs": [
+              "In the event of a security incident, this flag will be",
+              "flipped and most of the instructions will be frozen while",
+              "manual reconciliation can occur"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "padding",
+            "type": {
+              "array": [
+                "u8",
+                2
+              ]
+            }
+          },
+          {
+            "name": "padding1",
+            "docs": [
+              "old base global protocol perf fee"
+            ],
+            "type": "u16"
+          },
+          {
+            "name": "padding2",
+            "docs": [
+              "old global referral fees, not used anymore"
+            ],
+            "type": "u16"
+          },
+          {
+            "name": "protected_interest_share_bps",
+            "docs": [
+              "% protected interest that goes to regular pool"
+            ],
+            "type": "u16"
+          },
+          {
+            "name": "coverage_float_bps",
+            "docs": [
+              "A multiplying factor that reduces the coverage ratio checked when doing a PUSD deposit,",
+              "ensuring some space is always available for LUSD withdraw when approaching coverage ratio",
+              "default = 90%"
+            ],
+            "type": "u16"
+          },
+          {
+            "name": "protected_max_exposure",
+            "type": "u32"
+          },
+          {
+            "name": "regular_max_exposure",
+            "type": "u32"
+          },
+          {
+            "name": "padding3",
+            "docs": [
+              "@deprecated"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "refresh_stale_max_seconds",
+            "docs": [
+              "pool rebalance staleness"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "withdraw_cooldown_seconds",
+            "docs": [
+              "time between a regular withdrawal is initiated and when it can",
+              "actually be withdrawn"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "protected_total_supply",
+            "docs": [
+              "total number of PUSD tokens in circulation"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "regular_total_supply",
+            "docs": [
+              "total number of LUSD tokens in circulation"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "last_updated",
+            "type": "u64"
+          },
+          {
+            "name": "allocations",
+            "docs": [
+              "Pool allocations: mints + protocols"
+            ],
+            "type": {
+              "array": [
+                {
+                  "defined": {
+                    "name": "Allocation"
+                  }
+                },
+                5
+              ]
+            }
+          },
+          {
+            "name": "admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "automation",
+            "type": "pubkey"
+          },
+          {
+            "name": "reserved",
+            "type": {
+              "array": [
+                "u64",
+                24
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "protocolAuthority",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bump",
+            "type": {
+              "array": [
+                "u8",
+                1
+              ]
+            }
+          },
+          {
+            "name": "padding",
+            "type": {
+              "array": [
+                "u8",
+                3
+              ]
+            }
+          },
+          {
+            "name": "pool",
+            "type": "pubkey"
+          },
+          {
+            "name": "protocol_id",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "userReferrer",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "referred_amounts",
+            "docs": [
+              "@deprecated - kept for backward compatibility"
+            ],
+            "type": {
+              "array": [
+                "u64",
+                5
+              ]
+            }
+          },
+          {
+            "name": "referral_supplies",
+            "docs": [
+              "@deprecated - kept for backward compatibility"
+            ],
+            "type": {
+              "array": [
+                "u64",
+                5
+              ]
+            }
+          },
+          {
+            "name": "referral_fee_unclaimed",
+            "type": {
+              "array": [
+                "u64",
+                5
+              ]
+            }
+          },
+          {
+            "name": "referral_fee_bps",
+            "type": "u16"
+          },
+          {
+            "name": "referral_supply_bonus",
+            "docs": [
+              "@deprecated - kept for backward compatibility"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "claim_fee_bps",
+            "type": "u16"
+          },
+          {
+            "name": "referral_total_claimed",
+            "type": "u64"
+          },
+          {
+            "name": "reserved",
+            "type": {
+              "array": [
+                "u16",
+                6
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "promotionReserve",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "padding",
+            "type": {
+              "array": [
+                "u8",
+                7
+              ]
+            }
+          },
+          {
+            "name": "admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "padding2",
+            "type": {
+              "array": [
+                "u64",
+                8
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "userAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "padding",
+            "type": {
+              "array": [
+                "u8",
+                7
+              ]
+            }
+          },
+          {
+            "name": "owner",
+            "docs": [
+              "authority for the deposited funds"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "mfi_account",
+            "docs": [
+              "legacy v1"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "solend_obligation",
+            "docs": [
+              "legacy v1"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "regular_collateral",
+            "type": "u64"
+          },
+          {
+            "name": "regular_average_price_bytes",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "regular_referrer_charged_price_bytes",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "protected_collateral",
+            "type": "u64"
+          },
+          {
+            "name": "protected_average_price_bytes",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "protected_referrer_charged_price_bytes",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "referrer",
+            "type": "pubkey"
+          },
+          {
+            "name": "first_deposit_ts",
+            "type": "u64"
+          },
+          {
+            "name": "last_deposit_ts",
+            "type": "u64"
+          },
+          {
+            "name": "referrer_charged_ts",
+            "type": "u64"
+          },
+          {
+            "name": "last_withdrawing_id",
+            "type": "u16"
+          },
+          {
+            "name": "active_withdraws",
+            "type": {
+              "array": [
+                "u16",
+                11
+              ]
+            }
+          },
+          {
+            "name": "padding2",
+            "type": {
+              "array": [
+                "u64",
+                8
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "InitializeFlexUserEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "fee_payer",
+            "type": "pubkey"
+          },
+          {
+            "name": "referrer_owner",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PoolUserClaimReferralFeesEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "pool_before",
+            "type": "u64"
+          },
+          {
+            "name": "pool_after",
+            "type": "u64"
+          },
+          {
+            "name": "total_claimable",
+            "type": "u64"
+          },
+          {
+            "name": "protocol_claimable_fee",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PoolUserCompleteWithdrawEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "fee_payer",
+            "type": "pubkey"
+          },
+          {
+            "name": "referrer",
+            "type": "pubkey"
+          },
+          {
+            "name": "pool_type",
+            "type": "u8"
+          },
+          {
+            "name": "allocation_index",
+            "type": "u8"
+          },
+          {
+            "name": "input_amount",
+            "type": "u64"
+          },
+          {
+            "name": "pool_before",
+            "type": "u64"
+          },
+          {
+            "name": "pool_after",
+            "type": "u64"
+          },
+          {
+            "name": "withdrawal_id",
+            "type": "u16"
+          },
+          {
+            "name": "price_units",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PoolUserDepositEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "fee_payer",
+            "type": "pubkey"
+          },
+          {
+            "name": "referrer",
+            "type": "pubkey"
+          },
+          {
+            "name": "pool_type",
+            "type": "u8"
+          },
+          {
+            "name": "allocation_index",
+            "type": "u8"
+          },
+          {
+            "name": "input_amount",
+            "type": "u64"
+          },
+          {
+            "name": "user_before",
+            "type": "u64"
+          },
+          {
+            "name": "user_after",
+            "type": "u64"
+          },
+          {
+            "name": "pool_before",
+            "type": "u64"
+          },
+          {
+            "name": "pool_after",
+            "type": "u64"
+          },
+          {
+            "name": "supply_before",
+            "type": "u64"
+          },
+          {
+            "name": "supply_after",
+            "type": "u64"
+          },
+          {
+            "name": "supply_change",
+            "type": "u64"
+          },
+          {
+            "name": "price_units",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PoolDepositProtocolEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "protocol_id",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          },
+          {
+            "name": "allocation_index",
+            "type": "u8"
+          },
+          {
+            "name": "balance",
+            "type": "u64"
+          },
+          {
+            "name": "input_amount",
+            "type": "u64"
+          },
+          {
+            "name": "protocol_amount",
+            "type": "u64"
+          },
+          {
+            "name": "amount_change",
+            "type": "u64"
+          },
+          {
+            "name": "amount_before",
+            "type": "u64"
+          },
+          {
+            "name": "amount_after",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "InitializeUserReferrerEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "referral_fee_bps",
+            "type": "u16"
+          },
+          {
+            "name": "claim_fee_bps",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PoolUserInitiateWithdrawEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "fee_payer",
+            "type": "pubkey"
+          },
+          {
+            "name": "referrer",
+            "type": "pubkey"
+          },
+          {
+            "name": "pool_type",
+            "type": "u8"
+          },
+          {
+            "name": "allocation_index",
+            "type": "u8"
+          },
+          {
+            "name": "input_amount",
+            "type": "u64"
+          },
+          {
+            "name": "user_before",
+            "type": "u64"
+          },
+          {
+            "name": "user_after",
+            "type": "u64"
+          },
+          {
+            "name": "withdrawal_id",
+            "type": "u16"
+          },
+          {
+            "name": "supply_before",
+            "type": "u64"
+          },
+          {
+            "name": "supply_after",
+            "type": "u64"
+          },
+          {
+            "name": "supply_change",
+            "type": "u64"
+          },
+          {
+            "name": "price_units",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PoolRefreshProtocolEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "protocol_id",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          },
+          {
+            "name": "allocation_index",
+            "type": "u8"
+          },
+          {
+            "name": "deposited_before",
+            "type": "u64"
+          },
+          {
+            "name": "accrued_amount",
+            "type": "i64"
+          },
+          {
+            "name": "deposited_after",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PoolRefreshTvlEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "allocation_index",
+            "type": "u8"
+          },
+          {
+            "name": "accrued_interest",
+            "type": "u64"
+          },
+          {
+            "name": "protocol_fees",
+            "type": "u64"
+          },
+          {
+            "name": "referral_fees",
+            "type": "u64"
+          },
+          {
+            "name": "accumulated_net",
+            "type": "u64"
+          },
+          {
+            "name": "protected_accumulated",
+            "type": "u64"
+          },
+          {
+            "name": "regular_accumulated",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PoolRefreshReferralEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "referrer_owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "referral_fee_bps",
+            "type": "u16"
+          },
+          {
+            "name": "protected_collateral",
+            "type": "u64"
+          },
+          {
+            "name": "protected_price_units",
+            "type": "u64"
+          },
+          {
+            "name": "regular_collateral",
+            "type": "u64"
+          },
+          {
+            "name": "regular_price_units",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PoolUserWithdrawEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "fee_payer",
+            "type": "pubkey"
+          },
+          {
+            "name": "referrer",
+            "type": "pubkey"
+          },
+          {
+            "name": "pool_type",
+            "type": "u8"
+          },
+          {
+            "name": "allocation_index",
+            "type": "u8"
+          },
+          {
+            "name": "input_amount",
+            "type": "u64"
+          },
+          {
+            "name": "user_before",
+            "type": "u64"
+          },
+          {
+            "name": "user_after",
+            "type": "u64"
+          },
+          {
+            "name": "pool_before",
+            "type": "u64"
+          },
+          {
+            "name": "pool_after",
+            "type": "u64"
+          },
+          {
+            "name": "supply_before",
+            "type": "u64"
+          },
+          {
+            "name": "supply_after",
+            "type": "u64"
+          },
+          {
+            "name": "supply_change",
+            "type": "u64"
+          },
+          {
+            "name": "price_units",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PoolWithdrawProtocolEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "protocol_id",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          },
+          {
+            "name": "allocation_index",
+            "type": "u8"
+          },
+          {
+            "name": "balance",
+            "type": "u64"
+          },
+          {
+            "name": "input_amount",
+            "type": "u64"
+          },
+          {
+            "name": "protocol_amount",
+            "type": "u64"
+          },
+          {
+            "name": "amount_change",
+            "type": "u64"
+          },
+          {
+            "name": "amount_before",
+            "type": "u64"
+          },
+          {
+            "name": "amount_after",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "NewOrderEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "order_id",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "mint_address",
+            "type": "pubkey"
+          },
+          {
+            "name": "order_amount",
+            "type": "u64"
+          },
+          {
+            "name": "allowed_protocols",
+            "type": {
+              "array": [
+                "u8",
+                64
+              ]
+            }
+          },
+          {
+            "name": "minimum_rate",
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "homebase",
+            "type": {
+              "option": {
+                "array": [
+                  "u8",
+                  8
+                ]
+              }
+            }
+          },
+          {
+            "name": "referrer",
+            "type": {
+              "option": {
+                "array": [
+                  "u8",
+                  8
+                ]
+              }
+            }
+          },
+          {
+            "name": "delegate_only",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "InitiateDepositEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint_address",
+            "type": "pubkey"
+          },
+          {
+            "name": "order_amount",
+            "type": "u64"
+          },
+          {
+            "name": "allowed_protocols",
+            "type": {
+              "option": {
+                "array": [
+                  "u8",
+                  64
+                ]
+              }
+            }
+          },
+          {
+            "name": "end_date",
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "return_type",
+            "type": {
+              "option": {
+                "defined": {
+                  "name": "PushOrPull"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "InitiateWithdrawEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint_address",
+            "type": "pubkey"
+          },
+          {
+            "name": "owner_token_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "withdraw_amount",
+            "type": "u64"
+          },
+          {
+            "name": "withdraw_all",
+            "type": "bool"
+          },
+          {
+            "name": "return_type",
+            "type": {
+              "option": {
+                "defined": {
+                  "name": "PushOrPull"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "CancelOrderEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "order_id",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "OrderWithdrawnEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "order_id",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "RevokeDelegateEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint_address",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RefreshOrderEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "order_id",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "TopUpBalanceEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "order_id",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "target_protocol",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "WithdrawPartialEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "order_id",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "target_protocol",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "OrderEditEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "order_id",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "minimum_rate",
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "homebase",
+            "type": {
+              "option": {
+                "array": [
+                  "u8",
+                  8
+                ]
+              }
+            }
+          },
+          {
+            "name": "allowed_protocols",
+            "type": {
+              "option": {
+                "array": [
+                  "u8",
+                  64
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "TopUpBalanceEventV2",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "order_id",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "new_order_id",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "target_protocol",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "WithdrawPartialEventV2",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "order_id",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "new_order_id",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "target_protocol",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "OrderEditEventV2",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "order_id",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "new_order_id",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "minimum_rate",
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "homebase",
+            "type": {
+              "option": {
+                "array": [
+                  "u8",
+                  8
+                ]
+              }
+            }
+          },
+          {
+            "name": "allowed_protocols",
+            "type": {
+              "option": {
+                "array": [
+                  "u8",
+                  64
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "MigrationEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "order_id",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "current_protocol",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          },
+          {
+            "name": "target_protocol",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "MultiOrderEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "parent_order_id",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "mint_address",
+            "type": "pubkey"
+          },
+          {
+            "name": "total_deposit_amount",
+            "type": "u64"
+          },
+          {
+            "name": "target_protocol",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          },
+          {
+            "name": "allowed_protocols",
+            "type": {
+              "array": [
+                "u8",
+                64
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "UpdateActiveProtocolEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "order_id",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "active_protocol",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AccountSettingsEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "allowed_protocols",
+            "type": {
+              "array": [
+                "u8",
+                64
+              ]
+            }
+          },
+          {
+            "name": "minimum_rate",
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "homebase",
+            "type": {
+              "option": {
+                "array": [
+                  "u8",
+                  8
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "AccountSettingsV2Event",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "allowed_protocols",
+            "type": {
+              "array": [
+                "u8",
+                64
+              ]
+            }
+          },
+          {
+            "name": "minimum_rate",
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "homebase",
+            "type": {
+              "option": {
+                "array": [
+                  "u8",
+                  8
+                ]
+              }
+            }
+          },
+          {
+            "name": "safe_route_type",
+            "type": {
+              "option": "u8"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "AccountSettingsV3Event",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "allowed_protocols",
+            "type": {
+              "array": [
+                "u8",
+                64
+              ]
+            }
+          },
+          {
+            "name": "minimum_rate",
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "homebase",
+            "type": {
+              "option": {
+                "array": [
+                  "u8",
+                  8
+                ]
+              }
+            }
+          },
+          {
+            "name": "safe_route_type",
+            "type": {
+              "option": "u8"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "UserDepositEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "mint_address",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "target_protocol",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "UserDepositV2Event",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint_address",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "target_protocol",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          },
+          {
+            "name": "batch_size",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UserWithdrawEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "mint_address",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "withdraw_all",
+            "type": "bool"
+          },
+          {
+            "name": "target_protocol",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "UserWithdrawV2Event",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint_address",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "withdraw_all",
+            "type": "bool"
+          },
+          {
+            "name": "target_protocol",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "DepositMigrationEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "order_id",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "current_protocol",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          },
+          {
+            "name": "target_protocol",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "HarvestRewardsEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint_address",
+            "type": "pubkey"
+          },
+          {
+            "name": "harvest_amount",
+            "type": "u64"
+          },
+          {
+            "name": "target_protocol",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "constants": [
+    {
+      "name": "BPS_SCALE",
+      "type": "u32",
+      "value": "10_000"
+    }
+  ]
+}

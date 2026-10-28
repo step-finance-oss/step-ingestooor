@@ -1,0 +1,125 @@
+{
+    "slot": 361365324,
+    "transaction": {
+        "signatures": [
+            "4Tb5qRLjkTLXRLF53qE91reRuN4bZHWdj5dmrTnzrkgwCqRYtMS7F1UfsqidnmpwxyPi1FrtUvVvkqreWttg4HMz"
+        ],
+        "message": {
+            "accountKeys": [
+                {
+                    "pubkey": "ASXSjnpNE4cTGnmJRZkJBwTsRRRgUEbr1vWnPT8iCVsU",
+                    "writable": true,
+                    "signer": true,
+                    "source": "transaction"
+                },
+                {
+                    "pubkey": "8wVgcpt221DSqE6pybjEc35hwUZoGR1dULr9FsDWNKBg",
+                    "writable": true,
+                    "signer": false,
+                    "source": "transaction"
+                },
+                {
+                    "pubkey": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+                    "writable": false,
+                    "signer": false,
+                    "source": "transaction"
+                }
+            ],
+            "recentBlockhash": "EFVa395xneGxetKKEFFd2WfkHdmgSt9vS9rou7Aodkti",
+            "instructions": [
+                {
+                    "program": "spl-token",
+                    "programId": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+                    "parsed": {
+                        "info": {
+                            "account": "8wVgcpt221DSqE6pybjEc35hwUZoGR1dULr9FsDWNKBg",
+                            "authority": "ASXSjnpNE4cTGnmJRZkJBwTsRRRgUEbr1vWnPT8iCVsU",
+                            "authorityType": "accountOwner",
+                            "newAuthority": "qUeL7JzC52V1DvvPkqnMd74QjThWtSJY5G1PkKv1ur7"
+                        },
+                        "type": "setAuthority"
+                    },
+                    "stackHeight": null
+                }
+            ]
+        }
+    },
+    "meta": {
+        "err": null,
+        "status": {
+            "Ok": null
+        },
+        "fee": 5000,
+        "preBalances": [
+            89432360,
+            2039280,
+            4535761987
+        ],
+        "postBalances": [
+            89427360,
+            2039280,
+            4535761987
+        ],
+        "preOwners": [
+            "11111111111111111111111111111111",
+            "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+            "BPFLoader2111111111111111111111111111111111"
+        ],
+        "postOwners": [
+            "11111111111111111111111111111111",
+            "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+            "BPFLoader2111111111111111111111111111111111"
+        ],
+        "preDatum": [
+            null,
+            "KLUv/SClbQIANATifes/S0ZI4UIogcmBazTQAghtYHhmDKnbPEN2VeWnMIxDIBv6zwZnBOE/Owf5qBixoX+VcePZzLmN/6jdORaHAAEAAgAEJwaY4Aw=",
+            null
+        ],
+        "postDatum": [
+            null,
+            "KLUv/SClbQIANATifes/S0ZI4UIogcmBazTQAghtYHhmDKnbPEN2VeWnMAxrIrR/ZK38rIVUXhT8Y9v80HeC58h/TrmrhpS+muHAAAEAAgAEJwaY4Aw=",
+            null
+        ],
+        "innerInstructions": [],
+        "logMessages": [
+            "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [1]",
+            "Program log: Instruction: SetAuthority",
+            "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 2791 of 200000 compute units",
+            "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success"
+        ],
+        "preTokenBalances": [
+            {
+                "accountIndex": 1,
+                "mint": "GF8WBDmRjvhC9YVny9QjFWoM4k5nQsjsxDxDkofb8KMh",
+                "uiTokenAmount": {
+                    "uiAmount": 0.0,
+                    "decimals": 9,
+                    "amount": "0",
+                    "uiAmountString": "0"
+                },
+                "owner": "ASXSjnpNE4cTGnmJRZkJBwTsRRRgUEbr1vWnPT8iCVsU",
+                "programId": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+            }
+        ],
+        "postTokenBalances": [
+            {
+                "accountIndex": 1,
+                "mint": "GF8WBDmRjvhC9YVny9QjFWoM4k5nQsjsxDxDkofb8KMh",
+                "uiTokenAmount": {
+                    "uiAmount": 0.0,
+                    "decimals": 9,
+                    "amount": "0",
+                    "uiAmountString": "0"
+                },
+                "owner": "qUeL7JzC52V1DvvPkqnMd74QjThWtSJY5G1PkKv1ur7",
+                "programId": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+            }
+        ],
+        "rewards": [],
+        "computeUnitsConsumed": 2791
+    },
+    "version": "legacy",
+    "blockTime": 1755711819,
+    "indexInBlock": 146,
+    "slotSecondIdx": 2
+}

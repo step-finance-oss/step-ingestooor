@@ -1,0 +1,2365 @@
+{
+  "address": "",
+  "metadata": {
+    "name": "klend_vaults",
+    "version": "0.1.0",
+    "spec": "0.1.0"
+  },
+  "accounts": [
+    {
+      "name": "Reserve",
+      "type": {
+        "fields": [
+          {
+            "docs": [
+              "Version of the reserve"
+            ],
+            "name": "version",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "Last slot when supply and rates updated"
+            ],
+            "name": "lastUpdate",
+            "type": {
+              "defined": "LastUpdate"
+            }
+          },
+          {
+            "docs": [
+              "Lending market address"
+            ],
+            "name": "lendingMarket",
+            "type": "publicKey"
+          },
+          {
+            "name": "farmCollateral",
+            "type": "publicKey"
+          },
+          {
+            "name": "farmDebt",
+            "type": "publicKey"
+          },
+          {
+            "docs": [
+              "Reserve liquidity"
+            ],
+            "name": "liquidity",
+            "type": {
+              "defined": "ReserveLiquidity"
+            }
+          },
+          {
+            "name": "reserveLiquidityPadding",
+            "type": {
+              "array": [
+                "u64",
+                150
+              ]
+            }
+          },
+          {
+            "docs": [
+              "Reserve collateral"
+            ],
+            "name": "collateral",
+            "type": {
+              "defined": "ReserveCollateral"
+            }
+          },
+          {
+            "name": "reserveCollateralPadding",
+            "type": {
+              "array": [
+                "u64",
+                150
+              ]
+            }
+          },
+          {
+            "docs": [
+              "Reserve configuration values"
+            ],
+            "name": "config",
+            "type": {
+              "defined": "ReserveConfig"
+            }
+          },
+          {
+            "name": "configPadding",
+            "type": {
+              "array": [
+                "u64",
+                115
+              ]
+            }
+          },
+          {
+            "name": "borrowedAmountOutsideElevationGroup",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "Amount of token borrowed in lamport of debt asset in the given",
+              "elevation group when this reserve is part of the collaterals."
+            ],
+            "name": "borrowedAmountsAgainstThisReserveInElevationGroups",
+            "type": {
+              "array": [
+                "u64",
+                32
+              ]
+            }
+          },
+          {
+            "name": "padding",
+            "type": {
+              "array": [
+                "u64",
+                207
+              ]
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "VaultState",
+      "type": {
+        "fields": [
+          {
+            "name": "vaultAdminAuthority",
+            "type": "publicKey"
+          },
+          {
+            "name": "baseVaultAuthority",
+            "type": "publicKey"
+          },
+          {
+            "name": "baseVaultAuthorityBump",
+            "type": "u64"
+          },
+          {
+            "name": "tokenMint",
+            "type": "publicKey"
+          },
+          {
+            "name": "tokenMintDecimals",
+            "type": "u64"
+          },
+          {
+            "name": "tokenVault",
+            "type": "publicKey"
+          },
+          {
+            "name": "tokenProgram",
+            "type": "publicKey"
+          },
+          {
+            "name": "sharesMint",
+            "type": "publicKey"
+          },
+          {
+            "name": "sharesMintDecimals",
+            "type": "u64"
+          },
+          {
+            "name": "tokenAvailable",
+            "type": "u64"
+          },
+          {
+            "name": "sharesIssued",
+            "type": "u64"
+          },
+          {
+            "name": "availableCrankFunds",
+            "type": "u64"
+          },
+          {
+            "name": "unallocatedWeight",
+            "type": "u64"
+          },
+          {
+            "name": "performanceFeeBps",
+            "type": "u64"
+          },
+          {
+            "name": "managementFeeBps",
+            "type": "u64"
+          },
+          {
+            "name": "lastFeeChargeTimestamp",
+            "type": "u64"
+          },
+          {
+            "name": "prevAumSf",
+            "type": "u128"
+          },
+          {
+            "name": "pendingFeesSf",
+            "type": "u128"
+          },
+          {
+            "name": "vaultAllocationStrategy",
+            "type": {
+              "array": [
+                {
+                  "defined": "VaultAllocation"
+                },
+                25
+              ]
+            }
+          },
+          {
+            "name": "padding1",
+            "type": {
+              "array": [
+                "u128",
+                256
+              ]
+            }
+          },
+          {
+            "name": "minDepositAmount",
+            "type": "u64"
+          },
+          {
+            "name": "minWithdrawAmount",
+            "type": "u64"
+          },
+          {
+            "name": "minInvestAmount",
+            "type": "u64"
+          },
+          {
+            "name": "minInvestDelaySlots",
+            "type": "u64"
+          },
+          {
+            "name": "crankFundFeePerReserve",
+            "type": "u64"
+          },
+          {
+            "name": "pendingAdmin",
+            "type": "publicKey"
+          },
+          {
+            "name": "cumulativeEarnedInterestSf",
+            "type": "u128"
+          },
+          {
+            "name": "cumulativeMgmtFeesSf",
+            "type": "u128"
+          },
+          {
+            "name": "cumulativePerfFeesSf",
+            "type": "u128"
+          },
+          {
+            "name": "name",
+            "type": {
+              "array": [
+                "u8",
+                40
+              ]
+            }
+          },
+          {
+            "name": "vaultLookupTable",
+            "type": "publicKey"
+          },
+          {
+            "name": "vaultFarm",
+            "type": "publicKey"
+          },
+          {
+            "name": "creationTimestamp",
+            "type": "u64"
+          },
+          {
+            "name": "unallocatedTokensCap",
+            "type": "u64"
+          },
+          {
+            "name": "allocationAdmin",
+            "type": "publicKey"
+          },
+          {
+            "name": "padding3",
+            "type": {
+              "array": [
+                "u128",
+                242
+              ]
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 7000,
+      "msg": "DepositAmountsZero",
+      "name": "DepositAmountsZero"
+    },
+    {
+      "code": 7001,
+      "msg": "SharesIssuedAmountDoesNotMatch",
+      "name": "SharesIssuedAmountDoesNotMatch"
+    },
+    {
+      "code": 7002,
+      "msg": "MathOverflow",
+      "name": "MathOverflow"
+    },
+    {
+      "code": 7003,
+      "msg": "IntegerOverflow",
+      "name": "IntegerOverflow"
+    },
+    {
+      "code": 7004,
+      "msg": "Withdrawn amount is below minimum",
+      "name": "WithdrawAmountBelowMinimum"
+    },
+    {
+      "code": 7005,
+      "msg": "TooMuchLiquidityToWithdraw",
+      "name": "TooMuchLiquidityToWithdraw"
+    },
+    {
+      "code": 7006,
+      "msg": "ReserveAlreadyExists",
+      "name": "ReserveAlreadyExists"
+    },
+    {
+      "code": 7007,
+      "msg": "ReserveNotPartOfAllocations",
+      "name": "ReserveNotPartOfAllocations"
+    },
+    {
+      "code": 7008,
+      "msg": "CouldNotDeserializeAccountAsReserve",
+      "name": "CouldNotDeserializeAccountAsReserve"
+    },
+    {
+      "code": 7009,
+      "msg": "ReserveNotProvidedInTheAccounts",
+      "name": "ReserveNotProvidedInTheAccounts"
+    },
+    {
+      "code": 7010,
+      "msg": "ReserveAccountAndKeyMismatch",
+      "name": "ReserveAccountAndKeyMismatch"
+    },
+    {
+      "code": 7011,
+      "msg": "OutOfRangeOfReserveIndex",
+      "name": "OutOfRangeOfReserveIndex"
+    },
+    {
+      "code": 7012,
+      "msg": "OutOfRangeOfReserveIndex",
+      "name": "CannotFindReserveInAllocations"
+    },
+    {
+      "code": 7013,
+      "msg": "Invested amount is below minimum",
+      "name": "InvestAmountBelowMinimum"
+    },
+    {
+      "code": 7014,
+      "msg": "AdminAuthorityIncorrect",
+      "name": "AdminAuthorityIncorrect"
+    },
+    {
+      "code": 7015,
+      "msg": "BaseVaultAuthorityIncorrect",
+      "name": "BaseVaultAuthorityIncorrect"
+    },
+    {
+      "code": 7016,
+      "msg": "BaseVaultAuthorityBumpIncorrect",
+      "name": "BaseVaultAuthorityBumpIncorrect"
+    },
+    {
+      "code": 7017,
+      "msg": "TokenMintIncorrect",
+      "name": "TokenMintIncorrect"
+    },
+    {
+      "code": 7018,
+      "msg": "TokenMintDecimalsIncorrect",
+      "name": "TokenMintDecimalsIncorrect"
+    },
+    {
+      "code": 7019,
+      "msg": "TokenVaultIncorrect",
+      "name": "TokenVaultIncorrect"
+    },
+    {
+      "code": 7020,
+      "msg": "SharesMintDecimalsIncorrect",
+      "name": "SharesMintDecimalsIncorrect"
+    },
+    {
+      "code": 7021,
+      "msg": "SharesMintIncorrect",
+      "name": "SharesMintIncorrect"
+    },
+    {
+      "code": 7022,
+      "msg": "InitialAccountingIncorrect",
+      "name": "InitialAccountingIncorrect"
+    },
+    {
+      "code": 7023,
+      "msg": "Reserve is stale and must be refreshed before any operation",
+      "name": "ReserveIsStale"
+    },
+    {
+      "code": 7024,
+      "msg": "Not enough liquidity disinvested to send to user",
+      "name": "NotEnoughLiquidityDisinvestedToSendToUser"
+    },
+    {
+      "code": 7025,
+      "msg": "BPS value is greater than 10000",
+      "name": "BPSValueTooBig"
+    },
+    {
+      "code": 7026,
+      "msg": "Deposited amount is below minimum",
+      "name": "DepositAmountBelowMinimum"
+    },
+    {
+      "code": 7027,
+      "msg": "Vault have no space for new reserves",
+      "name": "ReserveSpaceExhausted"
+    },
+    {
+      "code": 7028,
+      "msg": "Cannot withdraw from empty vault",
+      "name": "CannotWithdrawFromEmptyVault"
+    },
+    {
+      "code": 7029,
+      "msg": "TokensDepositedAmountDoesNotMatch",
+      "name": "TokensDepositedAmountDoesNotMatch"
+    },
+    {
+      "code": 7030,
+      "msg": "Amount to withdraw does not match",
+      "name": "AmountToWithdrawDoesNotMatch"
+    },
+    {
+      "code": 7031,
+      "msg": "Liquidity to withdraw does not match",
+      "name": "LiquidityToWithdrawDoesNotMatch"
+    },
+    {
+      "code": 7032,
+      "msg": "User received amount does not match",
+      "name": "UserReceivedAmountDoesNotMatch"
+    },
+    {
+      "code": 7033,
+      "msg": "Shares burned amount does not match",
+      "name": "SharesBurnedAmountDoesNotMatch"
+    },
+    {
+      "code": 7034,
+      "msg": "Disinvested liquidity amount does not match",
+      "name": "DisinvestedLiquidityAmountDoesNotMatch"
+    },
+    {
+      "code": 7035,
+      "msg": "SharesMintedAmountDoesNotMatch",
+      "name": "SharesMintedAmountDoesNotMatch"
+    },
+    {
+      "code": 7036,
+      "msg": "AUM decreased after invest",
+      "name": "AUMDecreasedAfterInvest"
+    },
+    {
+      "code": 7037,
+      "msg": "AUM is below pending fees",
+      "name": "AUMBelowPendingFees"
+    },
+    {
+      "code": 7038,
+      "msg": "Deposit amount results in 0 shares",
+      "name": "DepositAmountsZeroShares"
+    },
+    {
+      "code": 7039,
+      "msg": "Withdraw amount results in 0 shares",
+      "name": "WithdrawResultsInZeroShares"
+    },
+    {
+      "code": 7040,
+      "msg": "Cannot withdraw zero shares",
+      "name": "CannotWithdrawZeroShares"
+    },
+    {
+      "code": 7041,
+      "msg": "Management fee is greater than maximum allowed",
+      "name": "ManagementFeeGreaterThanMaxAllowed"
+    },
+    {
+      "code": 7042,
+      "msg": "Vault assets under management are empty",
+      "name": "VaultAUMZero"
+    },
+    {
+      "code": 7043,
+      "msg": "Missing reserve for batch refresh",
+      "name": "MissingReserveForBatchRefresh"
+    },
+    {
+      "code": 7044,
+      "msg": "Min withdraw amount is too big",
+      "name": "MinWithdrawAmountTooBig"
+    },
+    {
+      "code": 7045,
+      "msg": "Invest is called too soon after last invest",
+      "name": "InvestTooSoon"
+    },
+    {
+      "code": 7046,
+      "msg": "Wrong admin or allocation admin",
+      "name": "WrongAdminOrAllocationAdmin"
+    },
+    {
+      "code": 7047,
+      "msg": "Reserve has non-zero allocation or ctokens so cannot be removed",
+      "name": "ReserveHasNonZeroAllocationOrCTokens"
+    },
+    {
+      "code": 7048,
+      "msg": "Deposit amount is greater than requested amount",
+      "name": "DepositAmountGreaterThanRequestedAmount"
+    }
+  ],
+  "events": [
+    {
+      "fields": [
+        {
+          "index": false,
+          "name": "sharesToMint",
+          "type": "u64"
+        },
+        {
+          "index": false,
+          "name": "tokenToDeposit",
+          "type": "u64"
+        },
+        {
+          "index": false,
+          "name": "crankFundsToDeposit",
+          "type": "u64"
+        }
+      ],
+      "name": "DepositResultEvent"
+    },
+    {
+      "fields": [
+        {
+          "index": false,
+          "name": "userAtaBalance",
+          "type": "u64"
+        }
+      ],
+      "name": "DepositUserAtaBalanceEvent"
+    },
+    {
+      "fields": [
+        {
+          "index": false,
+          "name": "sharesAmount",
+          "type": "u64"
+        },
+        {
+          "index": false,
+          "name": "userSharesBefore",
+          "type": "u64"
+        }
+      ],
+      "name": "SharesToWithdrawEvent"
+    },
+    {
+      "fields": [
+        {
+          "index": false,
+          "name": "sharesToBurn",
+          "type": "u64"
+        },
+        {
+          "index": false,
+          "name": "availableToSendToUser",
+          "type": "u64"
+        },
+        {
+          "index": false,
+          "name": "investedToDisinvestCtokens",
+          "type": "u64"
+        },
+        {
+          "index": false,
+          "name": "investedLiquidityToSendToUser",
+          "type": "u64"
+        }
+      ],
+      "name": "WithdrawResultEvent"
+    }
+  ],
+  "instructions": [
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "adminAuthority"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultState"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "baseVaultAuthority"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "tokenVault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "baseTokenMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "sharesMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "adminTokenAccount"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "rent"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "sharesTokenProgram"
+        }
+      ],
+      "args": [],
+      "name": "initVault"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "signer"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultState"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "baseVaultAuthority"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "reserveCollateralMint"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "reserve"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "ctokenVault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "reserveCollateralTokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "rent"
+        }
+      ],
+      "args": [
+        {
+          "name": "weight",
+          "type": "u64"
+        },
+        {
+          "name": "cap",
+          "type": "u64"
+        }
+      ],
+      "name": "updateReserveAllocation"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "user"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultState"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "tokenVault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenMint"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "baseVaultAuthority"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "sharesMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "userTokenAta"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "userSharesAta"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "klendProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "sharesTokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "eventAuthority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "program"
+        }
+      ],
+      "args": [
+        {
+          "name": "maxAmount",
+          "type": "u64"
+        }
+      ],
+      "name": "deposit"
+    },
+    {
+      "accounts": [
+        {
+          "accounts": [
+            {
+              "isMut": true,
+              "isSigner": true,
+              "name": "user"
+            },
+            {
+              "isMut": true,
+              "isSigner": false,
+              "name": "vaultState"
+            },
+            {
+              "isMut": true,
+              "isSigner": false,
+              "name": "tokenVault"
+            },
+            {
+              "isMut": false,
+              "isSigner": false,
+              "name": "baseVaultAuthority"
+            },
+            {
+              "isMut": true,
+              "isSigner": false,
+              "name": "userTokenAta"
+            },
+            {
+              "isMut": true,
+              "isSigner": false,
+              "name": "tokenMint"
+            },
+            {
+              "isMut": true,
+              "isSigner": false,
+              "name": "userSharesAta"
+            },
+            {
+              "isMut": true,
+              "isSigner": false,
+              "name": "sharesMint"
+            },
+            {
+              "isMut": false,
+              "isSigner": false,
+              "name": "tokenProgram"
+            },
+            {
+              "isMut": false,
+              "isSigner": false,
+              "name": "sharesTokenProgram"
+            },
+            {
+              "isMut": false,
+              "isSigner": false,
+              "name": "klendProgram"
+            },
+            {
+              "isMut": false,
+              "isSigner": false,
+              "name": "eventAuthority"
+            },
+            {
+              "isMut": false,
+              "isSigner": false,
+              "name": "program"
+            }
+          ],
+          "name": "withdrawFromAvailable"
+        },
+        {
+          "accounts": [
+            {
+              "isMut": true,
+              "isSigner": false,
+              "name": "vaultState"
+            },
+            {
+              "isMut": true,
+              "isSigner": false,
+              "name": "reserve"
+            },
+            {
+              "isMut": true,
+              "isSigner": false,
+              "name": "ctokenVault"
+            },
+            {
+              "isMut": false,
+              "isSigner": false,
+              "name": "lendingMarket"
+            },
+            {
+              "isMut": false,
+              "isSigner": false,
+              "name": "lendingMarketAuthority"
+            },
+            {
+              "isMut": true,
+              "isSigner": false,
+              "name": "reserveLiquiditySupply"
+            },
+            {
+              "isMut": true,
+              "isSigner": false,
+              "name": "reserveCollateralMint"
+            },
+            {
+              "isMut": false,
+              "isSigner": false,
+              "name": "reserveCollateralTokenProgram"
+            },
+            {
+              "isMut": false,
+              "isSigner": false,
+              "name": "instructionSysvarAccount"
+            }
+          ],
+          "name": "withdrawFromReserveAccounts"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "eventAuthority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "program"
+        }
+      ],
+      "args": [
+        {
+          "name": "sharesAmount",
+          "type": "u64"
+        }
+      ],
+      "name": "withdraw"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "payer"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "payerTokenAccount"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultState"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "tokenVault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "tokenMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "baseVaultAuthority"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "ctokenVault"
+        },
+        {
+          "docs": [
+            "CPI accounts"
+          ],
+          "isMut": true,
+          "isSigner": false,
+          "name": "reserve"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "lendingMarket"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "lendingMarketAuthority"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "reserveLiquiditySupply"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "reserveCollateralMint"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "klendProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "reserveCollateralTokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "instructionSysvarAccount"
+        }
+      ],
+      "args": [],
+      "name": "invest"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": false,
+          "isSigner": true,
+          "name": "vaultAdminAuthority"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultState"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "klendProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "entry",
+          "type": {
+            "defined": "VaultConfigField"
+          }
+        },
+        {
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "updateVaultConfig"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "vaultAdminAuthority"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultState"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "reserve"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "tokenVault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "ctokenVault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "baseVaultAuthority"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "tokenAta"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "tokenMint"
+        },
+        {
+          "docs": [
+            "CPI accounts"
+          ],
+          "isMut": false,
+          "isSigner": false,
+          "name": "lendingMarket"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "lendingMarketAuthority"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "reserveLiquiditySupply"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "reserveCollateralMint"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "klendProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "reserveCollateralTokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "instructionSysvarAccount"
+        }
+      ],
+      "args": [],
+      "name": "withdrawPendingFees"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "pendingAdmin"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultState"
+        }
+      ],
+      "args": [],
+      "name": "updateAdmin"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "vaultAdminAuthority"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultState"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "klendProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "maxAmountToGiveUp",
+          "type": "u64"
+        }
+      ],
+      "name": "giveUpPendingFees"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "vaultAdminAuthority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "vaultState"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "sharesMint"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "baseVaultAuthority"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "sharesMetadata"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "rent"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "metadataProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "symbol",
+          "type": "string"
+        },
+        {
+          "name": "uri",
+          "type": "string"
+        }
+      ],
+      "name": "initializeSharesMetadata"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "vaultAdminAuthority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "vaultState"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "baseVaultAuthority"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "sharesMetadata"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "metadataProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "symbol",
+          "type": "string"
+        },
+        {
+          "name": "uri",
+          "type": "string"
+        }
+      ],
+      "name": "updateSharesMetadata"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "user"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultState"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "tokenVault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "baseVaultAuthority"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "userTokenAta"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "tokenMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "userSharesAta"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "sharesMint"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "sharesTokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "klendProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "eventAuthority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "program"
+        }
+      ],
+      "args": [
+        {
+          "name": "sharesAmount",
+          "type": "u64"
+        }
+      ],
+      "name": "withdrawFromAvailable"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "vaultAdminAuthority"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultState"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "reserve"
+        }
+      ],
+      "args": [],
+      "name": "removeAllocation"
+    }
+  ],
+  "name": "kamino_vault",
+  "types": [
+    {
+      "docs": [
+        "Last update state"
+      ],
+      "name": "LastUpdate",
+      "type": {
+        "fields": [
+          {
+            "docs": [
+              "Last slot when updated"
+            ],
+            "name": "slot",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "True when marked stale, false when slot updated"
+            ],
+            "name": "stale",
+            "type": "u8"
+          },
+          {
+            "docs": [
+              "Status of the prices used to calculate the last update"
+            ],
+            "name": "priceStatus",
+            "type": "u8"
+          },
+          {
+            "name": "placeholder",
+            "type": {
+              "array": [
+                "u8",
+                6
+              ]
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "BigFractionBytes",
+      "type": {
+        "fields": [
+          {
+            "name": "value",
+            "type": {
+              "array": [
+                "u64",
+                4
+              ]
+            }
+          },
+          {
+            "name": "padding",
+            "type": {
+              "array": [
+                "u64",
+                2
+              ]
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "docs": [
+        "Reserve collateral"
+      ],
+      "name": "ReserveCollateral",
+      "type": {
+        "fields": [
+          {
+            "docs": [
+              "Reserve collateral mint address"
+            ],
+            "name": "mintPubkey",
+            "type": "publicKey"
+          },
+          {
+            "docs": [
+              "Reserve collateral mint supply, used for exchange rate"
+            ],
+            "name": "mintTotalSupply",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "Reserve collateral supply address"
+            ],
+            "name": "supplyVault",
+            "type": "publicKey"
+          },
+          {
+            "name": "padding1",
+            "type": {
+              "array": [
+                "u128",
+                32
+              ]
+            }
+          },
+          {
+            "name": "padding2",
+            "type": {
+              "array": [
+                "u128",
+                32
+              ]
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "docs": [
+        "Reserve configuration values"
+      ],
+      "name": "ReserveConfig",
+      "type": {
+        "fields": [
+          {
+            "docs": [
+              "Status of the reserve Active/Obsolete/Hidden"
+            ],
+            "name": "status",
+            "type": "u8"
+          },
+          {
+            "docs": [
+              "Asset tier -> 0 - regular (collateral & debt), 1 - isolated collateral, 2 - isolated debt"
+            ],
+            "name": "assetTier",
+            "type": "u8"
+          },
+          {
+            "docs": [
+              "Flat rate that goes to the host"
+            ],
+            "name": "hostFixedInterestRateBps",
+            "type": "u16"
+          },
+          {
+            "docs": [
+              "[DEPRECATED] Space that used to hold 2 fields:",
+              "- Boost for side (debt or collateral)",
+              "- Reward points multiplier per obligation type",
+              "Can be re-used after making sure all underlying production account data is zeroed."
+            ],
+            "name": "reserved1",
+            "type": {
+              "array": [
+                "u8",
+                9
+              ]
+            }
+          },
+          {
+            "docs": [
+              "Cut of the order execution bonus that the protocol receives, as a percentage"
+            ],
+            "name": "protocolOrderExecutionFeePct",
+            "type": "u8"
+          },
+          {
+            "docs": [
+              "Protocol take rate is the amount borrowed interest protocol receives, as a percentage"
+            ],
+            "name": "protocolTakeRatePct",
+            "type": "u8"
+          },
+          {
+            "docs": [
+              "Cut of the liquidation bonus that the protocol receives, as a percentage"
+            ],
+            "name": "protocolLiquidationFeePct",
+            "type": "u8"
+          },
+          {
+            "docs": [
+              "Target ratio of the value of borrows to deposits, as a percentage",
+              "0 if use as collateral is disabled"
+            ],
+            "name": "loanToValuePct",
+            "type": "u8"
+          },
+          {
+            "docs": [
+              "Loan to value ratio at which an obligation can be liquidated, as percentage"
+            ],
+            "name": "liquidationThresholdPct",
+            "type": "u8"
+          },
+          {
+            "docs": [
+              "Minimum bonus a liquidator receives when repaying part of an unhealthy obligation, as bps"
+            ],
+            "name": "minLiquidationBonusBps",
+            "type": "u16"
+          },
+          {
+            "docs": [
+              "Maximum bonus a liquidator receives when repaying part of an unhealthy obligation, as bps"
+            ],
+            "name": "maxLiquidationBonusBps",
+            "type": "u16"
+          },
+          {
+            "docs": [
+              "Bad debt liquidation bonus for an undercollateralized obligation, as bps"
+            ],
+            "name": "badDebtLiquidationBonusBps",
+            "type": "u16"
+          },
+          {
+            "docs": [
+              "Time in seconds that must pass before redemptions are enabled after the deposit limit is",
+              "crossed.",
+              "Only relevant when `autodeleverage_enabled == 1`, and must not be 0 in such case."
+            ],
+            "name": "deleveragingMarginCallPeriodSecs",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "The rate at which the deleveraging threshold decreases, in bps per day.",
+              "Only relevant when `autodeleverage_enabled == 1`, and must not be 0 in such case."
+            ],
+            "name": "deleveragingThresholdDecreaseBpsPerDay",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "Program owner fees assessed, separate from gains due to interest accrual"
+            ],
+            "name": "fees",
+            "type": {
+              "defined": "ReserveFees"
+            }
+          },
+          {
+            "docs": [
+              "Borrow rate curve based on utilization"
+            ],
+            "name": "borrowRateCurve",
+            "type": {
+              "defined": "BorrowRateCurve"
+            }
+          },
+          {
+            "docs": [
+              "Borrow factor in percentage - used for risk adjustment"
+            ],
+            "name": "borrowFactorPct",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "Maximum deposit limit of liquidity in native units, u64::MAX for inf"
+            ],
+            "name": "depositLimit",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "Maximum amount borrowed, u64::MAX for inf, 0 to disable borrows (protected deposits)"
+            ],
+            "name": "borrowLimit",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "Token id from TokenInfos struct"
+            ],
+            "name": "tokenInfo",
+            "type": {
+              "defined": "TokenInfo"
+            }
+          },
+          {
+            "docs": [
+              "Deposit withdrawal caps - deposit & redeem"
+            ],
+            "name": "depositWithdrawalCap",
+            "type": {
+              "defined": "WithdrawalCaps"
+            }
+          },
+          {
+            "docs": [
+              "Debt withdrawal caps - borrow & repay"
+            ],
+            "name": "debtWithdrawalCap",
+            "type": {
+              "defined": "WithdrawalCaps"
+            }
+          },
+          {
+            "name": "elevationGroups",
+            "type": {
+              "array": [
+                "u8",
+                20
+              ]
+            }
+          },
+          {
+            "name": "disableUsageAsCollOutsideEmode",
+            "type": "u8"
+          },
+          {
+            "docs": [
+              "Utilization (in percentage) above which borrowing is blocked. 0 to disable."
+            ],
+            "name": "utilizationLimitBlockBorrowingAbovePct",
+            "type": "u8"
+          },
+          {
+            "docs": [
+              "Whether this reserve should be subject to auto-deleveraging after deposit or borrow limit is",
+              "crossed.",
+              "Besides this flag, the lending market's flag also needs to be enabled (logical `AND`).",
+              "**NOTE:** the manual \"target LTV\" deleveraging (enabled by the risk council for individual",
+              "obligations) is NOT affected by this flag."
+            ],
+            "name": "autodeleverageEnabled",
+            "type": "u8"
+          },
+          {
+            "docs": [
+              "Boolean flag indicating whether the reserve is locked for the proposer authority.",
+              "",
+              "Once the proposer have finished preparing the reserve, it must be locked to prevent",
+              "further changes to the reserve configuration allowing review and voting on the proposal",
+              "without alteration during the voting period."
+            ],
+            "name": "proposerAuthorityLocked",
+            "type": "u8"
+          },
+          {
+            "docs": [
+              "Maximum amount liquidity of this reserve borrowed outside all elevation groups",
+              "- u64::MAX for inf",
+              "- 0 to disable borrows outside elevation groups"
+            ],
+            "name": "borrowLimitOutsideElevationGroup",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "Defines the maximum amount (in lamports of elevation group debt asset)",
+              "that can be borrowed when this reserve is used as collateral.",
+              "- u64::MAX for inf",
+              "- 0 to disable borrows in this elevation group (expected value for the debt asset)"
+            ],
+            "name": "borrowLimitAgainstThisCollateralInElevationGroup",
+            "type": {
+              "array": [
+                "u64",
+                32
+              ]
+            }
+          },
+          {
+            "docs": [
+              "The rate at which the deleveraging-related liquidation bonus increases, in bps per day.",
+              "Only relevant when `autodeleverage_enabled == 1`, and must not be 0 in such case."
+            ],
+            "name": "deleveragingBonusIncreaseBpsPerDay",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "The timestamp at which all [Obligation::borrows] using this reserve become liquidatable",
+              "(on the same terms as reserve-wide deleveraging).",
+              "Inactive when zeroed (i.e. debt never matures)."
+            ],
+            "name": "debtMaturityTimestamp",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "docs": [
+        "Additional fee information on a reserve",
+        "",
+        "These exist separately from interest accrual fees, and are specifically for the program owner",
+        "and referral fee. The fees are paid out as a percentage of liquidity token amounts during",
+        "repayments and liquidations."
+      ],
+      "name": "ReserveFees",
+      "type": {
+        "fields": [
+          {
+            "docs": [
+              "Fee assessed on `BorrowObligationLiquidity`, as scaled fraction (60 bits fractional part)",
+              "Must be between `0` and `2^60`, such that `2^60 = 1`.  A few examples for",
+              "clarity:",
+              "1% = (1 << 60) / 100 = 11529215046068470",
+              "0.01% (1 basis point) = 115292150460685",
+              "0.00001% (Aave borrow fee) = 115292150461"
+            ],
+            "name": "borrowFeeSf",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "Fee for flash loan, expressed as scaled fraction.",
+              "0.3% (Aave flash loan fee) = 0.003 * 2^60 = 3458764513820541"
+            ],
+            "name": "flashLoanFeeSf",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "Used for allignment"
+            ],
+            "name": "padding",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "docs": [
+        "Reserve liquidity"
+      ],
+      "name": "ReserveLiquidity",
+      "type": {
+        "fields": [
+          {
+            "docs": [
+              "Reserve liquidity mint address"
+            ],
+            "name": "mintPubkey",
+            "type": "publicKey"
+          },
+          {
+            "docs": [
+              "Reserve liquidity supply address"
+            ],
+            "name": "supplyVault",
+            "type": "publicKey"
+          },
+          {
+            "docs": [
+              "Reserve liquidity fee collection address"
+            ],
+            "name": "feeVault",
+            "type": "publicKey"
+          },
+          {
+            "docs": [
+              "Reserve liquidity available"
+            ],
+            "name": "availableAmount",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "Reserve liquidity borrowed (scaled fraction)"
+            ],
+            "name": "borrowedAmountSf",
+            "type": "u128"
+          },
+          {
+            "docs": [
+              "Reserve liquidity market price in quote currency (scaled fraction)"
+            ],
+            "name": "marketPriceSf",
+            "type": "u128"
+          },
+          {
+            "docs": [
+              "Unix timestamp of the market price (from the oracle)"
+            ],
+            "name": "marketPriceLastUpdatedTs",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "Reserve liquidity mint decimals"
+            ],
+            "name": "mintDecimals",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "Timestamp when the last refresh reserve detected that the liquidity amount is above the deposit cap. When this threshold is crossed, then redemptions (auto-deleverage) are enabled.",
+              "If the threshold is not crossed, then the timestamp is set to 0"
+            ],
+            "name": "depositLimitCrossedTimestamp",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "Timestamp when the last refresh reserve detected that the borrowed amount is above the borrow cap. When this threshold is crossed, then redemptions (auto-deleverage) are enabled.",
+              "If the threshold is not crossed, then the timestamp is set to 0"
+            ],
+            "name": "borrowLimitCrossedTimestamp",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "Reserve liquidity cumulative borrow rate (scaled fraction)"
+            ],
+            "name": "cumulativeBorrowRateBsf",
+            "type": {
+              "defined": "BigFractionBytes"
+            }
+          },
+          {
+            "docs": [
+              "Reserve cumulative protocol fees (scaled fraction)"
+            ],
+            "name": "accumulatedProtocolFeesSf",
+            "type": "u128"
+          },
+          {
+            "docs": [
+              "Reserve cumulative referrer fees (scaled fraction)"
+            ],
+            "name": "accumulatedReferrerFeesSf",
+            "type": "u128"
+          },
+          {
+            "docs": [
+              "Reserve pending referrer fees, to be claimed in refresh_obligation by referrer or protocol (scaled fraction)"
+            ],
+            "name": "pendingReferrerFeesSf",
+            "type": "u128"
+          },
+          {
+            "docs": [
+              "Reserve referrer fee absolute rate calculated at each refresh_reserve operation (scaled fraction)"
+            ],
+            "name": "absoluteReferralRateSf",
+            "type": "u128"
+          },
+          {
+            "docs": [
+              "Token program of the liquidity mint"
+            ],
+            "name": "tokenProgram",
+            "type": "publicKey"
+          },
+          {
+            "name": "padding2",
+            "type": {
+              "array": [
+                "u64",
+                51
+              ]
+            }
+          },
+          {
+            "name": "padding3",
+            "type": {
+              "array": [
+                "u128",
+                32
+              ]
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "docs": [
+        "Reserve Withdrawal Caps State"
+      ],
+      "name": "WithdrawalCaps",
+      "type": {
+        "fields": [
+          {
+            "name": "configCapacity",
+            "type": "i64"
+          },
+          {
+            "name": "currentTotal",
+            "type": "i64"
+          },
+          {
+            "name": "lastIntervalStartTimestamp",
+            "type": "u64"
+          },
+          {
+            "name": "configIntervalLengthSeconds",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "PriceHeuristic",
+      "type": {
+        "fields": [
+          {
+            "docs": [
+              "Lower value of acceptable price"
+            ],
+            "name": "lower",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "Upper value of acceptable price"
+            ],
+            "name": "upper",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "Number of decimals of the previously defined values"
+            ],
+            "name": "exp",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "PythConfiguration",
+      "type": {
+        "fields": [
+          {
+            "docs": [
+              "Pubkey of the base price feed (disabled if `null` or `default`)"
+            ],
+            "name": "price",
+            "type": "publicKey"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "ScopeConfiguration",
+      "type": {
+        "fields": [
+          {
+            "docs": [
+              "Pubkey of the scope price feed (disabled if `null` or `default`)"
+            ],
+            "name": "priceFeed",
+            "type": "publicKey"
+          },
+          {
+            "docs": [
+              "This is the scope_id price chain that results in a price for the token"
+            ],
+            "name": "priceChain",
+            "type": {
+              "array": [
+                "u16",
+                4
+              ]
+            }
+          },
+          {
+            "docs": [
+              "This is the scope_id price chain for the twap"
+            ],
+            "name": "twapChain",
+            "type": {
+              "array": [
+                "u16",
+                4
+              ]
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "SwitchboardConfiguration",
+      "type": {
+        "fields": [
+          {
+            "docs": [
+              "Pubkey of the base price feed (disabled if `null` or `default`)"
+            ],
+            "name": "priceAggregator",
+            "type": "publicKey"
+          },
+          {
+            "name": "twapAggregator",
+            "type": "publicKey"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "TokenInfo",
+      "type": {
+        "fields": [
+          {
+            "docs": [
+              "UTF-8 encoded name of the token (null-terminated)"
+            ],
+            "name": "name",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "docs": [
+              "Heuristics limits of acceptable price"
+            ],
+            "name": "heuristic",
+            "type": {
+              "defined": "PriceHeuristic"
+            }
+          },
+          {
+            "docs": [
+              "Max divergence between twap and price in bps"
+            ],
+            "name": "maxTwapDivergenceBps",
+            "type": "u64"
+          },
+          {
+            "name": "maxAgePriceSeconds",
+            "type": "u64"
+          },
+          {
+            "name": "maxAgeTwapSeconds",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "Scope price configuration"
+            ],
+            "name": "scopeConfiguration",
+            "type": {
+              "defined": "ScopeConfiguration"
+            }
+          },
+          {
+            "docs": [
+              "Switchboard configuration"
+            ],
+            "name": "switchboardConfiguration",
+            "type": {
+              "defined": "SwitchboardConfiguration"
+            }
+          },
+          {
+            "docs": [
+              "Pyth configuration"
+            ],
+            "name": "pythConfiguration",
+            "type": {
+              "defined": "PythConfiguration"
+            }
+          },
+          {
+            "name": "blockPriceUsage",
+            "type": "u8"
+          },
+          {
+            "name": "reserved",
+            "type": {
+              "array": [
+                "u8",
+                7
+              ]
+            }
+          },
+          {
+            "name": "padding",
+            "type": {
+              "array": [
+                "u64",
+                19
+              ]
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "BorrowRateCurve",
+      "type": {
+        "fields": [
+          {
+            "name": "points",
+            "type": {
+              "array": [
+                {
+                  "defined": "CurvePoint"
+                },
+                11
+              ]
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "CurvePoint",
+      "type": {
+        "fields": [
+          {
+            "name": "utilizationRateBps",
+            "type": "u32"
+          },
+          {
+            "name": "borrowRateBps",
+            "type": "u32"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "VaultConfigField",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "PerformanceFeeBps"
+          },
+          {
+            "name": "ManagementFeeBps"
+          },
+          {
+            "name": "MinDepositAmount"
+          },
+          {
+            "name": "MinWithdrawAmount"
+          },
+          {
+            "name": "MinInvestAmount"
+          },
+          {
+            "name": "MinInvestDelaySlots"
+          },
+          {
+            "name": "CrankFundFeePerReserve"
+          },
+          {
+            "name": "PendingVaultAdmin"
+          },
+          {
+            "name": "Name"
+          },
+          {
+            "name": "LookupTable"
+          },
+          {
+            "name": "Farm"
+          },
+          {
+            "name": "AllocationAdmin"
+          },
+          {
+            "name": "UnallocatedWeight"
+          },
+          {
+            "name": "UnallocatedTokensCap"
+          }
+        ]
+      }
+    },
+    {
+      "name": "VaultAllocation",
+      "type": {
+        "fields": [
+          {
+            "name": "reserve",
+            "type": "publicKey"
+          },
+          {
+            "name": "ctokenVault",
+            "type": "publicKey"
+          },
+          {
+            "name": "targetAllocationWeight",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "Maximum token invested in this reserve"
+            ],
+            "name": "tokenAllocationCap",
+            "type": "u64"
+          },
+          {
+            "name": "ctokenVaultBump",
+            "type": "u64"
+          },
+          {
+            "name": "configPadding",
+            "type": {
+              "array": [
+                "u64",
+                127
+              ]
+            }
+          },
+          {
+            "name": "ctokenAllocation",
+            "type": "u64"
+          },
+          {
+            "name": "lastInvestSlot",
+            "type": "u64"
+          },
+          {
+            "name": "tokenTargetAllocationSf",
+            "type": "u128"
+          },
+          {
+            "name": "statePadding",
+            "type": {
+              "array": [
+                "u64",
+                128
+              ]
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    }
+  ],
+  "version": "1.0.0"
+}

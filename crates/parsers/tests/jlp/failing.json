@@ -1,0 +1,562 @@
+{
+  "slot": 351639886,
+  "transaction": {
+    "signatures": [
+      "28yJ2Pk9Z3ov71cy5iqnR4oZjkEyRgLk3ehKGFzhgt1kKe4kFUyHzsDGL6SdZana9TgwvGmUrcwBLAPJ4AxLopNc"
+    ],
+    "message": {
+      "accountKeys": [
+        {
+          "pubkey": "DFZcDnmEYNUK1khquZzx5dQYiEyjJ3N5STqaDVLZ88ZU",
+          "writable": true,
+          "signer": true,
+          "source": "transaction"
+        },
+        {
+          "pubkey": "ComputeBudget111111111111111111111111111111",
+          "writable": false,
+          "signer": false,
+          "source": "transaction"
+        },
+        {
+          "pubkey": "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+          "writable": false,
+          "signer": false,
+          "source": "transaction"
+        },
+        {
+          "pubkey": "11111111111111111111111111111111",
+          "writable": false,
+          "signer": false,
+          "source": "transaction"
+        },
+        {
+          "pubkey": "PERPHjGBqRHArX4DySjwM6UJHiR3sWAatqfdBS2qQJu",
+          "writable": false,
+          "signer": false,
+          "source": "transaction"
+        },
+        {
+          "pubkey": "4HBbPx9QJdjJ7GUe6bsiJjGybvfpDhQMMPXP1UEa7VT5",
+          "writable": true,
+          "signer": false,
+          "source": "lookupTable"
+        },
+        {
+          "pubkey": "5URYohbPy32nxK1t3jAHVNfdWY2xTubHiFvLrE3VhXEp",
+          "writable": true,
+          "signer": false,
+          "source": "lookupTable"
+        },
+        {
+          "pubkey": "39cWjvHrpHNz2SbXv6ME4NPhqBDBd4KsjUYv5JkHEAJU",
+          "writable": true,
+          "signer": false,
+          "source": "lookupTable"
+        },
+        {
+          "pubkey": "hUqAT1KQ7eW1i6Csp9CXYtpPfSAvi835V7wKi5fRfmC",
+          "writable": true,
+          "signer": false,
+          "source": "lookupTable"
+        },
+        {
+          "pubkey": "AFZnHPzy4mvVCffrVwhewHbFc93uTHvDSFrVH7GtfXF1",
+          "writable": true,
+          "signer": false,
+          "source": "lookupTable"
+        },
+        {
+          "pubkey": "FYq2BWQ1V5P1WFBqr3qB2Kb5yHVvSv7upzKodgQE5zXh",
+          "writable": true,
+          "signer": false,
+          "source": "lookupTable"
+        },
+        {
+          "pubkey": "5BUwFW4nRbftYTDMbgxykoFWqWHPzahFSNAaaaJtVKsq",
+          "writable": true,
+          "signer": false,
+          "source": "lookupTable"
+        },
+        {
+          "pubkey": "A6F8mvoM8Qc9wTaKjrD1B5Fgpp6NhPQyJLWXeafWrbsV",
+          "writable": false,
+          "signer": false,
+          "source": "lookupTable"
+        },
+        {
+          "pubkey": "4cSM2e6rvbGQUFiJbqytoVMi5GgghSMr8LwVrT9VPSPo",
+          "writable": false,
+          "signer": false,
+          "source": "lookupTable"
+        },
+        {
+          "pubkey": "BNQzYvnidN8vVVn78xh6wgLo5ozmV8Dx8AE8rndqeLEe",
+          "writable": false,
+          "signer": false,
+          "source": "lookupTable"
+        },
+        {
+          "pubkey": "42amVS4KgzR9rA28tkVYqVXjq9Qa8dcZQMbH5EYFX6XC",
+          "writable": false,
+          "signer": false,
+          "source": "lookupTable"
+        },
+        {
+          "pubkey": "FWLXDDgW2Qm2VuX8MdV99VYpo6X1HLEykUjfAsjz2G78",
+          "writable": false,
+          "signer": false,
+          "source": "lookupTable"
+        },
+        {
+          "pubkey": "7UVimffxr9ow1uXYxsr4LHAcV58mLzhmwaeKvJ1pjLiE",
+          "writable": false,
+          "signer": false,
+          "source": "lookupTable"
+        },
+        {
+          "pubkey": "H4ND9aYttUVLFmNypZqLjZ52FYiGvdEB45GmwNoKEjTj",
+          "writable": false,
+          "signer": false,
+          "source": "lookupTable"
+        },
+        {
+          "pubkey": "7xS2gz2bTp3fwCC7knJvUWTEU9Tycczu6VhJYKgi1wdz",
+          "writable": false,
+          "signer": false,
+          "source": "lookupTable"
+        },
+        {
+          "pubkey": "AQCGyheWPLeo6Qp9WpYS9m3Qj479t7R636N9ey1rEjEn",
+          "writable": false,
+          "signer": false,
+          "source": "lookupTable"
+        },
+        {
+          "pubkey": "5Pv3gM9JrFFH883SWAhvJC9RPYmo8UNxuFtv5bMMALkm",
+          "writable": false,
+          "signer": false,
+          "source": "lookupTable"
+        },
+        {
+          "pubkey": "G18jKKXQwBbrHeiK3C9MRXhkHsLHf7XgCSisykV46EZa",
+          "writable": false,
+          "signer": false,
+          "source": "lookupTable"
+        },
+        {
+          "pubkey": "4vkNeXiYEUizLdrpdPS1eC2mccyM4NUPRtERrk6ZETkk",
+          "writable": false,
+          "signer": false,
+          "source": "lookupTable"
+        },
+        {
+          "pubkey": "6Jp2xZUTWdDD2ZyUPRzeMdc6AFQ5K3pFgZxk2EijfjnM",
+          "writable": false,
+          "signer": false,
+          "source": "lookupTable"
+        },
+        {
+          "pubkey": "Fgc93D641F8N2d1xLjQ4jmShuD3GE3BsCXA56KBQbF5u",
+          "writable": false,
+          "signer": false,
+          "source": "lookupTable"
+        },
+        {
+          "pubkey": "Dpw1EAVrSB1ibxiDQyTAW6Zip3J4Btk2x4SgApQCeFbX",
+          "writable": false,
+          "signer": false,
+          "source": "lookupTable"
+        },
+        {
+          "pubkey": "HT2PLQBcG5EiCcNSaMHAjSgd9F98ecpATbk4Sk5oYuM",
+          "writable": false,
+          "signer": false,
+          "source": "lookupTable"
+        }
+      ],
+      "recentBlockhash": "3eGWV9i41LtE81WcKRV6V2snjeSJjr1LxfBAbigZ2JgG",
+      "instructions": [
+        {
+          "programId": "ComputeBudget111111111111111111111111111111",
+          "accounts": [],
+          "data": "Ea1fVZ",
+          "stackHeight": null
+        },
+        {
+          "programId": "ComputeBudget111111111111111111111111111111",
+          "accounts": [],
+          "data": "3pFgtwwZBtC7",
+          "stackHeight": null
+        },
+        {
+          "programId": "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+          "accounts": [
+            "DFZcDnmEYNUK1khquZzx5dQYiEyjJ3N5STqaDVLZ88ZU",
+            "4HBbPx9QJdjJ7GUe6bsiJjGybvfpDhQMMPXP1UEa7VT5",
+            "11111111111111111111111111111111"
+          ],
+          "data": "2QNEbDBUfGjtMPGEfik1wM6i5K9a6wmjEyoyzPWTmFBnZ4s16mXyRdPSD4J3HCDwhQyranJfwafrdTuudJczN9WsHjPt1k4t35QxMMX8JQiqXWoxRsEJ2ZGvBQ855",
+          "stackHeight": null
+        },
+        {
+          "programId": "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+          "accounts": [
+            "DFZcDnmEYNUK1khquZzx5dQYiEyjJ3N5STqaDVLZ88ZU",
+            "5URYohbPy32nxK1t3jAHVNfdWY2xTubHiFvLrE3VhXEp",
+            "11111111111111111111111111111111"
+          ],
+          "data": "2QNEbDBUfGjtMUQ9u2JTLr7LK21ygZJ8BWkefwyg31fdU4bodtrBe5siHpzKbUh7HQ6U7KEDH9GiRQwZYPjGi1Bfwe9DsEo6uRrrhSwUzgwUXH2DqXMs9p3G7zU7q",
+          "stackHeight": null
+        },
+        {
+          "programId": "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+          "accounts": [
+            "DFZcDnmEYNUK1khquZzx5dQYiEyjJ3N5STqaDVLZ88ZU",
+            "39cWjvHrpHNz2SbXv6ME4NPhqBDBd4KsjUYv5JkHEAJU",
+            "11111111111111111111111111111111"
+          ],
+          "data": "2QNEbDBUfGjtMeBp7nryTtabFG5Was4H9R6c3vCD823UDJazKY1QYnNdRx5VthnZZhyKg86XgVRM4sUjmWYuwT4uPNSECUtXGGa8i4P9FMwQ6Dffn9p32JftBtuvw",
+          "stackHeight": null
+        },
+        {
+          "programId": "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+          "accounts": [
+            "DFZcDnmEYNUK1khquZzx5dQYiEyjJ3N5STqaDVLZ88ZU",
+            "hUqAT1KQ7eW1i6Csp9CXYtpPfSAvi835V7wKi5fRfmC",
+            "4HBbPx9QJdjJ7GUe6bsiJjGybvfpDhQMMPXP1UEa7VT5",
+            "A6F8mvoM8Qc9wTaKjrD1B5Fgpp6NhPQyJLWXeafWrbsV",
+            "4cSM2e6rvbGQUFiJbqytoVMi5GgghSMr8LwVrT9VPSPo"
+          ],
+          "data": "XRfXwDBffF8",
+          "stackHeight": null
+        },
+        {
+          "programId": "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+          "accounts": [
+            "DFZcDnmEYNUK1khquZzx5dQYiEyjJ3N5STqaDVLZ88ZU",
+            "AFZnHPzy4mvVCffrVwhewHbFc93uTHvDSFrVH7GtfXF1",
+            "5URYohbPy32nxK1t3jAHVNfdWY2xTubHiFvLrE3VhXEp",
+            "BNQzYvnidN8vVVn78xh6wgLo5ozmV8Dx8AE8rndqeLEe",
+            "42amVS4KgzR9rA28tkVYqVXjq9Qa8dcZQMbH5EYFX6XC"
+          ],
+          "data": "XRfXwDBffF8",
+          "stackHeight": null
+        },
+        {
+          "programId": "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+          "accounts": [
+            "DFZcDnmEYNUK1khquZzx5dQYiEyjJ3N5STqaDVLZ88ZU",
+            "FYq2BWQ1V5P1WFBqr3qB2Kb5yHVvSv7upzKodgQE5zXh",
+            "39cWjvHrpHNz2SbXv6ME4NPhqBDBd4KsjUYv5JkHEAJU",
+            "FWLXDDgW2Qm2VuX8MdV99VYpo6X1HLEykUjfAsjz2G78",
+            "7UVimffxr9ow1uXYxsr4LHAcV58mLzhmwaeKvJ1pjLiE"
+          ],
+          "data": "XRfXwDBffF8",
+          "stackHeight": null
+        },
+        {
+          "programId": "PERPHjGBqRHArX4DySjwM6UJHiR3sWAatqfdBS2qQJu",
+          "accounts": [
+            "DFZcDnmEYNUK1khquZzx5dQYiEyjJ3N5STqaDVLZ88ZU",
+            "H4ND9aYttUVLFmNypZqLjZ52FYiGvdEB45GmwNoKEjTj",
+            "5BUwFW4nRbftYTDMbgxykoFWqWHPzahFSNAaaaJtVKsq",
+            "7xS2gz2bTp3fwCC7knJvUWTEU9Tycczu6VhJYKgi1wdz",
+            "AQCGyheWPLeo6Qp9WpYS9m3Qj479t7R636N9ey1rEjEn",
+            "5Pv3gM9JrFFH883SWAhvJC9RPYmo8UNxuFtv5bMMALkm",
+            "G18jKKXQwBbrHeiK3C9MRXhkHsLHf7XgCSisykV46EZa",
+            "4vkNeXiYEUizLdrpdPS1eC2mccyM4NUPRtERrk6ZETkk",
+            "FYq2BWQ1V5P1WFBqr3qB2Kb5yHVvSv7upzKodgQE5zXh",
+            "AFZnHPzy4mvVCffrVwhewHbFc93uTHvDSFrVH7GtfXF1",
+            "hUqAT1KQ7eW1i6Csp9CXYtpPfSAvi835V7wKi5fRfmC",
+            "6Jp2xZUTWdDD2ZyUPRzeMdc6AFQ5K3pFgZxk2EijfjnM",
+            "Fgc93D641F8N2d1xLjQ4jmShuD3GE3BsCXA56KBQbF5u",
+            "7UVimffxr9ow1uXYxsr4LHAcV58mLzhmwaeKvJ1pjLiE",
+            "42amVS4KgzR9rA28tkVYqVXjq9Qa8dcZQMbH5EYFX6XC",
+            "4cSM2e6rvbGQUFiJbqytoVMi5GgghSMr8LwVrT9VPSPo",
+            "Dpw1EAVrSB1ibxiDQyTAW6Zip3J4Btk2x4SgApQCeFbX",
+            "HT2PLQBcG5EiCcNSaMHAjSgd9F98ecpATbk4Sk5oYuM"
+          ],
+          "data": "U6dpRmfTQQX",
+          "stackHeight": null
+        }
+      ],
+      "addressTableLookups": [
+        {
+          "accountKey": "9xwuyEDMEV6Nyya9o3VQNkFusR1V56ntk3LcPAkPXbAt",
+          "writableIndexes": [
+            50,
+            49,
+            48,
+            59,
+            60,
+            61,
+            3
+          ],
+          "readonlyIndexes": [
+            53,
+            44,
+            54,
+            45,
+            58,
+            43,
+            0,
+            5,
+            9,
+            13,
+            17,
+            21,
+            62,
+            63,
+            46,
+            47
+          ]
+        }
+      ]
+    }
+  },
+  "meta": {
+    "err": null,
+    "status": {
+      "Ok": null
+    },
+    "fee": 5374,
+    "preBalances": [
+      61967585170,
+      1,
+      1141440,
+      1,
+      1141440,
+      2861160,
+      2860860,
+      2862060,
+      3633120,
+      3633120,
+      3633120,
+      14810880,
+      2860560,
+      1824120,
+      2860560,
+      1823820,
+      2860560,
+      1825020,
+      1727576,
+      14810880,
+      14810880,
+      14810880,
+      14810881,
+      14810880,
+      3633120,
+      3633120,
+      1823620,
+      1823520
+    ],
+    "postBalances": [
+      61967579796,
+      1,
+      1141440,
+      1,
+      1141440,
+      2861160,
+      2860860,
+      2862060,
+      3633120,
+      3633120,
+      3633120,
+      14810880,
+      2860560,
+      1824120,
+      2860560,
+      1823820,
+      2860560,
+      1825020,
+      1727576,
+      14810880,
+      14810880,
+      14810880,
+      14810881,
+      14810880,
+      3633120,
+      3633120,
+      1823620,
+      1823520
+    ],
+    "preOwners": [
+      "11111111111111111111111111111111",
+      "NativeLoader1111111111111111111111111111111",
+      "BPFLoaderUpgradeab1e11111111111111111111111",
+      "NativeLoader1111111111111111111111111111111",
+      "BPFLoaderUpgradeab1e11111111111111111111111",
+      "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+      "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+      "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+      "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+      "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+      "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+      "PERPHjGBqRHArX4DySjwM6UJHiR3sWAatqfdBS2qQJu",
+      "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+      "rec5EKMGg6MxZYaMdyBfgwp4d5rB9T1VQH5pJv5LtFJ",
+      "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+      "rec5EKMGg6MxZYaMdyBfgwp4d5rB9T1VQH5pJv5LtFJ",
+      "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+      "rec5EKMGg6MxZYaMdyBfgwp4d5rB9T1VQH5pJv5LtFJ",
+      "PERPHjGBqRHArX4DySjwM6UJHiR3sWAatqfdBS2qQJu",
+      "PERPHjGBqRHArX4DySjwM6UJHiR3sWAatqfdBS2qQJu",
+      "PERPHjGBqRHArX4DySjwM6UJHiR3sWAatqfdBS2qQJu",
+      "PERPHjGBqRHArX4DySjwM6UJHiR3sWAatqfdBS2qQJu",
+      "PERPHjGBqRHArX4DySjwM6UJHiR3sWAatqfdBS2qQJu",
+      "PERPHjGBqRHArX4DySjwM6UJHiR3sWAatqfdBS2qQJu",
+      "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+      "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+      "rec5EKMGg6MxZYaMdyBfgwp4d5rB9T1VQH5pJv5LtFJ",
+      "rec5EKMGg6MxZYaMdyBfgwp4d5rB9T1VQH5pJv5LtFJ"
+    ],
+    "postOwners": [
+      "11111111111111111111111111111111",
+      "NativeLoader1111111111111111111111111111111",
+      "BPFLoaderUpgradeab1e11111111111111111111111",
+      "NativeLoader1111111111111111111111111111111",
+      "BPFLoaderUpgradeab1e11111111111111111111111",
+      "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+      "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+      "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+      "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+      "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+      "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+      "PERPHjGBqRHArX4DySjwM6UJHiR3sWAatqfdBS2qQJu",
+      "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+      "rec5EKMGg6MxZYaMdyBfgwp4d5rB9T1VQH5pJv5LtFJ",
+      "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+      "rec5EKMGg6MxZYaMdyBfgwp4d5rB9T1VQH5pJv5LtFJ",
+      "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+      "rec5EKMGg6MxZYaMdyBfgwp4d5rB9T1VQH5pJv5LtFJ",
+      "PERPHjGBqRHArX4DySjwM6UJHiR3sWAatqfdBS2qQJu",
+      "PERPHjGBqRHArX4DySjwM6UJHiR3sWAatqfdBS2qQJu",
+      "PERPHjGBqRHArX4DySjwM6UJHiR3sWAatqfdBS2qQJu",
+      "PERPHjGBqRHArX4DySjwM6UJHiR3sWAatqfdBS2qQJu",
+      "PERPHjGBqRHArX4DySjwM6UJHiR3sWAatqfdBS2qQJu",
+      "PERPHjGBqRHArX4DySjwM6UJHiR3sWAatqfdBS2qQJu",
+      "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+      "DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e",
+      "rec5EKMGg6MxZYaMdyBfgwp4d5rB9T1VQH5pJv5LtFJ",
+      "rec5EKMGg6MxZYaMdyBfgwp4d5rB9T1VQH5pJv5LtFJ"
+    ],
+    "preDatum": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      "KLUv/WDQBt0JAPQQ8ZptBBGxbbwEAAAAUG9vbAUAAABnWV3YRsAH8miW8q7TG6e1X9EszBWOCwB6nY/oRraf6YuqSkhkImzAIkhNyCgeGhaPXPToBT8a5QZtkWqIud+fQU2BSGrxPm7sni1bz0WRMuOkZkcJtm040GR3kSTGzj7e6As0E6LTEIBia5JsOK80vtGG2zaOl386v0vVRUSabTpX4svK0CiDUCPMq0rYe9J2To/BMtaOmGYJ6xNL14b5n4ORwtNxBQBgW6CdNwYA0AcAZABkAAoACgBkAAIABQCWAMQJAGD9ZmhH6FMk39QAAAAtAAD8/ghwtgJRurupe5tRHbNTdQ4sOeYTQi6FMSGkirUghAwAJzQoXBIASuYeBCl7UBAT8x5ReVeMgDYAxmBgMDAYGAwMBgYDgwGDPwAxvAJIAQ==",
+      null,
+      "KLUv/SCGMQQAIvEjY51+9M01pwwRFi+/Wg5/fS+W4Z+XsCJGoVaH7mcnlIl0SOZY3gHmLfbItKhf4aZ9tE3BLeXbMw96xmty3GWK/t8PSkFbQxwkWbL0CQAA5OeV3wAAAAD4////PkNraAAAAAA+Q2toAAAAAMCet1XzCQAAmKFu8gAAAADJmPUUAAAAAAA=",
+      null,
+      "KLUv/SCG/QMAFAci8SNjnX70zSz60nevyqhnx9f+JuDVHciZEBM1h5q2PCqoSHYxcTW7Af9hSRqTERLd8b2BR80bZBN1959YJRJtZlSAh0Y0/QrOUR64AjwAAADoTeEHAAAAAPj///9IQ2tooDaG5D2RCOSY9RQAAAAAAAQAIMhRd1YIwgfFDA==",
+      null,
+      "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",
+      null,
+      null,
+      "KLUv/SCG7QMA5AYi8SNjnX70zb6TmoMJ9WQHGH//MKxUsWlJi+mfbY4b/UJEaAzU99HiAeqgIMYcxHlxKBNGHOFTiUqWpsALIe0M/CeY0fmp6clKTM/1BQAAAACIrwEA+P///z5Da2ht0PUF05IBAMmY9RQAAAAAAAUAIAgItELgJbgKwBk=",
+      "KLUv/SCG7QMA5AYi8SNjnX70zQQ2t96h5tZVbYXnmBZjzM7xYjTWNUE2mgvOrdtaYOdIASuJudyP3580cJpbEGtHLw85u2ypzgSw/X8ulxaI4uU7gwr2BQAAAAAQDgEA+P///z5Da2imIfYFewwBAMmY9RQAAAAAAAUAIAgItELgJbgKwBk="
+    ],
+    "postDatum": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      "KLUv/WDQBt0JAPQQ8ZptBBGxbbwEAAAAUG9vbAUAAABnWV3YRsAH8miW8q7TG6e1X9EszBWOCwB6nY/oRraf6YuqSkhkImzAIkhNyCgeGhaPXPToBT8a5QZtkWqIud+fQU2BSGrxPm7sni1bz0WRMuOkZkcJtm040GR3kSTGzj7e6As0E6LTEIBia5JsOK80vtGG2zaOl386v0vVRUSabTpX4svK0CiDUCPMq0rYe9J2To/BMtaOmGYJ6xNL14b5E+1h4a5xBQBgW6CdNwYA0AcAZABkAAoACgBkAAIABQCWAMQJAGD9ZmhH6FMk39QAAAAtAAD8/ghwtgJRurupe5tRHbNTdQ4sOeYTQi6FMSGkirUghAwAJzQoXBIASuYeBCl7UBAT8x5ReVeMgDYAxmBgMDAYGAwMBgYDgwGDPwAxvAJIAQ==",
+      null,
+      "KLUv/SCGMQQAIvEjY51+9M01pwwRFi+/Wg5/fS+W4Z+XsCJGoVaH7mcnlIl0SOZY3gHmLfbItKhf4aZ9tE3BLeXbMw96xmty3GWK/t8PSkFbQxwkWbL0CQAA5OeV3wAAAAD4////PkNraAAAAAA+Q2toAAAAAMCet1XzCQAAmKFu8gAAAADJmPUUAAAAAAA=",
+      null,
+      "KLUv/SCG/QMAFAci8SNjnX70zSz60nevyqhnx9f+JuDVHciZEBM1h5q2PCqoSHYxcTW7Af9hSRqTERLd8b2BR80bZBN1959YJRJtZlSAh0Y0/QrOUR64AjwAAADoTeEHAAAAAPj///9IQ2tooDaG5D2RCOSY9RQAAAAAAAQAIMhRd1YIwgfFDA==",
+      null,
+      "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",
+      null,
+      null,
+      "KLUv/SCG7QMA5AYi8SNjnX70zb6TmoMJ9WQHGH//MKxUsWlJi+mfbY4b/UJEaAzU99HiAeqgIMYcxHlxKBNGHOFTiUqWpsALIe0M/CeY0fmp6clKTM/1BQAAAACIrwEA+P///z5Da2ht0PUF05IBAMmY9RQAAAAAAAUAIAgItELgJbgKwBk=",
+      "KLUv/SCG7QMA5AYi8SNjnX70zQQ2t96h5tZVbYXnmBZjzM7xYjTWNUE2mgvOrdtaYOdIASuJudyP3580cJpbEGtHLw85u2ypzgSw/X8ulxaI4uU7gwr2BQAAAAAQDgEA+P///z5Da2imIfYFewwBAMmY9RQAAAAAAAUAIAgItELgJbgKwBk="
+    ],
+    "innerInstructions": [],
+    "logMessages": [
+      "Program ComputeBudget111111111111111111111111111111 invoke [1]",
+      "Program ComputeBudget111111111111111111111111111111 success",
+      "Program ComputeBudget111111111111111111111111111111 invoke [1]",
+      "Program ComputeBudget111111111111111111111111111111 success",
+      "Program DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e invoke [1]",
+      "Program log: Instruction: UpdateWithSigner",
+      "Program DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e consumed 30479 of 186598 compute units",
+      "Program DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e success",
+      "Program DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e invoke [1]",
+      "Program log: Instruction: UpdateWithSigner",
+      "Program DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e consumed 30479 of 156119 compute units",
+      "Program DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e success",
+      "Program DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e invoke [1]",
+      "Program log: Instruction: UpdateWithSigner",
+      "Program DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e consumed 30479 of 125640 compute units",
+      "Program DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e success",
+      "Program DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e invoke [1]",
+      "Program log: Instruction: UpdateAgPriceFeed",
+      "Program log: edge price: 10944760000000, timestamp: 1751860084",
+      "Program log: cl price: 10943940147358, timestamp: 1751860082",
+      "Program log: pyth price: 10946568856604, timestamp: 1751860030",
+      "Program DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e consumed 10815 of 95161 compute units",
+      "Program DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e success",
+      "Program DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e invoke [1]",
+      "Program log: Instruction: UpdateAgPriceFeed",
+      "Program log: edge price: 257868500000, timestamp: 1751860084",
+      "Program log: cl price: 257842000300, timestamp: 1751860082",
+      "Program log: pyth price: 257743658577, timestamp: 1751860040",
+      "Program DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e consumed 10552 of 84346 compute units",
+      "Program DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e success",
+      "Program DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e invoke [1]",
+      "Program log: Instruction: UpdateAgPriceFeed",
+      "Program log: edge price: 15211171724, timestamp: 1751860084",
+      "Program log: cl price: 15210794149, timestamp: 1751860082",
+      "Program log: pyth price: 15209153055, timestamp: 1751860061",
+      "Program DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e consumed 10506 of 73794 compute units",
+      "Program DoVEsk76QybCEHQGzkvYPWLQu9gzNoZZZt3TPiL597e success",
+      "Program PERPHjGBqRHArX4DySjwM6UJHiR3sWAatqfdBS2qQJu invoke [1]",
+      "Program log: Instruction: RefreshAssetsUnderManagement",
+      "Program log: doves ag price: 15211171724, publish time: 1751860084",
+      "Program log: doves ag price: 257868500000, publish time: 1751860084",
+      "Program log: doves ag price: 10944760000000, publish time: 1751860084",
+      "Program log: doves ag price: 99997258, publish time: 1751860083",
+      "Program log: doves ag price: 100010500, publish time: 1751860083",
+      "Program PERPHjGBqRHArX4DySjwM6UJHiR3sWAatqfdBS2qQJu consumed 49627 of 63288 compute units",
+      "Program PERPHjGBqRHArX4DySjwM6UJHiR3sWAatqfdBS2qQJu success"
+    ],
+    "preTokenBalances": [],
+    "postTokenBalances": [],
+    "rewards": [],
+    "computeUnitsConsumed": 173237
+  },
+  "version": 0,
+  "blockTime": 1751860085,
+  "indexInBlock": 898,
+  "slotSecondIdx": 0
+}

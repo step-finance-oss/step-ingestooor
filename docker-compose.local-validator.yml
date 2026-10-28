@@ -1,0 +1,43 @@
+version: "3.8"
+services:
+  ingestooor:
+    build: .
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    volumes:
+      - ./.env:/usr/app/.env
+    networks: 
+      - backend
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - backend
+    healthcheck:
+      test: rabbitmq-diagnostics -q check_port_connectivity 
+      interval: 2s
+      timeout: 15s
+      retries: 5
+
+  geyser-plugin:
+    image: stepfinance/step-geyser-plugin:step-release
+    ports:
+      - 8899:8899
+      - 8900:8900
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - backend
+    restart: unless-stopped
+    volumes:
+      - ./config/compose_config.json:/geyser/compose_config.json
+
+networks:
+  backend:
+    name: shared-backend
+    external: true

@@ -1,0 +1,487 @@
+{
+  "address": "RopsJ74nrtcsk9iND8CFFNjn5mxf1tFzF3RhMPJ3CdV",
+  "metadata": {
+    "name": "merkle_call_options",
+    "version": "0.1.0",
+    "spec": "0.1.0"
+  },
+  "instructions": [
+    {
+      "name": "new_distributor",
+      "discriminator": [
+        32,
+        139,
+        112,
+        171,
+        0,
+        2,
+        225,
+        155
+      ],
+      "accounts": [
+        {
+          "name": "writer",
+          "signer": true
+        },
+        {
+          "name": "owner"
+        },
+        {
+          "name": "reward_mint"
+        },
+        {
+          "name": "price_mint"
+        },
+        {
+          "name": "distributor",
+          "writable": true
+        },
+        {
+          "name": "claims_bitmask_account",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "signer": true
+        },
+        {
+          "name": "from_authority",
+          "signer": true
+        },
+        {
+          "name": "from",
+          "writable": true
+        },
+        {
+          "name": "reward_vault",
+          "writable": true
+        },
+        {
+          "name": "price_vault",
+          "writable": true
+        },
+        {
+          "name": "rent"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "index",
+          "type": "u16"
+        },
+        {
+          "name": "bump",
+          "type": "u8"
+        },
+        {
+          "name": "data_location",
+          "type": "string"
+        },
+        {
+          "name": "merkle_root",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "strike_price",
+          "type": "u64"
+        },
+        {
+          "name": "expiry",
+          "type": "u64"
+        },
+        {
+          "name": "max_total_amount_claim",
+          "type": "u64"
+        },
+        {
+          "name": "node_count",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "exercise",
+      "discriminator": [
+        144,
+        79,
+        103,
+        64,
+        241,
+        78,
+        80,
+        174
+      ],
+      "accounts": [
+        {
+          "name": "distributor",
+          "writable": true
+        },
+        {
+          "name": "claims_bitmask_account",
+          "writable": true
+        },
+        {
+          "name": "reward_vault",
+          "writable": true
+        },
+        {
+          "name": "price_vault",
+          "writable": true
+        },
+        {
+          "name": "user_reward_token_account",
+          "writable": true
+        },
+        {
+          "name": "user_payment_account",
+          "writable": true
+        },
+        {
+          "name": "user_payment_authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "claimant",
+          "signer": true
+        },
+        {
+          "name": "payer",
+          "signer": true
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "claim_index",
+          "type": "u64"
+        },
+        {
+          "name": "authorized_amount",
+          "type": "u64"
+        },
+        {
+          "name": "exercise_amount",
+          "type": "u64"
+        },
+        {
+          "name": "proof",
+          "type": {
+            "vec": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "close",
+      "discriminator": [
+        98,
+        165,
+        201,
+        177,
+        108,
+        65,
+        206,
+        96
+      ],
+      "accounts": [
+        {
+          "name": "writer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "distributor",
+          "writable": true
+        },
+        {
+          "name": "claims_bitmask_account",
+          "writable": true
+        },
+        {
+          "name": "reward_vault",
+          "writable": true
+        },
+        {
+          "name": "price_vault",
+          "writable": true
+        },
+        {
+          "name": "refund_reward_token_account",
+          "writable": true
+        },
+        {
+          "name": "refund_price_token_account",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "CallOptionDistributor",
+      "discriminator": [
+        165,
+        202,
+        198,
+        44,
+        80,
+        169,
+        154,
+        68
+      ]
+    },
+    {
+      "name": "CallOptionDistributorClaimsMask",
+      "discriminator": [
+        149,
+        40,
+        120,
+        144,
+        250,
+        68,
+        235,
+        130
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "Exercised",
+      "discriminator": [
+        199,
+        234,
+        66,
+        198,
+        152,
+        62,
+        234,
+        154
+      ]
+    },
+    {
+      "name": "Closed",
+      "discriminator": [
+        50,
+        31,
+        87,
+        155,
+        135,
+        220,
+        195,
+        239
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidProof",
+      "msg": "Invalid Merkle proof."
+    },
+    {
+      "code": 6001,
+      "name": "OptionAlreadyExercised",
+      "msg": "Option already exercised."
+    },
+    {
+      "code": 6002,
+      "name": "TooMuchExercise",
+      "msg": "Not authorized to purchase that amount."
+    },
+    {
+      "code": 6003,
+      "name": "WrongClaimsBitmask",
+      "msg": "Wrong claims bitmask account provided."
+    },
+    {
+      "code": 6004,
+      "name": "InvalidClaimsIndex",
+      "msg": "Invalid claims index."
+    },
+    {
+      "code": 6005,
+      "name": "OptionExpired",
+      "msg": "Option expired."
+    },
+    {
+      "code": 6006,
+      "name": "OptionNotExpired",
+      "msg": "Option not expired."
+    },
+    {
+      "code": 6007,
+      "name": "WrongOwner",
+      "msg": "Incorrect owner."
+    }
+  ],
+  "types": [
+    {
+      "name": "CallOptionDistributor",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "writer",
+            "type": "pubkey"
+          },
+          {
+            "name": "reward_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "index",
+            "type": "u16"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "decimals_reward",
+            "type": "u8"
+          },
+          {
+            "name": "strike_price",
+            "type": "u64"
+          },
+          {
+            "name": "expiry",
+            "type": "u64"
+          },
+          {
+            "name": "data_location",
+            "type": "string"
+          },
+          {
+            "name": "merkle_root",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "max_total_amount_claim",
+            "type": "u64"
+          },
+          {
+            "name": "total_amount_claimed",
+            "type": "u64"
+          },
+          {
+            "name": "max_num_nodes",
+            "type": "u32"
+          },
+          {
+            "name": "num_nodes_claimed",
+            "type": "u64"
+          },
+          {
+            "name": "claims_bitmask_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "price_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "decimals_price",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "CallOptionDistributorClaimsMask",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "claims_bitmask",
+            "type": {
+              "array": [
+                "u8",
+                31250
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Exercised",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "authorized_amount",
+            "type": "u64"
+          },
+          {
+            "name": "claim_index",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Closed",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "total_amount_claimed",
+            "type": "u64"
+          },
+          {
+            "name": "max_total_amount_claim",
+            "type": "u64"
+          },
+          {
+            "name": "num_nodes_claimed",
+            "type": "u64"
+          },
+          {
+            "name": "max_num_nodes",
+            "type": "u32"
+          }
+        ]
+      }
+    }
+  ]
+}

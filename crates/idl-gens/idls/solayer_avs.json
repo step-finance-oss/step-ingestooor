@@ -1,0 +1,416 @@
+{
+  "address": "endoLNCKTqDn8gSVnN2hDdpgACUPWHZTwoYnnMybpAT",
+  "metadata": {
+    "name": "endoavs_program",
+    "version": "0.1.0",
+    "spec": "0.1.0"
+  },
+  "instructions": [
+    {
+      "name": "create",
+      "discriminator": [
+        24,
+        30,
+        200,
+        40,
+        5,
+        28,
+        7,
+        119
+      ],
+      "accounts": [
+        {
+          "name": "endo_avs",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "create_fee_recipient",
+          "writable": true
+        },
+        {
+          "name": "avs_token_mint",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "avs_token_metadata",
+          "writable": true
+        },
+        {
+          "name": "delegated_token_vault",
+          "writable": true
+        },
+        {
+          "name": "delegated_token_mint"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "token_metadata_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "rent"
+        }
+      ],
+      "args": [
+        {
+          "name": "name",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "delegate",
+      "discriminator": [
+        90,
+        147,
+        75,
+        178,
+        85,
+        88,
+        4,
+        137
+      ],
+      "accounts": [
+        {
+          "name": "staker",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "endo_avs"
+        },
+        {
+          "name": "avs_token_mint",
+          "writable": true
+        },
+        {
+          "name": "delegated_token_vault",
+          "writable": true
+        },
+        {
+          "name": "delegated_token_mint"
+        },
+        {
+          "name": "staker_delegated_token_account",
+          "writable": true
+        },
+        {
+          "name": "staker_avs_token_account",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "undelegate",
+      "discriminator": [
+        131,
+        148,
+        180,
+        198,
+        91,
+        104,
+        42,
+        238
+      ],
+      "accounts": [
+        {
+          "name": "staker",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "endo_avs"
+        },
+        {
+          "name": "avs_token_mint",
+          "writable": true
+        },
+        {
+          "name": "delegated_token_vault",
+          "writable": true
+        },
+        {
+          "name": "delegated_token_mint"
+        },
+        {
+          "name": "staker_delegated_token_account",
+          "writable": true
+        },
+        {
+          "name": "staker_avs_token_account",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "transfer_authority",
+      "discriminator": [
+        48,
+        169,
+        76,
+        72,
+        229,
+        180,
+        55,
+        161
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "endo_avs",
+          "writable": true,
+          "relations": [
+            "authority",
+            "avs_token_mint"
+          ]
+        },
+        {
+          "name": "new_authority"
+        },
+        {
+          "name": "avs_token_mint"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "update_token_metadata",
+      "discriminator": [
+        243,
+        6,
+        8,
+        23,
+        126,
+        181,
+        251,
+        158
+      ],
+      "accounts": [
+        {
+          "name": "endo_avs",
+          "relations": [
+            "avs_token_mint",
+            "authority"
+          ]
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "avs_token_mint"
+        },
+        {
+          "name": "avs_token_metadata",
+          "writable": true
+        },
+        {
+          "name": "token_metadata_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "rent"
+        }
+      ],
+      "args": [
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "symbol",
+          "type": "string"
+        },
+        {
+          "name": "uri",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "update_endoavs",
+      "discriminator": [
+        14,
+        245,
+        59,
+        169,
+        39,
+        126,
+        250,
+        78
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "signer": true
+        },
+        {
+          "name": "endo_avs",
+          "writable": true,
+          "relations": [
+            "authority",
+            "avs_token_mint"
+          ]
+        },
+        {
+          "name": "avs_token_mint"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "name",
+          "type": {
+            "option": "string"
+          }
+        },
+        {
+          "name": "url",
+          "type": {
+            "option": "string"
+          }
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "EndoAVS",
+      "discriminator": [
+        66,
+        168,
+        41,
+        177,
+        187,
+        11,
+        173,
+        123
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "UnsupportedAsset",
+      "msg": "Unsupported Asset"
+    },
+    {
+      "code": 6001,
+      "name": "NameTooLong",
+      "msg": "The chosen name is too long"
+    },
+    {
+      "code": 6002,
+      "name": "CreateFeeRecipientMismatch",
+      "msg": "Wrong fee recipient address"
+    },
+    {
+      "code": 6003,
+      "name": "URLTooLong",
+      "msg": "The chosen url is too long"
+    },
+    {
+      "code": 6004,
+      "name": "ConstraintViolation",
+      "msg": "One of the constraints is violated"
+    },
+    {
+      "code": 6005,
+      "name": "InvalidTokenSymbol",
+      "msg": "The token symbol is invalid. It has to end with sSOL"
+    }
+  ],
+  "types": [
+    {
+      "name": "EndoAVS",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "avs_token_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "delegated_token_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "delegated_token_vault",
+            "type": "pubkey"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "url",
+            "type": "string"
+          }
+        ]
+      }
+    }
+  ]
+}

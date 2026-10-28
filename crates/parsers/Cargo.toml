@@ -1,0 +1,53 @@
+[package]
+name = "step-ingestooor-parsers"
+version.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+edition.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+step-ingestooor-idl-gens = { path = "../idl-gens" }
+step-ingestooor-sdk = { workspace = true }
+
+anyhow = { workspace = true }
+solana-transaction-status = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+bs58 = { workspace = true }
+enum_dispatch = { workspace = true }
+solana-sdk = { workspace = true }
+spl-token = { workspace = true }
+log = { workspace = true }
+rust_decimal = { workspace = true }
+chrono = { workspace = true }
+borsh = { workspace = true }
+async-trait = { workspace = true }
+tokio = { workspace = true }
+deadpool-postgres = { workspace = true }
+base64 = { workspace = true }
+slab_tree = { workspace = true }
+mpl-token-metadata = { workspace = true }
+reqwest = { workspace = true, features = ["json"] }
+tokio-stream = { workspace = true }
+bincode = { workspace = true }
+fixed = { workspace = true }
+primitive-types = { workspace = true }
+bytemuck = { workspace = true }
+num_enum = { workspace = true }
+zstd = { workspace = true }
+itertools = { workspace = true }
+uint = { workspace = true }
+thiserror = { workspace = true }
+num-traits = { workspace = true }
+num-derive = { workspace = true }
+arrayref = { workspace = true }
+rand = { workspace = true}
+parking_lot = { workspace = true }
+solana-client = { workspace = true }
+solana-account-decoder = { workspace = true }
+solana-snapshot-etl = { workspace = true }
+metrics = { workspace = true }

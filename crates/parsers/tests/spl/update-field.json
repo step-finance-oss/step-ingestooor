@@ -1,0 +1,190 @@
+{
+  "slot": 297487202,
+  "transaction": {
+    "signatures": [
+      "2CGsZHv9nK6LzAm268MnMr8ygbF9j38A8f3QypvikJKE4DX787Dm5XAbDakf2Kpx4JL8R8Dynp88cWNNBQDNoZX2",
+      "4L1BDEpP9BAqwZJ5QbPWtjVE8c6P1dGBsrDF1uhGAwiZM9MKza7SKrFA5ta6WUkgLwkYCovJinKjGd24pwS2AidB"
+    ],
+    "message": {
+      "accountKeys": [
+        {
+          "pubkey": "2YcV2Utsy8hB8x6yniSWo3Pf9PWgnbiRf5f3bzDR3M2A",
+          "writable": true,
+          "signer": true,
+          "source": "transaction"
+        },
+        {
+          "pubkey": "JCaha1mFvHohJrJdRNDYkXqyF6j8hXxdGYNuyUdN4DEZ",
+          "writable": true,
+          "signer": true,
+          "source": "transaction"
+        },
+        {
+          "pubkey": "11111111111111111111111111111111",
+          "writable": false,
+          "signer": false,
+          "source": "transaction"
+        },
+        {
+          "pubkey": "SysvarRent111111111111111111111111111111111",
+          "writable": false,
+          "signer": false,
+          "source": "transaction"
+        },
+        {
+          "pubkey": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "writable": false,
+          "signer": false,
+          "source": "transaction"
+        }
+      ],
+      "recentBlockhash": "AvohLVTwqk5AHLuvRmSQ85dSbcdsssoJsAT8Z7smBioy",
+      "instructions": [
+        {
+          "program": "system",
+          "programId": "11111111111111111111111111111111",
+          "parsed": {
+            "info": {
+              "lamports": 3786240,
+              "newAccount": "JCaha1mFvHohJrJdRNDYkXqyF6j8hXxdGYNuyUdN4DEZ",
+              "owner": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+              "source": "2YcV2Utsy8hB8x6yniSWo3Pf9PWgnbiRf5f3bzDR3M2A",
+              "space": 234
+            },
+            "type": "createAccount"
+          },
+          "stackHeight": null
+        },
+        {
+          "program": "spl-token",
+          "programId": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "parsed": {
+            "info": {
+              "authority": "2YcV2Utsy8hB8x6yniSWo3Pf9PWgnbiRf5f3bzDR3M2A",
+              "metadataAddress": "JCaha1mFvHohJrJdRNDYkXqyF6j8hXxdGYNuyUdN4DEZ",
+              "mint": "JCaha1mFvHohJrJdRNDYkXqyF6j8hXxdGYNuyUdN4DEZ"
+            },
+            "type": "initializeMetadataPointer"
+          },
+          "stackHeight": null
+        },
+        {
+          "program": "spl-token",
+          "programId": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "parsed": {
+            "info": {
+              "decimals": 2,
+              "mint": "JCaha1mFvHohJrJdRNDYkXqyF6j8hXxdGYNuyUdN4DEZ",
+              "mintAuthority": "2YcV2Utsy8hB8x6yniSWo3Pf9PWgnbiRf5f3bzDR3M2A",
+              "rentSysvar": "SysvarRent111111111111111111111111111111111"
+            },
+            "type": "initializeMint"
+          },
+          "stackHeight": null
+        },
+        {
+          "program": "spl-token",
+          "programId": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "parsed": {
+            "info": {
+              "metadata": "JCaha1mFvHohJrJdRNDYkXqyF6j8hXxdGYNuyUdN4DEZ",
+              "mint": "JCaha1mFvHohJrJdRNDYkXqyF6j8hXxdGYNuyUdN4DEZ",
+              "mintAuthority": "2YcV2Utsy8hB8x6yniSWo3Pf9PWgnbiRf5f3bzDR3M2A",
+              "name": "MYSTERY",
+              "symbol": "MST",
+              "updateAuthority": "2YcV2Utsy8hB8x6yniSWo3Pf9PWgnbiRf5f3bzDR3M2A",
+              "uri": "https://testcoin.ncrypt.ch/metadata.json"
+            },
+            "type": "initializeTokenMetadata"
+          },
+          "stackHeight": null
+        },
+        {
+          "program": "spl-token",
+          "programId": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "parsed": {
+            "info": {
+              "field": "description",
+              "metadata": "JCaha1mFvHohJrJdRNDYkXqyF6j8hXxdGYNuyUdN4DEZ",
+              "updateAuthority": "2YcV2Utsy8hB8x6yniSWo3Pf9PWgnbiRf5f3bzDR3M2A",
+              "value": "Only Solana makes it possible"
+            },
+            "type": "updateTokenMetadataField"
+          },
+          "stackHeight": null
+        }
+      ]
+    }
+  },
+  "meta": {
+    "err": null,
+    "status": {
+      "Ok": null
+    },
+    "fee": 10000,
+    "preBalances": [
+      89620080,
+      0,
+      1,
+      1009200,
+      1141440
+    ],
+    "postBalances": [
+      85823840,
+      3786240,
+      1,
+      1009200,
+      1141440
+    ],
+    "postOwners": [
+      "11111111111111111111111111111111",
+      "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+      "NativeLoader1111111111111111111111111111111",
+      "Sysvar1111111111111111111111111111111111111",
+      "BPFLoaderUpgradeab1e11111111111111111111111"
+    ],
+    "preDatum": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "postDatum": [
+      null,
+      "KLUv/WCgAHUGAJQLAQAAABb00CAEJqrODxiEwDIswFj2cW6GuFWAk7/oSZfv3t+jAAIBAAESAED/jiu216iOGBrqj1ym/xInXrR265FEL623/S0btP+qyhMAsgcAAABNWVNURVJZA1NUKAAAAGh0dHBzOi8vdGVzdGNvaW4ubmNyeXB0LmNoL21ldGFkYXRhLmpzb24LAAAAZGVzY3JpcHRpb24dAAAAT25seSBTb2xhbmEgbWFrZXMgaXQgcG9zc2libGUGABZaUVwBnY+QSMqMeYI06oIn",
+      null,
+      null,
+      null
+    ],
+    "innerInstructions": [],
+    "logMessages": [
+      "Program 11111111111111111111111111111111 invoke [1]",
+      "Program 11111111111111111111111111111111 success",
+      "Program TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb invoke [1]",
+      "Program log: MetadataPointerInstruction::Initialize",
+      "Program TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb consumed 846 of 999850 compute units",
+      "Program TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb success",
+      "Program TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb invoke [1]",
+      "Program log: Instruction: InitializeMint",
+      "Program TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb consumed 2028 of 999004 compute units",
+      "Program TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb success",
+      "Program TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb invoke [1]",
+      "Program log: TokenMetadataInstruction: Initialize",
+      "Program TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb consumed 4340 of 996976 compute units",
+      "Program TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb success",
+      "Program TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb invoke [1]",
+      "Program log: TokenMetadataInstruction: UpdateField",
+      "Program TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb consumed 6756 of 992636 compute units",
+      "Program TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb success"
+    ],
+    "preTokenBalances": [],
+    "postTokenBalances": [],
+    "rewards": [],
+    "computeUnitsConsumed": 14120
+  },
+  "version": "legacy",
+  "blockTime": 1729802933,
+  "indexInBlock": 1215,
+  "slotSecondIdx": 0
+}

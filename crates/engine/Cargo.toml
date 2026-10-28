@@ -1,0 +1,76 @@
+[package]
+name = "step-ingestooor-engine"
+version.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+edition.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+
+#local
+step-ingestooor-parsers = { path = "../parsers" }
+step-ingestooor-sdk = { workspace = true }
+step-common-rust = { workspace = true }
+
+#step external
+indexer_rabbitmq = { workspace = true, features = [
+    "consumer",
+    "consume-json",
+    "geyser",
+] }
+
+#external
+clap = { workspace = true, features = ["derive", "env"] }
+futures-util = { workspace = true }
+futures = { workspace = true }
+dotenv = { workspace = true }
+lapin = { workspace = true, features = ["rustls"] }
+log = { workspace = true }
+tokio = { workspace = true, features = [
+    "time",
+    "macros",
+    "rt",
+    "rt-multi-thread",
+    "signal",
+    "sync",
+] }
+tokio-executor-trait = { workspace = true }
+tokio-reactor-trait = { workspace = true }
+anyhow = { workspace = true }
+env_logger = { workspace = true }
+hostname = { workspace = true }
+serde_json = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
+concat-idents = { workspace = true }
+enum_dispatch = { workspace = true }
+bs58 = { workspace = true }
+spl-token = { workspace = true, features = ["no-entrypoint"] }
+bincode = { workspace = true }
+regex = { workspace = true }
+spl-token-2022 = { workspace = true }
+thread_local = { workspace = true }
+itertools = { workspace = true }
+tokio-postgres = { workspace = true }
+strum = { workspace = true }
+deadpool-postgres = { workspace = true }
+postgres-types = { workspace = true, features = ["derive"] }
+chrono = { workspace = true }
+reqwest = { workspace = true }
+rand = { workspace = true }
+async-trait = { workspace = true }
+rust_decimal = { workspace = true }
+thiserror = { workspace = true }
+clickhouse = { workspace = true }
+metrics-exporter-prometheus = { workspace = true }
+metrics = { workspace = true }
+axum = { workspace = true }
+rustls = { workspace = true }
+
+# solana-client = { workspace = true }
+# solana-sdk = { workspace = true }
+# solana-program = { workspace = true, optional = true }
+solana-transaction-status = { workspace = true }
