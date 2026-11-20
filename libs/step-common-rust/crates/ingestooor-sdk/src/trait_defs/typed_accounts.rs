@@ -66,65 +66,20 @@ where
     }
 }
 
-/// Turns an iterator of `AccountDatumIterItem` into an iterator of `AccountTypedPrePost<T>`.
-/// This is a helper function to allow for easy iteration over accounts with typed data.
-/// This function will filter out accounts that do not match the expected program id or do not have
-/// the expected discriminator.
-/// This is broken out into this function so it can be reused for tx and ix
+/// Read the snapshots independently. An absent or differently owned snapshot
+/// cannot be interpreted as this account type even if the other snapshot matches.
 pub(crate) fn make_accounts_typed<'a, T>(
     acct_iter: impl Iterator<Item = AccountDatumIterItem<'a>> + 'a,
 ) -> Result<Vec<AccountTypedPrePost<'a, T>>>
 where
-    T: Discriminatable + 'a,
-    T: RefFromByteRef,
+    T: Discriminatable + RefFromByteRef + 'a,
 {
-    let mut t = make_typed_helper::<T>();
-    let owner_program = &t.0;
-    let discriminator = &t.1;
-    let new_func = &t.2;
-    let acct_vec = &mut t.3;
-
-    for a in acct_iter {
-        if a.pre_datum.is_none() && a.post_datum.is_none() {
-            continue;
-        }
-
-        //see if accounts are of interest
-        if Some(owner_program.as_str()) != a.pre_owner_program
-            && Some(owner_program.as_str()) != a.post_owner_program
-        {
-            continue;
-        }
-
-        //get bytes
-        let pre_bytes = a.unpack_pre_datum()?;
-        let post_bytes = a.unpack_post_datum()?;
-        //if nothing, go to next account
-        if pre_bytes.is_none() && post_bytes.is_none() {
-            continue;
-        }
-        let has_pre = pre_bytes
-            .as_ref()
-            .map(|b| b.starts_with(discriminator))
-            .unwrap_or(false);
-        let has_post = post_bytes
-            .as_ref()
-            .map(|b| b.starts_with(discriminator))
-            .unwrap_or(false);
-        let was_created = (pre_bytes.is_none() || pre_bytes.as_ref().is_some_and(|b| b.is_empty()))
-            && post_bytes.as_ref().is_some_and(|b| !b.is_empty());
-        if has_pre || has_post {
-            acct_vec.push(new_func(
-                a.pubkey,
-                pre_bytes != post_bytes,
-                was_created,
-                pre_bytes.map(|b| (*b)[discriminator.len()..].to_vec()),
-                post_bytes.map(|b| (*b)[discriminator.len()..].to_vec()),
-            ));
-        }
+    let mut typed = TypedAccounts::<T>::new();
+    for account in acct_iter {
+        let bytes = AccountSnapshots::read(&account, &[&typed.owner_program])?;
+        typed.push_matching(&account, &bytes);
     }
-
-    Ok(t.3)
+    Ok(typed.accounts)
 }
 
 #[allow(clippy::type_complexity)]
@@ -135,88 +90,19 @@ pub(crate) fn make_accounts_typed_2<'a, T1, T2>(
     Vec<AccountTypedPrePost<'a, T2>>,
 )>
 where
-    T1: Discriminatable + 'a,
-    T1: RefFromByteRef,
-    T2: Discriminatable + 'a,
-    T2: RefFromByteRef,
+    T1: Discriminatable + RefFromByteRef + 'a,
+    T2: Discriminatable + RefFromByteRef + 'a,
 {
-    let mut t1 = make_typed_helper::<T1>();
-    let mut t2 = make_typed_helper::<T2>();
-
-    let owner_program1 = &t1.0;
-    let discriminator1 = &t1.1;
-    let new_func1 = &t1.2;
-    let acct_vec1 = &mut t1.3;
-
-    let owner_program2 = &t2.0;
-    let discriminator2 = &t2.1;
-    let new_func2 = &t2.2;
-    let acct_vec2 = &mut t2.3;
-
-    for a in acct_iter {
-        if a.pre_datum.is_none() && a.post_datum.is_none() {
-            continue;
-        }
-        //see if accounts are of interest
-        if Some(owner_program1.as_str()) != a.pre_owner_program
-            && Some(owner_program2.as_str()) != a.pre_owner_program
-            && Some(owner_program1.as_str()) != a.post_owner_program
-            && Some(owner_program2.as_str()) != a.post_owner_program
-        {
-            continue;
-        }
-        //get bytes
-        let pre_bytes = a.unpack_pre_datum()?;
-        let post_bytes = a.unpack_post_datum()?;
-        //if nothing, go to next account
-        if pre_bytes.is_none() && post_bytes.is_none() {
-            continue;
-        }
-
-        let has_pre = pre_bytes
-            .as_ref()
-            .map(|b| b.starts_with(discriminator1))
-            .unwrap_or(false);
-        let has_post = post_bytes
-            .as_ref()
-            .map(|b| b.starts_with(discriminator1))
-            .unwrap_or(false);
-        let was_created = (pre_bytes.is_none() || pre_bytes.as_ref().is_some_and(|b| b.is_empty()))
-            && post_bytes.as_ref().is_some_and(|b| !b.is_empty());
-        if has_pre || has_post {
-            acct_vec1.push(new_func1(
-                a.pubkey,
-                pre_bytes != post_bytes,
-                was_created,
-                pre_bytes.map(|b| (*b)[discriminator1.len()..].to_vec()),
-                post_bytes.map(|b| (*b)[discriminator1.len()..].to_vec()),
-            ));
-            continue;
-        }
-
-        let has_pre = pre_bytes
-            .as_ref()
-            .map(|b| b.starts_with(discriminator2))
-            .unwrap_or(false);
-        let has_post = post_bytes
-            .as_ref()
-            .map(|b| b.starts_with(discriminator2))
-            .unwrap_or(false);
-        let was_created = (pre_bytes.is_none() || pre_bytes.as_ref().is_some_and(|b| b.is_empty()))
-            && post_bytes.as_ref().is_some_and(|b| !b.is_empty());
-        if has_pre || has_post {
-            acct_vec2.push(new_func2(
-                a.pubkey,
-                pre_bytes != post_bytes,
-                was_created,
-                pre_bytes.map(|b| (*b)[discriminator2.len()..].to_vec()),
-                post_bytes.map(|b| (*b)[discriminator2.len()..].to_vec()),
-            ));
-            continue;
+    let mut first = TypedAccounts::<T1>::new();
+    let mut second = TypedAccounts::<T2>::new();
+    for account in acct_iter {
+        let bytes =
+            AccountSnapshots::read(&account, &[&first.owner_program, &second.owner_program])?;
+        if !first.push_matching(&account, &bytes) {
+            second.push_matching(&account, &bytes);
         }
     }
-
-    Ok((t1.3, t2.3))
+    Ok((first.accounts, second.accounts))
 }
 
 #[allow(clippy::type_complexity)]
@@ -228,138 +114,198 @@ pub(crate) fn make_accounts_typed_3<'a, T1, T2, T3>(
     Vec<AccountTypedPrePost<'a, T3>>,
 )>
 where
-    T1: Discriminatable + 'a,
-    T1: RefFromByteRef,
-    T2: Discriminatable + 'a,
-    T2: RefFromByteRef,
-    T3: Discriminatable + 'a,
-    T3: RefFromByteRef,
+    T1: Discriminatable + RefFromByteRef + 'a,
+    T2: Discriminatable + RefFromByteRef + 'a,
+    T3: Discriminatable + RefFromByteRef + 'a,
 {
-    let mut t1 = make_typed_helper::<T1>();
-    let mut t2 = make_typed_helper::<T2>();
-    let mut t3 = make_typed_helper::<T3>();
-
-    let owner_program1 = &t1.0;
-    let discriminator1 = &t1.1;
-    let new_func1 = &t1.2;
-    let acct_vec1 = &mut t1.3;
-
-    let owner_program2 = &t2.0;
-    let discriminator2 = &t2.1;
-    let new_func2 = &t2.2;
-    let acct_vec2 = &mut t2.3;
-
-    let owner_program3 = &t3.0;
-    let discriminator3 = &t3.1;
-    let new_func3 = &t3.2;
-    let acct_vec3 = &mut t3.3;
-
-    for a in acct_iter {
-        if a.pre_datum.is_none() && a.post_datum.is_none() {
-            continue;
+    let mut first = TypedAccounts::<T1>::new();
+    let mut second = TypedAccounts::<T2>::new();
+    let mut third = TypedAccounts::<T3>::new();
+    for account in acct_iter {
+        let bytes = AccountSnapshots::read(
+            &account,
+            &[
+                &first.owner_program,
+                &second.owner_program,
+                &third.owner_program,
+            ],
+        )?;
+        if !first.push_matching(&account, &bytes) && !second.push_matching(&account, &bytes) {
+            third.push_matching(&account, &bytes);
         }
-        //see if accounts are of interest
-        if Some(owner_program1.as_str()) != a.pre_owner_program
-            && Some(owner_program2.as_str()) != a.pre_owner_program
-            && Some(owner_program3.as_str()) != a.pre_owner_program
-            && Some(owner_program1.as_str()) != a.post_owner_program
-            && Some(owner_program2.as_str()) != a.post_owner_program
-            && Some(owner_program3.as_str()) != a.post_owner_program
-        {
-            continue;
-        }
-        //get bytes
-        let pre_bytes = a.unpack_pre_datum()?;
-        let post_bytes = a.unpack_post_datum()?;
-        //if nothing, go to next account
-        if pre_bytes.is_none() && post_bytes.is_none() {
-            continue;
-        }
+    }
+    Ok((first.accounts, second.accounts, third.accounts))
+}
 
-        let has_pre = pre_bytes
-            .as_ref()
-            .map(|b| b.starts_with(discriminator1))
-            .unwrap_or(false);
-        let has_post = post_bytes
-            .as_ref()
-            .map(|b| b.starts_with(discriminator1))
-            .unwrap_or(false);
-        let was_created = (pre_bytes.is_none() || pre_bytes.as_ref().is_some_and(|b| b.is_empty()))
-            && post_bytes.as_ref().is_some_and(|b| !b.is_empty());
-        if has_pre || has_post {
-            acct_vec1.push(new_func1(
-                a.pubkey,
-                pre_bytes != post_bytes,
-                was_created,
-                pre_bytes.map(|b| (*b)[discriminator1.len()..].to_vec()),
-                post_bytes.map(|b| (*b)[discriminator1.len()..].to_vec()),
-            ));
-            continue;
-        }
+struct AccountSnapshots {
+    pre: Option<Vec<u8>>,
+    post: Option<Vec<u8>>,
+}
 
-        let has_pre = pre_bytes
-            .as_ref()
-            .map(|b| b.starts_with(discriminator2))
-            .unwrap_or(false);
-        let has_post = post_bytes
-            .as_ref()
-            .map(|b| b.starts_with(discriminator2))
-            .unwrap_or(false);
-        let was_created = (pre_bytes.is_none() || pre_bytes.as_ref().is_some_and(|b| b.is_empty()))
-            && post_bytes.as_ref().is_some_and(|b| !b.is_empty());
-        if has_pre || has_post {
-            acct_vec2.push(new_func2(
-                a.pubkey,
-                pre_bytes != post_bytes,
-                was_created,
-                pre_bytes.map(|b| (*b)[discriminator2.len()..].to_vec()),
-                post_bytes.map(|b| (*b)[discriminator2.len()..].to_vec()),
-            ));
-            continue;
-        }
+impl AccountSnapshots {
+    fn read(account: &AccountDatumIterItem<'_>, owners: &[&str]) -> Result<Self> {
+        let pre = match account.pre_owner_program {
+            Some(owner) if owners.contains(&owner) => account.unpack_pre_datum()?,
+            _ => None,
+        };
+        let post = match account.post_owner_program {
+            Some(owner) if owners.contains(&owner) => account.unpack_post_datum()?,
+            _ => None,
+        };
+        Ok(Self { pre, post })
+    }
+}
 
-        let has_pre = pre_bytes
-            .as_ref()
-            .map(|b| b.starts_with(discriminator3))
-            .unwrap_or(false);
-        let has_post = post_bytes
-            .as_ref()
-            .map(|b| b.starts_with(discriminator3))
-            .unwrap_or(false);
-        let was_created = (pre_bytes.is_none() || pre_bytes.as_ref().is_some_and(|b| b.is_empty()))
-            && post_bytes.as_ref().is_some_and(|b| !b.is_empty());
-        if has_pre || has_post {
-            acct_vec3.push(new_func3(
-                a.pubkey,
-                pre_bytes != post_bytes,
-                was_created,
-                pre_bytes.map(|b| (*b)[discriminator3.len()..].to_vec()),
-                post_bytes.map(|b| (*b)[discriminator3.len()..].to_vec()),
-            ));
-            continue;
+struct TypedAccounts<'a, T: RefFromByteRef> {
+    owner_program: String,
+    discriminator: &'static [u8],
+    accounts: Vec<AccountTypedPrePost<'a, T>>,
+}
+
+impl<'a, T: Discriminatable + RefFromByteRef> TypedAccounts<'a, T> {
+    fn new() -> Self {
+        let (owner_program, discriminator) = T::discriminator();
+        Self {
+            owner_program: owner_program.to_string(),
+            discriminator,
+            accounts: Vec::new(),
         }
     }
 
-    Ok((t1.3, t2.3, t3.3))
+    fn matching_body<'b>(&self, owner: Option<&str>, bytes: Option<&'b [u8]>) -> Option<&'b [u8]> {
+        if owner != Some(self.owner_program.as_str()) {
+            return None;
+        }
+        let bytes = bytes.filter(|bytes| !bytes.is_empty())?;
+        bytes.strip_prefix(self.discriminator)
+    }
+
+    fn push_matching(
+        &mut self,
+        account: &AccountDatumIterItem<'a>,
+        bytes: &AccountSnapshots,
+    ) -> bool {
+        let pre = self.matching_body(account.pre_owner_program, bytes.pre.as_deref());
+        let post = self.matching_body(account.post_owner_program, bytes.post.as_deref());
+        if pre.is_none() && post.is_none() {
+            return false;
+        }
+
+        let was_created = (account.was_created || bytes.pre.as_ref().is_some_and(Vec::is_empty))
+            && post.is_some();
+        self.accounts.push(AccountTypedPrePost::new(
+            account.pubkey,
+            pre != post,
+            was_created,
+            pre.map(<[u8]>::to_vec),
+            post.map(<[u8]>::to_vec),
+        ));
+        true
+    }
 }
 
-//used to shorten the above variants
-type TypedHelper<'a, T> = (
-    String,
-    &'a [u8],
-    fn(&'a str, bool, bool, Option<Vec<u8>>, Option<Vec<u8>>) -> AccountTypedPrePost<'a, T>,
-    Vec<AccountTypedPrePost<'a, T>>,
-);
-fn make_typed_helper<'a, T>() -> TypedHelper<'a, T>
-where
-    T: Discriminatable + 'a,
-    T: RefFromByteRef,
-{
-    let (pgm, disc) = T::discriminator();
-    (
-        pgm.to_string(),
-        disc,
-        AccountTypedPrePost::<'a, T>::new,
-        Vec::<AccountTypedPrePost<T>>::new(),
-    )
+#[cfg(test)]
+mod tests {
+    use base64::prelude::*;
+    use solana_sdk::pubkey::Pubkey;
+
+    use super::*;
+
+    fn owner() -> Pubkey {
+        Pubkey::new_from_array([1; 32])
+    }
+
+    macro_rules! account_type {
+        ($name:ident, $disc:expr) => {
+            #[repr(transparent)]
+            #[derive(Clone, Copy, bytemuck::Pod, bytemuck::Zeroable)]
+            struct $name(u8);
+
+            impl Discriminatable for $name {
+                fn discriminator() -> (Pubkey, &'static [u8]) {
+                    (owner(), $disc)
+                }
+            }
+        };
+    }
+
+    account_type!(First, b"first___");
+    account_type!(Second, b"second__");
+    account_type!(Third, b"third___");
+
+    fn datum<T: Discriminatable>(value: u8) -> String {
+        let (_, discriminator) = T::discriminator();
+        let mut data = discriminator.to_vec();
+        data.push(value);
+        BASE64_STANDARD.encode(zstd::encode_all(&data[..], 0).expect("encode fixture"))
+    }
+
+    #[test]
+    fn opening_and_closing_ignore_empty_snapshots_in_all_readers() -> Result<()> {
+        let program = owner().to_string();
+        let first_data = datum::<First>(10);
+        let second_data = datum::<Second>(20);
+        let third_data = datum::<Third>(30);
+        let item = |pre, post, was_created, was_closed| AccountDatumIterItem {
+            pubkey: "fixture",
+            pre_datum: Some(pre),
+            post_datum: Some(post),
+            pre_owner_program: Some(program.as_str()),
+            post_owner_program: Some(program.as_str()),
+            datum_changed: true,
+            was_created,
+            was_closed,
+        };
+        let opened =
+            make_accounts_typed::<First>(std::iter::once(item("", &first_data, true, false)))?;
+        assert!(!opened[0].pre_bytes_exist());
+        assert!(opened[0].was_created);
+        assert_eq!(opened[0].get_post()?.expect("opened account").0, 10);
+
+        let (first, closed) = make_accounts_typed_2::<First, Second>(std::iter::once(item(
+            &second_data,
+            "",
+            false,
+            true,
+        )))?;
+        assert!(first.is_empty());
+        assert!(!closed[0].post_bytes_exist());
+        assert_eq!(closed[0].get_pre()?.expect("closed account").0, 20);
+
+        let (first, second, opened) = make_accounts_typed_3::<First, Second, Third>(
+            std::iter::once(item("", &third_data, true, false)),
+        )?;
+        assert!(first.is_empty() && second.is_empty());
+        assert!(!opened[0].pre_bytes_exist());
+        assert_eq!(opened[0].get_post()?.expect("opened account").0, 30);
+        Ok(())
+    }
+
+    #[test]
+    fn snapshots_must_match_their_own_owner_and_discriminator() -> Result<()> {
+        let program = owner().to_string();
+        let first_data = datum::<First>(10);
+        let second_data = datum::<Second>(20);
+        let mut item = AccountDatumIterItem {
+            pubkey: "fixture",
+            pre_datum: Some(&first_data),
+            post_datum: Some(&second_data),
+            pre_owner_program: Some(program.as_str()),
+            post_owner_program: Some(program.as_str()),
+            datum_changed: true,
+            was_created: false,
+            was_closed: false,
+        };
+        let first = make_accounts_typed::<First>(std::iter::once(item.clone()))?;
+        assert!(first[0].pre_bytes_exist());
+        assert!(!first[0].post_bytes_exist());
+
+        item.post_datum = Some(&first_data);
+        item.post_owner_program = Some("different-program");
+        let first = make_accounts_typed::<First>(std::iter::once(item))?;
+        assert!(first[0].pre_bytes_exist());
+        assert!(!first[0].post_bytes_exist());
+        assert!(first[0].is_changed);
+        Ok(())
+    }
 }

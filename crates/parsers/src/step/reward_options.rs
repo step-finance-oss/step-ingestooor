@@ -77,13 +77,11 @@ impl TransactionParserTrait for RewardOptions {
 
                     //this is a creation and we need to lookup the proof from data_location
                     //and create user doots for all users
-                    let loc = dist.data_location.clone();
-                    //make web request to the data location
-                    let resp = reqwest::get(&loc)
-                        .await
-                        .context("fetching reward option proof")?;
+                    const MAX_PROOF_BYTES: usize = 32 * 1024 * 1024;
                     let proof_map: Proof =
-                        resp.json().await.context("parsing reward option proof")?;
+                        crate::external_json::fetch(&dist.data_location, MAX_PROOF_BYTES)
+                            .await
+                            .context("fetching reward option proof")?;
 
                     //create user doots for all users
                     for (pubkey, proof) in proof_map.inner.into_iter() {

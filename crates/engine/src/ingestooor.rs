@@ -3,6 +3,7 @@ use std::pin::Pin;
 use std::rc::Rc;
 use std::sync::atomic::AtomicBool;
 use std::sync::Arc;
+use std::time::Duration;
 
 use super::parser_manager::ParserManager;
 use anyhow::{Context, Result};
@@ -11,7 +12,11 @@ use itertools::Itertools;
 use lapin::message::Delivery;
 use lapin::{
     acker::Acker,
-    options::{BasicAckOptions, BasicConsumeOptions, BasicNackOptions, BasicQosOptions},
+    options::{
+        BasicAckOptions, BasicConsumeOptions, BasicNackOptions, BasicPublishOptions,
+        BasicQosOptions, ConfirmSelectOptions,
+    },
+    publisher_confirm::Confirmation,
     types::FieldTable,
     Consumer,
 };
@@ -163,6 +168,12 @@ impl Ingestooor {
             },
         );
 
+        if write_ch {
+            // Bind all local output queues before any input can be published.
+            let tasks = self.start_clickhouse_consumers().await?;
+            futures.push(Box::pin(Self::wait_for_clickhouse_consumers(tasks)));
+        }
+
         if consume_parse {
             let (consumer_task, dooot_receiver) = self.create_message_consumer().await?;
             info!("created consumer task");
@@ -172,15 +183,12 @@ impl Ingestooor {
             futures.push(Box::pin(dooot_writer_task));
         }
 
-        if write_ch {
-            let ch_writer_task = self.create_clickhouse_doooot_consumer();
-            info!("created clickhouse writer task");
-            futures.push(Box::pin(ch_writer_task));
+        if let Err(error) = futures::future::try_join_all(futures).await {
+            signal_task.abort();
+            // Closing the connection releases all remaining unacknowledged inputs.
+            let _ = self.rabbit.close(200, "Ingestooor worker stopped").await;
+            return Err(error);
         }
-        let r = futures::future::try_join_all(futures).await;
-        //this is an err if any of the futures fail, otherwise if Ok it means all futures completed successfully
-        //we treat both scenarios the same, as we want to stop the ingestooor
-        r?;
         signal_task.await?;
         log::error!("ingestooor has ended, pausing for 3s for cleanest exit");
         tokio::time::sleep(std::time::Duration::from_secs(3)).await;
@@ -346,80 +354,74 @@ impl Ingestooor {
         }
         let send_channel = self.rabbit.create_channel().await?;
         debug!("Dooot channel opened");
-        //enable transactions
-        let dooot_exchange_name = self.queue_info.dooot_queue_name.clone();
+        send_channel
+            .confirm_select(ConfirmSelectOptions::default())
+            .await?;
+        let exchange = &self.queue_info.dooot_queue_name;
 
-        let mut recv_buffer = Vec::with_capacity(1000);
-
-        // Will be emptied on every loop, so use up to capacity
-        let recv_without_realloc = recv_buffer.capacity();
-        debug!("Starting dooot writer loop");
-        loop {
-            debug!("waiting for dooot vectors");
-            dooot_receiver
-                .recv_many(&mut recv_buffer, recv_without_realloc)
-                .await;
-
-            debug!("received {} dooot vectors", recv_buffer.len());
-
-            //per docs, if 0 is recieved, this means the sender has been dropped
-            if recv_buffer.is_empty() {
-                log::warn!("no dooot vectors received, channel is closed");
-                break;
-            }
-
-            'outer: for (delivery, dooot) in recv_buffer.drain(..) {
-                //group by name
-                let dooot = dooot.into_iter().group_by(|a| a.get_dooot_name());
-
-                for (dooot_name, dooot) in dooot.into_iter() {
-                    let dooot = dooot.collect::<Vec<_>>();
-                    debug!(
-                        "sending dooot {dooot_name} message with {} dooots to {dooot_exchange_name}",
-                        dooot.len(),
-                    );
-                    //we do a newline seperated json for clickhouse's JsonEachRow format
-                    let bytes = dooot
-                        .iter()
-                        .map(|a| {
-                            serde_json::to_string(a)
-                                .unwrap_or_else(|_| panic!("failed to serialize dooot {:?}", a))
+        while let Some((delivery, dooots)) = dooot_receiver.recv().await {
+            match Self::publish_dooots(&send_channel, exchange, dooots).await {
+                Ok(()) => delivery.ack(BasicAckOptions::default()).await?,
+                Err(error) => {
+                    log::error!("Failed to publish all output for a transaction: {error:#}");
+                    // Keep the source delivery for inspection and replay in the configured DLQ.
+                    delivery
+                        .nack(BasicNackOptions {
+                            multiple: false,
+                            requeue: false,
                         })
-                        .join("\n")
-                        .into_bytes();
-                    let send_result = send_channel
-                        .basic_publish(
-                            &dooot_exchange_name,
-                            dooot_name,
-                            lapin::options::BasicPublishOptions::default(),
-                            bytes.as_slice(),
-                            lapin::BasicProperties::default(),
-                        )
-                        .await;
-                    if let Err(e) = send_result {
-                        log::error!("failed to send dooot message, nacking: {e:#?}");
-                        delivery
-                            .nack(BasicNackOptions::default())
-                            .await
-                            .expect("failed to nack message");
-                        break 'outer;
+                        .await?;
+                    if !send_channel.status().connected() {
+                        return Err(error);
                     }
                 }
-                log::trace!("acked message after sending dooot message");
-                delivery
-                    .ack(BasicAckOptions::default())
-                    .await
-                    .expect("failed to ack message");
             }
         }
+
         info!("dooot rabbit writer has ended");
         Ok(())
     }
 
-    async fn create_clickhouse_doooot_consumer(&self) -> Result<()> {
+    async fn publish_dooots(
+        channel: &lapin::Channel,
+        exchange: &str,
+        dooots: Vec<Dooot>,
+    ) -> Result<()> {
+        let groups = dooots.into_iter().group_by(|dooot| dooot.get_dooot_name());
+        for (routing_key, group) in &groups {
+            let payload = group
+                .map(|dooot| serde_json::to_string(&dooot))
+                .collect::<std::result::Result<Vec<_>, _>>()?
+                .join("\n");
+            tokio::time::timeout(Duration::from_secs(15), async {
+                let confirmation = channel
+                    .basic_publish(
+                        exchange,
+                        routing_key,
+                        BasicPublishOptions {
+                            mandatory: true,
+                            ..Default::default()
+                        },
+                        payload.as_bytes(),
+                        lapin::BasicProperties::default().with_delivery_mode(2),
+                    )
+                    .await?
+                    .await?;
+                require_routed_confirmation(confirmation)
+            })
+            .await
+            .with_context(|| format!("Timed out publishing {routing_key}"))?
+            .with_context(|| format!("Failed to publish {routing_key}"))?;
+        }
+        Ok(())
+    }
+
+    async fn start_clickhouse_consumers(
+        &self,
+    ) -> Result<FuturesUnordered<tokio::task::JoinHandle<()>>> {
         let Some(ch_client) = &self.ch_client else {
             info!("No clickhouse client found, not writing to clickhouse");
-            return Ok(());
+            return Ok(FuturesUnordered::new());
         };
         let channel = self.rabbit.create_channel().await?;
         channel
@@ -435,85 +437,152 @@ impl Ingestooor {
         );
 
         // When creating a new dooot, add the inserter task here, and add it to the tasks collection below
-        let native_stake_event_task =
-            ch_data_writer.make_inserter_task::<NativeStakeEventDooot>()?;
-        let sol_transfer_task = ch_data_writer.make_inserter_task::<SolTransferEventDooot>()?;
-        let spl_transfer_task = ch_data_writer.make_inserter_task::<TokenTransferEventDooot>()?;
-        let spl_token_balance_task =
-            ch_data_writer.make_inserter_task::<TokenBalanceUserDooot>()?;
-        let supply_change_task = ch_data_writer.make_inserter_task::<MintSupplyGlobalDooot>()?;
-        let mint_underlyings_task =
-            ch_data_writer.make_inserter_task::<MintUnderlyingsGlobalDooot>()?;
-        let swap_task = ch_data_writer.make_inserter_task::<SwapEventDooot>()?;
-        let slot_stats_task = ch_data_writer.make_inserter_task::<SlotStatsGlobalDooot>()?;
-        let token_missing_owner_task =
-            ch_data_writer.make_inserter_task::<TokenMissingOwnerGlobalDooot>()?;
-        let mint_metadata_task = ch_data_writer.make_inserter_task::<MintInfoDooot>()?;
-        let account_metadata_task = ch_data_writer.make_inserter_task::<AccountInfoDooot>()?;
+        let native_stake_event_task = ch_data_writer
+            .make_inserter_task::<NativeStakeEventDooot>()
+            .await?;
+        let sol_transfer_task = ch_data_writer
+            .make_inserter_task::<SolTransferEventDooot>()
+            .await?;
+        let spl_transfer_task = ch_data_writer
+            .make_inserter_task::<TokenTransferEventDooot>()
+            .await?;
+        let spl_token_balance_task = ch_data_writer
+            .make_inserter_task::<TokenBalanceUserDooot>()
+            .await?;
+        let supply_change_task = ch_data_writer
+            .make_inserter_task::<MintSupplyGlobalDooot>()
+            .await?;
+        let mint_underlyings_task = ch_data_writer
+            .make_inserter_task::<MintUnderlyingsGlobalDooot>()
+            .await?;
+        let swap_task = ch_data_writer
+            .make_inserter_task::<SwapEventDooot>()
+            .await?;
+        let slot_stats_task = ch_data_writer
+            .make_inserter_task::<SlotStatsGlobalDooot>()
+            .await?;
+        let token_missing_owner_task = ch_data_writer
+            .make_inserter_task::<TokenMissingOwnerGlobalDooot>()
+            .await?;
+        let mint_metadata_task = ch_data_writer.make_inserter_task::<MintInfoDooot>().await?;
+        let account_metadata_task = ch_data_writer
+            .make_inserter_task::<AccountInfoDooot>()
+            .await?;
         // No NftActivity task
-        let clob_fill_event_task = ch_data_writer.make_inserter_task::<ClobFillEventDooot>()?;
-        let clob_user_task = ch_data_writer.make_inserter_task::<ClobUserDooot>()?;
-        let lending_gstate_task = ch_data_writer.make_inserter_task::<LendingGlobalDooot>()?;
-        let lending_ustate_task = ch_data_writer.make_inserter_task::<LendingUserDooot>()?;
-        let repeating_order_user_task =
-            ch_data_writer.make_inserter_task::<RepeatingOrderUserDooot>()?;
-        let wallet_claimable_balance_task =
-            ch_data_writer.make_inserter_task::<ClaimableBalanceUserDooot>()?;
-        let global_clmm_state_task = ch_data_writer.make_inserter_task::<ClmmGlobalDooot>()?;
-        let user_clmm_state_task = ch_data_writer.make_inserter_task::<ClmmUserDooot>()?;
-        let sol_balance_task = ch_data_writer.make_inserter_task::<SolBalanceUserDooot>()?;
-        let liquidity_change_event_task =
-            ch_data_writer.make_inserter_task::<LiquidityChangeEventDooot>()?;
-        let managed_account_task =
-            ch_data_writer.make_inserter_task::<ManagedAccountUserDooot>()?;
-        let lp_info_gstate_task = ch_data_writer.make_inserter_task::<LPInfoDooot>()?;
-        let dlmm_bin_array_task = ch_data_writer.make_inserter_task::<DlmmGlobalDooot>()?;
-        let lp_user_dlmm_position_task = ch_data_writer.make_inserter_task::<DlmmUserDooot>()?;
-        let farm_info_task = ch_data_writer.make_inserter_task::<FarmInfoDooot>()?;
-        let gfarm_state_task = ch_data_writer.make_inserter_task::<FarmGlobalDooot>()?;
-        let ufarm_state_task = ch_data_writer.make_inserter_task::<FarmUserDooot>()?;
-        let oracle_price_task = ch_data_writer.make_inserter_task::<OraclePriceEventDooot>()?;
-        let token_price_task = ch_data_writer.make_inserter_task::<TokenPriceGlobalDooot>()?;
-        let reward_option_user_task =
-            ch_data_writer.make_inserter_task::<RewardOptionUserDooot>()?;
-        let vault_info_task = ch_data_writer.make_inserter_task::<VaultInfoDooot>()?;
-        let clmm_tick_task = ch_data_writer.make_inserter_task::<ClmmTickGlobalDooot>()?;
-        let subs_user_task = ch_data_writer.make_inserter_task::<SubscriptionUserDooot>()?;
-        let subs_purchase_task =
-            ch_data_writer.make_inserter_task::<SubscriptionPurchaseEventDooot>()?;
-        let yield_brearing_task = ch_data_writer.make_inserter_task::<YieldBearingGlobalDooot>()?;
-        let defituna_fusion_pool_global_task =
-            ch_data_writer.make_inserter_task::<PsDefiTunaFusionPoolDooot>()?;
-        let defituna_lending_position_user_task =
-            ch_data_writer.make_inserter_task::<PsDefiTunaLendingPositionDooot>()?;
-        let defituna_market_task = ch_data_writer.make_inserter_task::<PsDefiTunaMarketDooot>()?;
-        let defituna_tuna_position_user_task =
-            ch_data_writer.make_inserter_task::<PsDefiTunaTunaPositionDooot>()?;
-        let defituna_vault_global_task =
-            ch_data_writer.make_inserter_task::<PsDefiTunaVaultDooot>()?;
-        let nx_lend_position_task = ch_data_writer.make_inserter_task::<PsNxLendPositionDooot>()?;
-        let nx_leverage_margin_pool_task =
-            ch_data_writer.make_inserter_task::<PsNxLeverageMarginPoolDooot>()?;
-        let nx_lend_vsol_pool_task =
-            ch_data_writer.make_inserter_task::<PsNxLendVSolPoolDooot>()?;
-        let nx_leverage_margin_account_task =
-            ch_data_writer.make_inserter_task::<PsNxLeverageMarginAccountDooot>()?;
-        let nx_lend_solayer_pool_task =
-            ch_data_writer.make_inserter_task::<PsNxLendSolayerPoolDooot>()?;
-        let nx_leverage_jupiter_account_task =
-            ch_data_writer.make_inserter_task::<PsNxLeverageJupiterAccountDooot>()?;
-        let nx_lend_lending_account_task =
-            ch_data_writer.make_inserter_task::<PsNxLendLendingAccountDooot>()?;
-        let nx_lend_lending_pool_task =
-            ch_data_writer.make_inserter_task::<PsNxLendLendingPoolDooot>()?;
-        let nx_lend_vsol_position_task =
-            ch_data_writer.make_inserter_task::<PsNxLendVSolPositionDooot>()?;
-        let nx_lend_fragmetric_pool_task =
-            ch_data_writer.make_inserter_task::<PsNxLendFragmetricPoolDooot>()?;
-        let nx_lend_fragmetric_user_task =
-            ch_data_writer.make_inserter_task::<PsNxLendFragmetricUserDooot>()?;
+        let clob_fill_event_task = ch_data_writer
+            .make_inserter_task::<ClobFillEventDooot>()
+            .await?;
+        let clob_user_task = ch_data_writer.make_inserter_task::<ClobUserDooot>().await?;
+        let lending_gstate_task = ch_data_writer
+            .make_inserter_task::<LendingGlobalDooot>()
+            .await?;
+        let lending_ustate_task = ch_data_writer
+            .make_inserter_task::<LendingUserDooot>()
+            .await?;
+        let repeating_order_user_task = ch_data_writer
+            .make_inserter_task::<RepeatingOrderUserDooot>()
+            .await?;
+        let wallet_claimable_balance_task = ch_data_writer
+            .make_inserter_task::<ClaimableBalanceUserDooot>()
+            .await?;
+        let global_clmm_state_task = ch_data_writer
+            .make_inserter_task::<ClmmGlobalDooot>()
+            .await?;
+        let user_clmm_state_task = ch_data_writer.make_inserter_task::<ClmmUserDooot>().await?;
+        let sol_balance_task = ch_data_writer
+            .make_inserter_task::<SolBalanceUserDooot>()
+            .await?;
+        let liquidity_change_event_task = ch_data_writer
+            .make_inserter_task::<LiquidityChangeEventDooot>()
+            .await?;
+        let managed_account_task = ch_data_writer
+            .make_inserter_task::<ManagedAccountUserDooot>()
+            .await?;
+        let lp_info_gstate_task = ch_data_writer.make_inserter_task::<LPInfoDooot>().await?;
+        let dlmm_bin_array_task = ch_data_writer
+            .make_inserter_task::<DlmmGlobalDooot>()
+            .await?;
+        let lp_user_dlmm_position_task =
+            ch_data_writer.make_inserter_task::<DlmmUserDooot>().await?;
+        let farm_info_task = ch_data_writer.make_inserter_task::<FarmInfoDooot>().await?;
+        let gfarm_state_task = ch_data_writer
+            .make_inserter_task::<FarmGlobalDooot>()
+            .await?;
+        let ufarm_state_task = ch_data_writer.make_inserter_task::<FarmUserDooot>().await?;
+        let oracle_price_task = ch_data_writer
+            .make_inserter_task::<OraclePriceEventDooot>()
+            .await?;
+        let token_price_task = ch_data_writer
+            .make_inserter_task::<TokenPriceGlobalDooot>()
+            .await?;
+        let reward_option_user_task = ch_data_writer
+            .make_inserter_task::<RewardOptionUserDooot>()
+            .await?;
+        let vault_info_task = ch_data_writer
+            .make_inserter_task::<VaultInfoDooot>()
+            .await?;
+        let clmm_tick_task = ch_data_writer
+            .make_inserter_task::<ClmmTickGlobalDooot>()
+            .await?;
+        let subs_user_task = ch_data_writer
+            .make_inserter_task::<SubscriptionUserDooot>()
+            .await?;
+        let subs_purchase_task = ch_data_writer
+            .make_inserter_task::<SubscriptionPurchaseEventDooot>()
+            .await?;
+        let yield_brearing_task = ch_data_writer
+            .make_inserter_task::<YieldBearingGlobalDooot>()
+            .await?;
+        let defituna_fusion_pool_global_task = ch_data_writer
+            .make_inserter_task::<PsDefiTunaFusionPoolDooot>()
+            .await?;
+        let defituna_lending_position_user_task = ch_data_writer
+            .make_inserter_task::<PsDefiTunaLendingPositionDooot>()
+            .await?;
+        let defituna_market_task = ch_data_writer
+            .make_inserter_task::<PsDefiTunaMarketDooot>()
+            .await?;
+        let defituna_tuna_position_user_task = ch_data_writer
+            .make_inserter_task::<PsDefiTunaTunaPositionDooot>()
+            .await?;
+        let defituna_vault_global_task = ch_data_writer
+            .make_inserter_task::<PsDefiTunaVaultDooot>()
+            .await?;
+        let nx_lend_position_task = ch_data_writer
+            .make_inserter_task::<PsNxLendPositionDooot>()
+            .await?;
+        let nx_leverage_margin_pool_task = ch_data_writer
+            .make_inserter_task::<PsNxLeverageMarginPoolDooot>()
+            .await?;
+        let nx_lend_vsol_pool_task = ch_data_writer
+            .make_inserter_task::<PsNxLendVSolPoolDooot>()
+            .await?;
+        let nx_leverage_margin_account_task = ch_data_writer
+            .make_inserter_task::<PsNxLeverageMarginAccountDooot>()
+            .await?;
+        let nx_lend_solayer_pool_task = ch_data_writer
+            .make_inserter_task::<PsNxLendSolayerPoolDooot>()
+            .await?;
+        let nx_leverage_jupiter_account_task = ch_data_writer
+            .make_inserter_task::<PsNxLeverageJupiterAccountDooot>()
+            .await?;
+        let nx_lend_lending_account_task = ch_data_writer
+            .make_inserter_task::<PsNxLendLendingAccountDooot>()
+            .await?;
+        let nx_lend_lending_pool_task = ch_data_writer
+            .make_inserter_task::<PsNxLendLendingPoolDooot>()
+            .await?;
+        let nx_lend_vsol_position_task = ch_data_writer
+            .make_inserter_task::<PsNxLendVSolPositionDooot>()
+            .await?;
+        let nx_lend_fragmetric_pool_task = ch_data_writer
+            .make_inserter_task::<PsNxLendFragmetricPoolDooot>()
+            .await?;
+        let nx_lend_fragmetric_user_task = ch_data_writer
+            .make_inserter_task::<PsNxLendFragmetricUserDooot>()
+            .await?;
 
-        let mut tasks = FuturesUnordered::new();
+        let tasks = FuturesUnordered::new();
         tasks.push(native_stake_event_task);
         tasks.push(sol_transfer_task);
         tasks.push(spl_transfer_task);
@@ -567,6 +636,12 @@ impl Ingestooor {
         tasks.push(nx_lend_fragmetric_pool_task);
         tasks.push(nx_lend_fragmetric_user_task);
 
+        Ok(tasks)
+    }
+
+    async fn wait_for_clickhouse_consumers(
+        mut tasks: FuturesUnordered<tokio::task::JoinHandle<()>>,
+    ) -> Result<()> {
         while let Some(result) = tasks.next().await {
             match result {
                 Ok(_) => {
@@ -684,5 +759,47 @@ impl Ingestooor {
         }
 
         Ok(dooot)
+    }
+}
+
+fn require_routed_confirmation(confirmation: Confirmation) -> Result<()> {
+    match confirmation {
+        Confirmation::Ack(None) => Ok(()),
+        Confirmation::Ack(Some(returned)) => {
+            anyhow::bail!(
+                "Broker returned unroutable output (reply code {})",
+                returned.reply_code
+            )
+        }
+        Confirmation::Nack(_) => anyhow::bail!("Broker rejected output"),
+        Confirmation::NotRequested => anyhow::bail!("Publisher confirms must be enabled"),
+    }
+}
+
+#[cfg(test)]
+mod publish_tests {
+    use lapin::message::BasicReturnMessage;
+
+    use super::*;
+
+    #[test]
+    fn output_requires_an_ack_with_no_returned_message() {
+        let returned = BasicReturnMessage {
+            reply_code: 312,
+            reply_text: "NO_ROUTE".into(),
+            delivery: Delivery {
+                delivery_tag: 0,
+                exchange: "fixture".into(),
+                routing_key: "fixture".into(),
+                redelivered: false,
+                properties: lapin::BasicProperties::default(),
+                data: Vec::new(),
+                acker: Acker::default(),
+            },
+        };
+        assert!(require_routed_confirmation(Confirmation::Ack(None)).is_ok());
+        assert!(require_routed_confirmation(Confirmation::Ack(Some(Box::new(returned)))).is_err());
+        assert!(require_routed_confirmation(Confirmation::Nack(None)).is_err());
+        assert!(require_routed_confirmation(Confirmation::NotRequested).is_err());
     }
 }

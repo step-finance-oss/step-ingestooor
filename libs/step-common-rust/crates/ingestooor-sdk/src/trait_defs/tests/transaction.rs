@@ -398,6 +398,38 @@ fn get_token_account_data_by_key_can_locate_in_balances() {
 }
 
 #[test]
+fn finds_funded_position_nft_owner_after_empty_balance() {
+    let mut txn = UtilFuncsTestTransaction::new();
+    let balance = |account_index, owner: &str, amount: &str| UiTransactionTokenBalance {
+        account_index,
+        mint: TOKEN_A_MINT.into(),
+        owner: OptionSerializer::Some(owner.into()),
+        program_id: OptionSerializer::Some(TOKEN_PROGRAM_ID.into()),
+        ui_token_amount: UiTokenAmount {
+            amount: amount.into(),
+            decimals: 0,
+            ui_amount: None,
+            ui_amount_string: amount.into(),
+        },
+    };
+    txn.pre_token_balances = OptionSerializer::Some(vec![balance(0, ALICE_PUBKEY, "1")]);
+    txn.post_token_balances = OptionSerializer::Some(vec![
+        balance(0, ALICE_PUBKEY, "0"),
+        balance(1, BOB_PUBKEY, "1"),
+    ]);
+    assert_eq!(
+        txn.get_position_nft_owner(TOKEN_A_MINT).map(String::as_str),
+        Some(BOB_PUBKEY)
+    );
+
+    txn.post_token_balances = OptionSerializer::Some(vec![balance(0, ALICE_PUBKEY, "0")]);
+    assert_eq!(
+        txn.get_position_nft_owner(TOKEN_A_MINT).map(String::as_str),
+        Some(ALICE_PUBKEY)
+    );
+}
+
+#[test]
 fn get_token_account_data_by_key_looks_for_creations() {
     let txn = UtilFuncsTestTransaction::new();
     let acct_info = txn.get_token_account_data_by_key(BOB_ATA_A_PUBKEY).unwrap();

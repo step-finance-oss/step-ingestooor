@@ -209,7 +209,7 @@ impl TimeSeriesCacheLike for TSCache {
     }
 }
 
-#[derive(Parser, Debug)]
+#[derive(Parser)]
 pub struct Args {
     /// The name of the parser to run
     #[clap(short, long)]
@@ -236,12 +236,23 @@ pub struct Args {
     pub clickhouse_password: String,
 }
 
-#[derive(Subcommand, Debug)]
+#[derive(Subcommand)]
 pub enum StateTarget {
     DB(DBTarget),
 }
 
-#[derive(Parser, Debug)]
+impl StateTarget {
+    fn into_db(self, global_dry_run: bool) -> DBTarget {
+        match self {
+            Self::DB(mut db) => {
+                db.dry_run |= global_dry_run;
+                db
+            }
+        }
+    }
+}
+
+#[derive(Parser)]
 pub struct DBTarget {
     #[clap(long, env)]
     pub snapshot_path: String,
@@ -264,8 +275,12 @@ async fn main() -> anyhow::Result<()> {
     dotenv::dotenv().ok();
     env_logger::init();
     let args = Args::parse();
-
-    log::debug!("args: {:?}", args);
+    let db = args.target.into_db(args.dry_run);
+    log::debug!(
+        "starting backfill with parser {:?}, dry run={}",
+        args.parser,
+        db.dry_run
+    );
 
     // Clickhouse
     let ch_client = clickhouse::Client::default()
@@ -276,8 +291,43 @@ async fn main() -> anyhow::Result<()> {
     let parser_name = args.parser;
     let precursor_data = args.data;
 
-    match args.target {
-        StateTarget::DB(db) => init_database(ch_client, db, parser_name, precursor_data).await,
+    init_database(ch_client, db, parser_name, precursor_data).await
+}
+
+#[cfg(test)]
+mod args_tests {
+    use super::*;
+
+    #[test]
+    fn either_dry_run_option_disables_database_writes() {
+        for (global, target, expected) in [
+            ("true", "false", true),
+            ("false", "true", true),
+            ("false", "false", false),
+        ] {
+            let args = Args::try_parse_from([
+                "state_initializer",
+                "--parser",
+                "fixture",
+                "--clickhouse-url",
+                "http://localhost:8123",
+                "--clickhouse-user",
+                "fixture",
+                "--clickhouse-password",
+                "test-password",
+                "--dry-run",
+                global,
+                "db",
+                "--snapshot-path",
+                "fixture",
+                "--rpc-url",
+                "https://example.org",
+                "--dry-run",
+                target,
+            ])
+            .expect("valid backfill options");
+            assert_eq!(args.target.into_db(args.dry_run).dry_run, expected);
+        }
     }
 }
 

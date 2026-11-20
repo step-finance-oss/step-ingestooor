@@ -19,8 +19,18 @@ pub struct UserRabbitQueueInfo {
     pub queue_options: QueueDeclareOptions,
     pub ch_dlx_name: String,
     pub ch_exchange_name: String,
+    ch_queue_prefix: String,
     pub debug_user: Option<String>,
     pub auto_delete: bool,
+}
+
+impl UserRabbitQueueInfo {
+    pub fn clickhouse_queue_name(&self, name: &str) -> String {
+        match &self.debug_user {
+            Some(user) => format!("{}.{name}.debug.{user}", self.ch_queue_prefix),
+            None => format!("{}.{name}", self.ch_queue_prefix),
+        }
+    }
 }
 
 pub async fn connect_to_rabbit(connection_string: &str) -> Result<Connection> {
@@ -64,8 +74,8 @@ pub fn get_queue_info(
     let mut incoming_queue_name = format!("{prefix}.incoming");
     let mut dlq_name = format!("{incoming_queue_name}.dead-letter");
     let mut dooot_dlq_name = format!("{dooot_queue_name}.dead-letter");
-    let mut ch_exchange_name = "ch.dooot".to_string();
-    let mut ch_dlx_name = format!("{ch_exchange_name}.dead-letter");
+    let ch_queue_prefix = format!("{prefix}.ch");
+    let mut ch_exchange_name = format!("{ch_queue_prefix}.dooot");
     let is_debug = debug_user.is_some();
 
     if let Some(ref username) = debug_user {
@@ -75,7 +85,6 @@ pub fn get_queue_info(
         dooot_queue_name.push_str(&format!(".debug.{username}"));
         dooot_dlq_name.push_str(&format!(".debug.{username}"));
         ch_exchange_name.push_str(&format!(".debug.{username}"));
-        ch_dlx_name.push_str(&format!(".debug.{username}"));
 
         if debug_exchange {
             exchange_name.push_str(&format!(".debug.{username}"));
@@ -129,10 +138,44 @@ pub fn get_queue_info(
         dlq_name,
         dooot_dlq_name,
         queue_options,
-        ch_dlx_name,
+        ch_dlx_name: format!("{ch_exchange_name}.dead-letter"),
         ch_exchange_name,
+        ch_queue_prefix,
         debug_user,
         auto_delete,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn clickhouse_routes_are_isolated_by_source_prefix_and_debug_user() {
+        let queue_info = |prefix: &str, user: Option<&str>| {
+            get_queue_info(
+                prefix.into(),
+                "input".into(),
+                user.map(str::to_string),
+                false,
+                None,
+            )
+        };
+        let main = queue_info("main", None);
+        let other = queue_info("other", None);
+        let debug = queue_info("main", Some("fixture"));
+
+        assert_eq!(main.ch_exchange_name, "main.ch.dooot");
+        assert_eq!(main.ch_dlx_name, "main.ch.dooot.dead-letter");
+        assert_eq!(main.clickhouse_queue_name("swap"), "main.ch.swap");
+        assert_eq!(other.clickhouse_queue_name("swap"), "other.ch.swap");
+        assert_eq!(
+            debug.clickhouse_queue_name("swap"),
+            "main.ch.swap.debug.fixture"
+        );
+        assert_ne!(main.ch_exchange_name, other.ch_exchange_name);
+        assert_ne!(main.ch_exchange_name, debug.ch_exchange_name);
+        assert_ne!(main.ch_dlx_name, debug.ch_dlx_name);
     }
 }
 

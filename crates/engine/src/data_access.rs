@@ -75,7 +75,7 @@ impl<'a> CHDataWriter<'a> {
         }
     }
 
-    pub fn make_inserter_task<
+    pub async fn make_inserter_task<
         T: Row + ClickhouseDoootTrait + Serialize + DeserializeOwned + Send + 'static,
     >(
         &self,
@@ -121,11 +121,7 @@ impl<'a> CHDataWriter<'a> {
 
         let ch_exchange_name = ch_exchange_name.clone();
 
-        let full_queue_name = if let Some(debug_user) = debug_user {
-            format!("ch.{queue_name}.debug.{debug_user}")
-        } else {
-            format!("ch.{queue_name}")
-        };
+        let full_queue_name = self.amqp_settings.clickhouse_queue_name(queue_name);
 
         let dlq_name = format!("{full_queue_name}.dead-letter");
 
@@ -136,91 +132,86 @@ impl<'a> CHDataWriter<'a> {
         let amqp_channel = self.amqp_channel.clone();
         let term_signal_ch = self.term_signal_ch.clone();
 
+        let mut queue_args = FieldTable::default();
+        queue_args.insert(
+            "x-dead-letter-exchange".into(),
+            AMQPValue::LongString(dlx_name.clone().into()),
+        );
+        // Declare the queue
+        log::info!("Declaring queue: {full_queue_name}");
+        amqp_channel
+            .queue_declare(
+                &full_queue_name,
+                QueueDeclareOptions {
+                    durable: !is_debug,
+                    auto_delete,
+                    exclusive: auto_delete,
+                    ..Default::default()
+                },
+                queue_args,
+            )
+            .await
+            .context(format!("Failed to declare queue {full_queue_name}"))?;
+
+        // Declare the DLQ
+        log::info!("Declaring DLQ: {dlq_name}");
+        amqp_channel
+            .queue_declare(
+                &dlq_name,
+                QueueDeclareOptions {
+                    durable: !is_debug,
+                    auto_delete,
+                    exclusive: auto_delete,
+                    ..Default::default()
+                },
+                FieldTable::default(),
+            )
+            .await
+            .context(format!("Failed to declare DLQ {dlq_name}"))?;
+
+        // Bind the DLQ to the DLX
+        log::info!("Binding DLQ to DLX: {dlq_name} -> {dlx_name}");
+        amqp_channel
+            .queue_bind(
+                &dlq_name,
+                &dlx_name,
+                dooot_name,
+                QueueBindOptions::default(),
+                FieldTable::default(),
+            )
+            .await
+            .context(format!("Failed to bind DLQ {dlq_name} to DLX {dlx_name}"))?;
+
+        // Bind queue to CH_EXCHANGE
+        log::info!("Binding queue to CH_EXCHANGE: {full_queue_name} -> {ch_exchange_name}");
+        amqp_channel
+            .queue_bind(
+                &full_queue_name,
+                &ch_exchange_name,
+                dooot_name,
+                QueueBindOptions::default(),
+                FieldTable::default(),
+            )
+            .await
+            .context(format!(
+                "Failed to bind queue {full_queue_name} to CH_EXCHANGE {ch_exchange_name}"
+            ))?;
+
+        // Create consumer
+        log::info!("Creating consumer: {consumer_tag}");
+        let mut consumer = amqp_channel
+            .basic_consume(
+                &full_queue_name,
+                &consumer_tag,
+                BasicConsumeOptions::default(),
+                FieldTable::default(),
+            )
+            .await
+            .context(format!("Failed to create consumer {consumer_tag}"))?;
+
         let inserter_task = tokio::spawn(
             #[allow(clippy::unwrap_used)]
             async move {
-                let mut queue_args = FieldTable::default();
-                queue_args.insert(
-                    "x-dead-letter-exchange".into(),
-                    AMQPValue::LongString(dlx_name.clone().into()),
-                );
-                // Declare the queue
-                log::info!("Declaring queue: {full_queue_name}");
-                amqp_channel
-                    .queue_declare(
-                        &full_queue_name,
-                        QueueDeclareOptions {
-                            durable: !is_debug,
-                            auto_delete,
-                            exclusive: auto_delete,
-                            ..Default::default()
-                        },
-                        queue_args,
-                    )
-                    .await
-                    .context(format!("Failed to declare queue {full_queue_name}"))
-                    .unwrap();
-
-                // Declare the DLQ
-                log::info!("Declaring DLQ: {dlq_name}");
-                amqp_channel
-                    .queue_declare(
-                        &dlq_name,
-                        QueueDeclareOptions {
-                            durable: !is_debug,
-                            auto_delete,
-                            exclusive: auto_delete,
-                            ..Default::default()
-                        },
-                        FieldTable::default(),
-                    )
-                    .await
-                    .context(format!("Failed to declare DLQ {dlq_name}"))
-                    .unwrap();
-
-                // Bind the DLQ to the DLX
-                log::info!("Binding DLQ to DLX: {dlq_name} -> {dlx_name}");
-                amqp_channel
-                    .queue_bind(
-                        &dlq_name,
-                        &dlx_name,
-                        dooot_name,
-                        QueueBindOptions::default(),
-                        FieldTable::default(),
-                    )
-                    .await
-                    .context(format!("Failed to bind DLQ {dlq_name} to DLX {dlx_name}"))
-                    .unwrap();
-
-                // Bind queue to CH_EXCHANGE
-                log::info!("Binding queue to CH_EXCHANGE: {full_queue_name} -> {ch_exchange_name}");
-                amqp_channel
-                    .queue_bind(
-                        &full_queue_name,
-                        &ch_exchange_name,
-                        dooot_name,
-                        QueueBindOptions::default(),
-                        FieldTable::default(),
-                    )
-                    .await
-                    .context(format!(
-                        "Failed to bind queue {full_queue_name} to CH_EXCHANGE {ch_exchange_name}"
-                    ))
-                    .unwrap();
-
-                // Create consumer
-                log::info!("Creating consumer: {consumer_tag}");
-                let mut consumer = amqp_channel
-                    .basic_consume(
-                        &full_queue_name,
-                        &consumer_tag,
-                        BasicConsumeOptions::default(),
-                        FieldTable::default(),
-                    )
-                    .await
-                    .context(format!("Failed to create consumer {consumer_tag}"))
-                    .unwrap();
-
                 log::info!("Starting {dooot_name} consumer");
 
                 loop {

@@ -656,7 +656,10 @@ pub trait TransactionLike: Send + Sync + Serialize + std::fmt::Debug {
             )
         })?;
 
-        let parsed_data = T::try_from_slice(&data[custom_disc.unwrap_or(8)..]).map_err(|e| {
+        let body = data
+            .get(custom_disc.unwrap_or(8)..)
+            .context("Account data is shorter than its discriminator")?;
+        let parsed_data = T::try_from_slice(body).map_err(|e| {
             anyhow!(
                 "Failed to parse {} data in {}: {}",
                 account_context,
@@ -1099,30 +1102,36 @@ pub trait TransactionLike: Send + Sync + Serialize + std::fmt::Debug {
             .and_then(|opt| opt.as_ref())
     }
     fn get_position_nft_owner(&self, position_mint: &str) -> Option<&String> {
-        // First check post_balances
+        let holds_position = |balance: &UiTransactionTokenBalance| {
+            balance.mint == position_mint
+                && balance
+                    .ui_token_amount
+                    .amount
+                    .parse::<u64>()
+                    .is_ok_and(|amount| amount > 0)
+        };
         if let OptionSerializer::Some(post_balances) = self.get_post_token_balances() {
-            if let Some(balance) = post_balances
+            let mut has_post_holder = false;
+            for balance in post_balances
                 .iter()
-                .find(|balance| balance.mint == position_mint)
+                .filter(|balance| holds_position(balance))
             {
-                if balance.ui_token_amount.amount == "0" {
-                    return None;
-                }
+                has_post_holder = true;
                 if let OptionSerializer::Some(owner) = &balance.owner {
                     return Some(owner);
                 }
             }
+            if has_post_holder {
+                return None;
+            }
         }
 
-        // If nothing found in post_balances, try pre_balances
+        // A burned or closed position can only be attributed to its pre-holder.
         if let OptionSerializer::Some(pre_balances) = self.get_pre_token_balances() {
-            if let Some(balance) = pre_balances
+            for balance in pre_balances
                 .iter()
-                .find(|balance| balance.mint == position_mint)
+                .filter(|balance| holds_position(balance))
             {
-                if balance.ui_token_amount.amount == "0" {
-                    return None;
-                }
                 if let OptionSerializer::Some(owner) = &balance.owner {
                     return Some(owner);
                 }

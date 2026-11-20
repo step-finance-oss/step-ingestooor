@@ -1,5 +1,3 @@
-use std::time::Duration;
-
 use anyhow::Result;
 use async_trait::async_trait;
 
@@ -9,7 +7,6 @@ use mpl_token_metadata::{
     accounts::Metadata,
     types::{Collection, CollectionDetails, Data, Key, ProgrammableConfig, TokenStandard, Uses},
 };
-use reqwest::{Client, Url};
 use rust_decimal::Decimal;
 use solana_sdk::account::ReadableAccount;
 use spl_token::solana_program::pubkey::Pubkey;
@@ -33,7 +30,7 @@ pub struct MetaplexTokenMetadata;
 
 const MPL_TOKEN_METADATA_PROGRAM: &str = "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s";
 const TOKEN_2022_METADATA_PROGRAM: &str = "META4s4fSmpkTbZoUsgC1oBnWB31vQcmnN8giPw51Zu";
-const METADATA_FETCH_TIMEOUT_MS: u64 = 15000;
+const MAX_METADATA_BYTES: usize = 1024 * 1024;
 
 #[async_trait]
 impl TransactionParserTrait for MetaplexTokenMetadata {
@@ -64,7 +61,6 @@ impl TransactionParserTrait for MetaplexTokenMetadata {
             })
             .collect_vec();
 
-        let http_client = &step_utils.json_metadata_http_client;
         for acct in changed_accounts {
             let Some(post_data) = acct.unpack_post_datum()? else {
                 continue;
@@ -96,7 +92,7 @@ impl TransactionParserTrait for MetaplexTokenMetadata {
             let token_standard = metadata_account.token_standard.map(|s| s as i16);
             let uri = trim_padding_bytes(&metadata_account.uri);
 
-            let fetch_result = Self::fetch_json_metadata(&uri, http_client, step_utils).await;
+            let fetch_result = Self::fetch_json_metadata(&uri, step_utils).await;
             let fetch_success = fetch_result.is_some();
             let json_metadata = fetch_result.unwrap_or_default().as_trimmed();
 
@@ -176,72 +172,20 @@ impl MetaplexTokenMetadata {
         data.is_empty() || data[0] == mpl_token_metadata::types::Key::Uninitialized as u8
     }
 
-    #[inline]
     pub async fn fetch_json_metadata(
         uri: &str,
-        client: &Client,
         step_utils: &StepUtils,
     ) -> Option<TokenJSONMetadata> {
         let transformed_uri = step_utils.transform_ipfs_url(uri);
-        // Use the transformed URI if it exists, else use the original URI
-        let uri_to_use = transformed_uri.unwrap_or(uri.to_string());
-
-        let Ok(parsed_uri) = Url::parse(&uri_to_use) else {
-            let counter = metrics::counter!("MetaplexMetadataFetchError", "Domain" => "InvalidUri", "ErrorType" => "ParseError");
-            counter.increment(1);
-            return None;
-        };
-        let base_uri = format!("{}://{}", parsed_uri.scheme(), parsed_uri.host_str()?);
-
-        let resp = match client
-            .get(&uri_to_use)
-            .timeout(Duration::from_millis(METADATA_FETCH_TIMEOUT_MS))
-            .send()
-            .await
+        match crate::external_json::fetch(
+            transformed_uri.as_deref().unwrap_or(uri),
+            MAX_METADATA_BYTES,
+        )
+        .await
         {
-            Ok(resp) => resp,
-            Err(e) => {
-                // log::error!(
-                //     "Error fetching metadata from uri {}: {:?} original uri: {}",
-                //     uri_to_use,
-                //     e,
-                //     uri
-                // );
-                // Something went wrong with the request itself
-                let error_type = if e.is_request() {
-                    "RequestError"
-                } else if e.is_connect() {
-                    "ConnectError"
-                } else if e.is_timeout() {
-                    "TimeoutError"
-                } else {
-                    "OtherError"
-                };
-                let counter = metrics::counter!("MetaplexMetadataFetchError", "Domain" => base_uri, "ErrorType" => error_type);
-                counter.increment(1);
-                return None;
-            }
-        };
-
-        match resp.json::<TokenJSONMetadata>().await {
             Ok(metadata) => Some(metadata),
-            Err(e) => {
-                // log::error!(
-                //     "Error fetching metadata from uri {}: {:?} original uri: {}",
-                //     uri_to_use,
-                //     e,
-                //     uri
-                // );
-                // Something else went wrong
-                let error_type = if e.is_decode() {
-                    "DecodeError"
-                } else if e.is_status() {
-                    "StatusError"
-                } else {
-                    "OtherError"
-                };
-                let counter = metrics::counter!("MetaplexMetadataFetchError", "Domain" => base_uri, "ErrorType" => error_type);
-                counter.increment(1);
+            Err(_) => {
+                metrics::counter!("MetaplexMetadataFetchError").increment(1);
                 None
             }
         }
@@ -443,13 +387,12 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn remora_metadata() {
-        let url = "https://remora-public.s3.us-east-2.amazonaws.com/solana/tokens/nvdar.json";
-        let client = reqwest::Client::new();
+    async fn metadata_fetch_rejects_non_http_uri() {
         let utils = StepUtils::default();
-        let res = MetaplexTokenMetadata::fetch_json_metadata(url, &client, &utils)
-            .await
-            .unwrap();
-        assert!(res.image.is_some());
+        assert!(
+            MetaplexTokenMetadata::fetch_json_metadata("file:///metadata.json", &utils)
+                .await
+                .is_none()
+        );
     }
 }

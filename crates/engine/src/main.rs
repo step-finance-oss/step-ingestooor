@@ -98,6 +98,62 @@ pub struct ClickhouseParams {
     pub clickhouse_max_flush_ms: u64,
 }
 
+impl ClickhouseParams {
+    fn client(&self) -> clickhouse::Client {
+        let client = clickhouse::Client::default()
+            .with_url(&self.clickhouse_url)
+            .with_user(&self.clickhouse_user)
+            .with_database(&self.clickhouse_database);
+        match &self.clickhouse_password {
+            Some(password) => client.with_password(password),
+            None => client,
+        }
+    }
+}
+
+#[cfg(test)]
+mod clickhouse_tests {
+    use tokio::{
+        io::{AsyncBufReadExt, AsyncWriteExt, BufReader},
+        net::TcpListener,
+    };
+
+    use super::*;
+
+    #[tokio::test]
+    async fn clickhouse_requests_select_the_configured_database() -> anyhow::Result<()> {
+        let listener = TcpListener::bind("127.0.0.1:0").await?;
+        let host = listener.local_addr()?;
+        let server = tokio::spawn(async move {
+            let (socket, _) = listener.accept().await?;
+            let mut socket = BufReader::new(socket);
+            let mut request_line = String::new();
+            socket.read_line(&mut request_line).await?;
+            socket
+                .get_mut()
+                .write_all(b"HTTP/1.1 200 OK\r\nContent-Length: 1\r\nConnection: close\r\n\r\n\x01")
+                .await?;
+            Ok::<_, std::io::Error>(request_line)
+        });
+        let params = ClickhouseParams {
+            clickhouse_url: format!("http://{host}"),
+            clickhouse_user: "fixture".to_string(),
+            clickhouse_password: None,
+            clickhouse_database: "fixture_database".to_string(),
+            clickhouse_period_bias_bps: 0,
+            clickhouse_max_flush_ms: 1000,
+        };
+        let client = params
+            .client()
+            .with_compression(clickhouse::Compression::None);
+        let query = async { client.query("SELECT 1").fetch_one::<u8>().await };
+        let row = tokio::time::timeout(std::time::Duration::from_secs(5), query).await??;
+        assert_eq!(row, 1);
+        assert!(server.await??.contains("database=fixture_database"));
+        Ok(())
+    }
+}
+
 #[tokio::main]
 async fn main() -> Result<()> {
     dotenv::dotenv().ok();
@@ -139,15 +195,7 @@ async fn main() -> Result<()> {
 
     // Setup clickhouse, don't connect if clickhouse_writes is false;
     let clickhouse_client = if args.enable_clickhouse_writes {
-        let clickhouse_params = &args.clickhouse_params;
-        let mut client = clickhouse::Client::default()
-            .with_url(clickhouse_params.clickhouse_url.clone())
-            .with_user(clickhouse_params.clickhouse_user.clone());
-
-        if let Some(password) = clickhouse_params.clickhouse_password.clone() {
-            client = client.with_password(password);
-        }
-        Some(client)
+        Some(args.clickhouse_params.client())
     } else {
         None
     };

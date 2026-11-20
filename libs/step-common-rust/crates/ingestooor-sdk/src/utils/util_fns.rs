@@ -1,5 +1,3 @@
-use std::collections::VecDeque;
-
 use anyhow::{anyhow, Result};
 use base64::prelude::*;
 use bytemuck::{Pod, Zeroable};
@@ -90,29 +88,29 @@ pub fn zerocopy_data<T: Pod + Zeroable>(
     data: Vec<u8>,
     disc_offset: Option<usize>,
 ) -> Result<Box<T>> {
-    //move to a vecdeque, this does not copy
-    let mut data = VecDeque::from(data);
-    //split the discriminator off, this does not copy
-    let mut data = VecDeque::split_off(&mut data, disc_offset.unwrap_or(8));
-    // check if the data is larger than T
-    if data.len() < std::mem::size_of::<T>() {
-        return Err(anyhow!("Data size mismatch in zerocopy_data"));
-    }
-    // Take all the bytes to size of T
-    data.truncate(std::mem::size_of::<T>());
-    //move back to a Vec, this does not copy
-    let data = Vec::from(data);
-    //change into a boxed array, this does not copy
-    let data = data.into_boxed_slice();
-    //get a pointer to the array, this does not copy
-    let data = Box::into_raw(data);
-    //cast the pointer to the type, this does not copy
-    let data = data.cast::<T>();
-    unsafe {
-        //move the pointer into a Box<T>, this does not copy
-        //but is unsafe because now T must now own the memory
-        let data = Box::from_raw(data);
-        Ok(data)
+    let bytes = data
+        .get(disc_offset.unwrap_or(8)..)
+        .and_then(|body| body.get(..std::mem::size_of::<T>()))
+        .ok_or_else(|| anyhow!("Data size mismatch in zerocopy_data"))?;
+    let value = bytemuck::try_pod_read_unaligned(bytes).map_err(|error| anyhow!(error))?;
+    Ok(Box::new(value))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn pod_data_supports_unaligned_offsets_and_trailing_bytes() {
+        let mut input = vec![0; 3];
+        input.extend(42_u64.to_ne_bytes());
+        input.extend([0; 4]);
+        assert_eq!(
+            *zerocopy_data::<u64>(input, Some(3)).expect("valid data"),
+            42
+        );
+        assert!(zerocopy_data::<u64>(vec![0; 7], None).is_err());
+        assert!(zerocopy_data::<u64>(vec![0; 12], None).is_err());
     }
 }
 

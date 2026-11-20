@@ -1,6 +1,7 @@
 pub mod amm;
 pub mod dex;
 pub mod domains;
+mod external_json;
 pub mod farms;
 pub mod lending;
 pub mod managed;
